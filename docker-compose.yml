@@ -1,25 +1,27 @@
 version: '2'
 
 services:
-  server:
-    build: .
-    volumes:
-      - ./:/app
-    ports:
-      - 3000:3000
-    env_file:
-      - .env
-    links:
-      - database
-    command: [ 'yarn', 'dev' ]
+  # server:
+  #   build: .
+  #   volumes:
+  #     - ./:/app
+  #   ports:
+  #     - 3000:3000
+  #   env_file:
+  #     - .env
+  #   links:
+  #     - database
+  #   command: [ 'yarn', 'dev' ]
   database:
     image: postgres:9.6-alpine
     ports:
       - 5432:5432
     volumes:
       - database-data:/var/lib/postgresql/data
-    env_file:
-      - .env
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=postgres
 
 volumes:
   database-data: {}
