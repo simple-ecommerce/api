@@ -1,24 +1,28 @@
-import { Request, Response } from "express";
 import { Middlewares } from "../../../../../middlewares";
+import { Controllers } from "../controllers";
 import { ValidationSchemas } from "../validation_schemas";
-import { TokenController } from "../controllers/token_controller";
 
 export const tokenHandlers = {
   login: [
     Middlewares.transformRequestToCamelCase,
-    Middlewares.validateSchema(ValidationSchemas.token.login),
-    TokenController.login,
+    Middlewares.validateSchema(ValidationSchemas.Token.login),
+    Controllers.Token.Login,
     Middlewares.transformResponseToSnakeCase,
     Middlewares.sendResponse,
   ],
   refresh: [
-    (req: Request, res: Response) => {
-      res.send("refresh");
-    },
+    Middlewares.transformRequestToCamelCase,
+    Middlewares.validateSchema(ValidationSchemas.Token.refresh),
+    Controllers.Token.Refresh,
+    Middlewares.transformResponseToSnakeCase,
+    Middlewares.sendResponse,
   ],
   revoke: [
-    (req: Request, res: Response) => {
-      res.send("revoke");
-    },
+    Middlewares.transformRequestToCamelCase,
+    Middlewares.checkUserAuthentication,
+    Middlewares.validateSchema(ValidationSchemas.Token.revoke),
+    Controllers.Token.Revoke,
+    Middlewares.transformResponseToSnakeCase,
+    Middlewares.sendResponse,
   ],
 };

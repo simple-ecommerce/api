@@ -7,6 +7,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  JoinColumn,
 } from "typeorm";
 import { Customer } from "./Customer";
 import { Employee } from "./Employee";
@@ -25,12 +26,12 @@ export class Company extends BaseEntity {
   @OneToMany(() => Employee, (employee) => employee.company)
   employees: Employee[];
 
-  @CreateDateColumn()
+  @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ name: "deleted_at" })
   deletedAt: Date;
 }

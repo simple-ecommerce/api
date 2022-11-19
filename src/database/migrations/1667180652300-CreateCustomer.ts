@@ -21,21 +21,21 @@ export class CreateCustomer1667180652300 implements MigrationInterface {
           { name: "email", type: "varchar" },
           { name: "password", type: "varchar" },
           {
-            name: "companyId",
+            name: "company_id",
             type: "int",
           },
           {
-            name: "createdAt",
+            name: "created_at",
             type: "timestamp",
             default: "now()",
           },
           {
-            name: "updatedAt",
+            name: "updated_at",
             type: "timestamp",
             default: "now()",
           },
           {
-            name: "deletedAt",
+            name: "deleted_at",
             type: "timestamp",
             default: "null",
             isNullable: true,
@@ -47,7 +47,7 @@ export class CreateCustomer1667180652300 implements MigrationInterface {
       "customers",
       new TableForeignKey({
         name: "CustomerCompany",
-        columnNames: ["companyId"],
+        columnNames: ["company_id"],
         referencedColumnNames: ["id"],
         referencedTableName: "companies",
         onDelete: "CASCADE",

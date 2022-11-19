@@ -20,23 +20,23 @@ export class CreateEmployee1667180387304 implements MigrationInterface {
           },
           { name: "email", type: "varchar" },
           { name: "password", type: "varchar" },
-          { name: "isAdmin", type: "boolean" },
+          { name: "is_admin", type: "boolean" },
           {
-            name: "companyId",
+            name: "company_id",
             type: "int",
           },
           {
-            name: "createdAt",
+            name: "created_at",
             type: "timestamp",
             default: "now()",
           },
           {
-            name: "updatedAt",
+            name: "updated_at",
             type: "timestamp",
             default: "now()",
           },
           {
-            name: "deletedAt",
+            name: "deleted_at",
             type: "timestamp",
             default: "null",
             isNullable: true,
@@ -48,7 +48,7 @@ export class CreateEmployee1667180387304 implements MigrationInterface {
       "employees",
       new TableForeignKey({
         name: "EmployeeCompany",
-        columnNames: ["companyId"],
+        columnNames: ["company_id"],
         referencedColumnNames: ["id"],
         referencedTableName: "companies",
         onDelete: "CASCADE",

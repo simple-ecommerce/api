@@ -15,17 +15,17 @@ export class CreateCompany1667179253186 implements MigrationInterface {
           },
           { name: "name", type: "varchar" },
           {
-            name: "createdAt",
+            name: "created_at",
             type: "timestamp",
             default: "now()",
           },
           {
-            name: "updatedAt",
+            name: "updated_at",
             type: "timestamp",
             default: "now()",
           },
           {
-            name: "deletedAt",
+            name: "deleted_at",
             type: "timestamp",
             default: "null",
             isNullable: true,

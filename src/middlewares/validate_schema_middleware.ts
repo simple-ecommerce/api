@@ -1,14 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import { ValidationSchema } from "../types/ValidationSchema";
+import { ValidationSchema } from "../types/interfaces/ValidationSchema";
 
 export const validateSchemaMiddleware = (
   validationSchema: ValidationSchema
 ) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.body);
-    console.log(req.query);
-    console.log(req.params);
-
     try {
       if (validationSchema.body) {
         await validationSchema.body.validate(req.body);

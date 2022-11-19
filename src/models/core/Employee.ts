@@ -19,25 +19,25 @@ export class Employee extends BaseEntity {
   @Column()
   email: string;
 
-  @Column()
+  @Column({ name: "is_admin" })
   isAdmin: boolean;
 
   @Column()
   password: string;
 
-  @Column()
+  @Column({ name: "company_id" })
   companyId: number;
 
   @ManyToOne(() => Company, (company) => company.customers)
-  @JoinColumn({ name: "companyId" })
+  @JoinColumn({ name: "company_id" })
   company: Company;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ name: "deleted_at" })
   deletedAt: Date;
 }

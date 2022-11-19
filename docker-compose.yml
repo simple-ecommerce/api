@@ -15,13 +15,13 @@ services:
   database:
     image: postgres:9.6-alpine
     ports:
-      - 5432:5432
+      - "5432:5432"
     volumes:
       - database-data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_USER=admin
-      - POSTGRES_DB=postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_DB: ecommerce
 
 volumes:
   database-data: {}

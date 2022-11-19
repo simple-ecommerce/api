@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { ValidationSchema } from "../../../../../types/ValidationSchema";
+import { ValidationSchema } from "../../../../../types/interfaces/ValidationSchema";
 
 export const tokenSchemas: {
   [action: string]: ValidationSchema;

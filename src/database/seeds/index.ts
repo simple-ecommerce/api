@@ -6,8 +6,12 @@ import { employeesSeed } from "./employees_seed";
 const seed = async () => {
   await dataSource.initialize();
   const companies = await companiesSeed();
-  const employees = await employeesSeed({ companies });
-  const customers = await customersSeed({ companies });
+
+  await employeesSeed({
+    companies,
+  });
+
+  await customersSeed({ companies });
 };
 
 seed();

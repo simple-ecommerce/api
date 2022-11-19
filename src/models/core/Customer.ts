@@ -8,7 +8,9 @@ import {
   UpdateDateColumn,
   JoinColumn,
   DeleteDateColumn,
+  JoinTable,
 } from "typeorm";
+import { JoinAttribute } from "typeorm/query-builder/JoinAttribute";
 import { Company } from "./Company";
 
 @Entity("customers")
@@ -22,19 +24,19 @@ export class Customer extends BaseEntity {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ name: "company_id" })
   companyId: number;
 
   @ManyToOne(() => Company, (company) => company.customers)
-  @JoinColumn({ name: "companyId" })
+  @JoinColumn({ name: "company_id" })
   company: Company;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ name: "deleted_at" })
   deletedAt: Date;
 }

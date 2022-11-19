@@ -11,8 +11,9 @@ export class CustomerQuery {
   }
 
   byCompany(company: Company | Id) {
-    const companyId = company instanceof Company ? company?.id : company;
-    this._query = this._query.andWhere("customer.companyId = :companyId", {
+    const companyId = typeof company === "object" ? company.id : company;
+
+    this._query = this._query.where("customer.companyId = :companyId", {
       companyId,
     });
 
@@ -20,13 +21,13 @@ export class CustomerQuery {
   }
 
   byEmail(email: string) {
-    this._query = this._query.andWhere("customer.email = :email", { email });
+    this._query = this._query.where("customer.email = :email", { email });
 
     return this;
   }
 
   one() {
-    return this._query.getOneOrFail();
+    return this._query.getOne();
   }
 
   all() {
