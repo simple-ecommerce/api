@@ -3,8 +3,6 @@ import { Id } from "../../../../../../aliases";
 import * as Services from "../../../../../../services";
 import * as Models from "../../../../../../models";
 import { UserType } from "../../../../../../types/enums/UserType";
-import { Companies } from "../../../../../../services";
-import { Company } from "../../../../../../models/core";
 
 export const login = async (
   req: Request,
@@ -118,5 +116,5 @@ const _createTokens = async ({
     userType: UserType.CUSTOMER,
   });
 
-  return { refreshToken, accessToken };
+  return { refreshToken: refreshToken.token, accessToken };
 };

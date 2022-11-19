@@ -13,7 +13,7 @@ export const tokenSchemas: {
   },
   refresh: {
     body: yup.object().shape({
-      acessToken: yup.string().required(),
+      refreshToken: yup.string().required(),
     }),
   },
   revoke: {

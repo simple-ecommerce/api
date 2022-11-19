@@ -9,7 +9,6 @@ export const revoke = async (
   next: NextFunction
 ) => {
   const accessToken = req.body.accessToken;
-
   const refreshToken = await _findRefreshToken(accessToken);
 
   await _removeRefreshToken(refreshToken);

@@ -10,7 +10,7 @@ export class Query {
   }
 
   byToken(token: Token) {
-    this._query = this._query.andWhere("refreshToken.token = :token", {
+    this._query = this._query.where("refreshToken.token = :token", {
       token,
     });
 
