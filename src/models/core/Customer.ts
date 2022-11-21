@@ -8,9 +8,9 @@ import {
   UpdateDateColumn,
   JoinColumn,
   DeleteDateColumn,
-  JoinTable,
+  OneToMany,
 } from "typeorm";
-import { JoinAttribute } from "typeorm/query-builder/JoinAttribute";
+import { RefreshToken } from "../authentication";
 import { Company } from "./Company";
 
 @Entity("customers")
@@ -30,6 +30,9 @@ export class Customer extends BaseEntity {
   @ManyToOne(() => Company, (company) => company.customers)
   @JoinColumn({ name: "company_id" })
   company: Company;
+
+  @OneToMany(() => RefreshToken, (refreshToken) => refreshToken.customer)
+  refreshTokens: Customer[];
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;

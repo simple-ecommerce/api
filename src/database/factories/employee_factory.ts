@@ -19,7 +19,7 @@ export const employeeFactory = async ({
   employee.password = password ?? faker.internet.password();
   employee.company = company ?? (await companyFactory());
   employee.isAdmin = typeof isAdmin === "boolean" ? isAdmin : true;
-  employee.save();
+  await employee.save();
 
   return employee;
 };

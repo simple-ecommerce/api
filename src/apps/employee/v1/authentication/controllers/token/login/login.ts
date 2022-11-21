@@ -10,11 +10,10 @@ export const login = async (
   next: NextFunction
 ) => {
   const { email, password, companyId } = req.body;
-
   const company = await _findCompany(companyId);
-  const customer = await _findCustomer({ company, email });
+  const employee = await _findEmployee({ company, email });
 
-  if (!customer) {
+  if (!employee) {
     res.locals = {
       status: 401,
       body: { message: "Invalid email or password" },
@@ -23,15 +22,19 @@ export const login = async (
     return;
   }
   try {
-    await _validateCustomerCompany({ company, customer, res });
-    await _validateCustomerPassword({ password, customer, res });
+    await _validateEmployeeCompany({ company, employee, res });
+    await _validateEmployeePassword({ password, employee, res });
   } catch (error) {
+    res.locals = {
+      status: 401,
+      body: { message: "Invalid email or password" },
+    };
     next();
     return;
   }
 
   const { refreshToken, accessToken } = await _createTokens({
-    customer,
+    employee,
     company,
   });
   res.locals = {
@@ -49,29 +52,29 @@ const _findCompany = async (id: Id) => {
   return company;
 };
 
-const _findCustomer = async ({
+const _findEmployee = async ({
   company,
   email,
 }: {
   company: Models.Core.Company;
   email: string;
 }) => {
-  const customersQuery = new Services.Customers.Query();
-  const customer = await customersQuery.byCompany(company).byEmail(email).one();
+  const employeesQuery = new Services.Employees.Query();
+  const employee = await employeesQuery.byCompany(company).byEmail(email).one();
 
-  return customer;
+  return employee;
 };
 
-const _validateCustomerCompany = async ({
+const _validateEmployeeCompany = async ({
   company,
-  customer,
+  employee,
   res,
 }: {
   company: Models.Core.Company;
-  customer: Models.Core.Customer;
+  employee: Models.Core.Employee;
   res: Response;
 }) => {
-  if (customer.companyId !== company.id) {
+  if (employee.companyId !== company.id) {
     res.locals = {
       status: 401,
       body: { message: "Invalid email or password" },
@@ -80,16 +83,16 @@ const _validateCustomerCompany = async ({
   }
 };
 
-const _validateCustomerPassword = async ({
+const _validateEmployeePassword = async ({
   password,
-  customer,
+  employee,
   res,
 }: {
   password: string;
-  customer: Models.Core.Customer;
+  employee: Models.Core.Employee;
   res: Response;
 }) => {
-  if (customer.password !== password) {
+  if (employee.password !== password) {
     res.locals = {
       status: 401,
       body: { message: "Invalid email or password" },
@@ -99,15 +102,15 @@ const _validateCustomerPassword = async ({
 };
 
 const _createTokens = async ({
-  customer,
+  employee,
   company,
 }: {
-  customer: Models.Core.Customer;
+  employee: Models.Core.Employee;
   company: Models.Core.Company;
 }) => {
   const refreshTokenCreator = new Services.RefreshTokens.Creator({
-    user: customer,
-    userType: UserType.CUSTOMER,
+    user: employee,
+    userType: UserType.EMPLOYEE,
   });
   const refreshToken = await refreshTokenCreator.create();
 
@@ -115,8 +118,8 @@ const _createTokens = async ({
   const accessToken = await accessTokenCoder.encode({
     companyId: company.id,
     refreshTokenId: refreshToken.id,
-    userId: customer.id,
-    userType: UserType.CUSTOMER,
+    userId: employee.id,
+    userType: UserType.EMPLOYEE,
   });
 
   return { refreshToken: refreshToken.token, accessToken };

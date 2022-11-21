@@ -7,6 +7,7 @@ import {
   DeleteDateColumn,
   OneToOne,
   JoinColumn,
+  ManyToOne,
 } from "typeorm";
 import { Application } from "../../types/enums/Application";
 import { Customer } from "../core/Customer";
@@ -29,13 +30,17 @@ export class RefreshToken extends BaseEntity {
   @Column({ name: "employee_id", nullable: true })
   employeeId: number;
 
-  @OneToOne(() => Customer, (customer) => customer.company, { nullable: true })
+  @ManyToOne(() => Customer, (customer) => customer.refreshTokens, {
+    nullable: true,
+  })
   @JoinColumn({ name: "customer_id" })
-  customer: Customer;
+  customer?: Customer;
 
-  @OneToOne(() => Employee, (employee) => employee.company, { nullable: true })
+  @ManyToOne(() => Employee, (employee) => employee.refreshTokens, {
+    nullable: true,
+  })
   @JoinColumn({ name: "employee_id" })
-  employee: Employee;
+  employee?: Employee;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;

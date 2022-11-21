@@ -17,6 +17,7 @@ export const createServer = async () => {
   app.use(Middlewares.transformRequestToCamelCase);
 
   app.use("/customer/v1", Routers.customer);
+  app.use("/employee/v1", Routers.employee);
 
   return { app, dataSource };
 };

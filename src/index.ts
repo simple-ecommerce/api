@@ -27,6 +27,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/customer/v1", Routers.customer);
+app.use("/employee/v1", Routers.employee);
 
 app.listen(port, () => {
   console.log("Server is running on port " + port);

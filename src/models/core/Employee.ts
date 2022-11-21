@@ -8,7 +8,9 @@ import {
   UpdateDateColumn,
   JoinColumn,
   DeleteDateColumn,
+  OneToMany,
 } from "typeorm";
+import { RefreshToken } from "../authentication";
 import { Company } from "./Company";
 
 @Entity("employees")
@@ -28,9 +30,12 @@ export class Employee extends BaseEntity {
   @Column({ name: "company_id" })
   companyId: number;
 
-  @ManyToOne(() => Company, (company) => company.customers)
+  @ManyToOne(() => Company, (company) => company.employees)
   @JoinColumn({ name: "company_id" })
   company: Company;
+
+  @OneToMany(() => RefreshToken, (refreshToken) => refreshToken.employee)
+  refreshTokens: RefreshToken[];
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
