@@ -15,10 +15,6 @@ export const checkUserAuthenticationMiddleware = async (
     return res.sendStatus(401);
   }
   const accessTokenCoder = new AccessTokens.Coder(token);
-  const isTokenValid = await accessTokenCoder.validate();
-  if (!isTokenValid) {
-    return res.sendStatus(403);
-  }
   const payload = await accessTokenCoder.decode();
 
   //append company to request
