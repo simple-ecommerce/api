@@ -2,7 +2,7 @@ import { SelectQueryBuilder } from "typeorm";
 import { Token } from "../../aliases";
 import { RefreshToken } from "../../models/authentication";
 
-export class Query {
+export class RefreshTokensQuery {
   private _query: SelectQueryBuilder<RefreshToken>;
 
   constructor(query?: SelectQueryBuilder<RefreshToken>) {

@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { Token } from "../../../aliases";
 import { Application } from "../../../types/enums/Application";
 
-export class Coder {
+export class RefreshTokensCoder {
   refreshToken?: Token;
 
   constructor(refreshToken?: Token) {

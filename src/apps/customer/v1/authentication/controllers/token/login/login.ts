@@ -56,7 +56,7 @@ const _findCustomer = async ({
   company: Models.Core.Company;
   email: string;
 }) => {
-  const customersQuery = new Services.Customers.query();
+  const customersQuery = new Services.Customers.Query();
   const customer = await customersQuery.byCompany(company).byEmail(email).one();
 
   return customer;

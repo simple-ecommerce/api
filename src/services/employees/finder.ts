@@ -1,7 +1,7 @@
 import { Id } from "../../aliases";
 import { Employee } from "../../models/core/Employee";
 
-export class Finder {
+export class EmployeeFinder {
   id: Id;
 
   constructor(id: Id) {

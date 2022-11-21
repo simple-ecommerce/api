@@ -1,8 +1,7 @@
 import jwt from "jsonwebtoken";
-import { refreshTokenFactory } from "../../../database/factories/refresh_token_factory";
 import { wait } from "../../../helpers/promise/promiseHelpers";
 import { Application } from "../../../types/enums/Application";
-import { Coder } from "./coder";
+import { RefreshTokensCoder } from "./coder";
 
 describe("services#refresh_tokens#coder", () => {
   const OLD_ENV = process.env;
@@ -17,7 +16,7 @@ describe("services#refresh_tokens#coder", () => {
   describe("#validate", () => {
     describe("the token is valid", () => {
       it("returns true", async () => {
-        const coder = new Coder();
+        const coder = new RefreshTokensCoder();
         coder.encode({ application: Application.CUSTOMER_WEB_APP });
 
         expect(await coder.validate()).toBe(true);
@@ -33,7 +32,7 @@ describe("services#refresh_tokens#coder", () => {
           }
         );
 
-        const coder = new Coder(refreshToken);
+        const coder = new RefreshTokensCoder(refreshToken);
 
         expect(await coder.validate()).toBe(false);
       });
@@ -48,7 +47,7 @@ describe("services#refresh_tokens#coder", () => {
           }
         );
 
-        const coder = new Coder(token);
+        const coder = new RefreshTokensCoder(token);
         await wait(10);
 
         expect(await coder.validate()).toBe(false);
