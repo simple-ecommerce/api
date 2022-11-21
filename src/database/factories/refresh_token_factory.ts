@@ -7,9 +7,11 @@ import { Application } from "../../types/enums/Application";
 export const refreshTokenFactory = async ({
   customer,
   token,
+  application,
 }: {
   customer?: Customer;
   token?: string;
+  application?: Application;
 } = {}) => {
   const refreshToken = new RefreshToken();
   refreshToken.token =
@@ -22,6 +24,7 @@ export const refreshTokenFactory = async ({
       }
     );
   refreshToken.customer = customer ?? (await customerFactory());
+  refreshToken.application = application ?? Application.CUSTOMER_WEB_APP;
 
   await refreshToken.save();
 

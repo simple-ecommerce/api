@@ -1,5 +1,5 @@
 import { login } from "./login/login";
-import { refresh } from "./refresh";
+import { refresh } from "./refresh/refresh";
 import { revoke } from "./revoke";
 
 export namespace Token {

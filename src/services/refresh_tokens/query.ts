@@ -18,7 +18,7 @@ export class Query {
   }
 
   one() {
-    return this._query.getOneOrFail();
+    return this._query.getOne();
   }
 
   all() {

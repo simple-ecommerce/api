@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { RefreshToken } from "../../../../../../models/authentication";
-import * as Services from "../../../../../../services";
-import { UserType } from "../../../../../../types/enums/UserType";
+import { RefreshToken } from "../../../../../../../models/authentication";
+import * as Services from "../../../../../../../services";
+import { UserType } from "../../../../../../../types/enums/UserType";
 
 export const refresh = async (
   req: Request,
@@ -9,23 +9,29 @@ export const refresh = async (
   next: NextFunction
 ) => {
   const token = req.body.refreshToken;
-  const refreshToken = await _findRefreshToken(token);
-
-  await _validateRefreshToken({ refreshToken, res });
-
-  const accessToken = await _generateAccessToken({ refreshToken });
-
-  res.locals = {
-    status: 201,
-    body: { accessToken },
-  };
-  next();
+  try {
+    const refreshToken = await _findRefreshToken(token);
+    await _validateRefreshToken({ refreshToken, res });
+    const accessToken = await _generateAccessToken({ refreshToken });
+    res.locals = {
+      status: 201,
+      body: { accessToken },
+    };
+  } catch (error) {
+    res.locals = {
+      status: 401,
+      body: { message: "Invalid refresh token." },
+    };
+  } finally {
+    next();
+  }
 };
 
 const _findRefreshToken = async (token: string) => {
   const refreshToken = await new Services.RefreshTokens.Query()
     .byToken(token)
     .one();
+  if (!refreshToken) throw new Error("Invalid refresh token");
 
   return refreshToken;
 };
@@ -60,6 +66,6 @@ const _validateRefreshToken = async ({
   if (
     !(await new Services.RefreshTokens.Coder(refreshToken.token).validate())
   ) {
-    res.sendStatus(401);
+    throw new Error("Invalid refresh token");
   }
 };

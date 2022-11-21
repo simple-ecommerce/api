@@ -8,7 +8,9 @@ import { Routers } from "../../../routers";
 export const createServer = async () => {
   const app: Express = express();
 
-  await dataSource.initialize();
+  if (!dataSource.isInitialized) {
+    await dataSource.initialize();
+  }
 
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
