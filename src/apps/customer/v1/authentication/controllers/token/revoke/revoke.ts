@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { Token } from "../../../../../../aliases";
-import { RefreshToken } from "../../../../../../models/authentication";
-import * as Services from "../../../../../../services";
+import { Token } from "../../../../../../../aliases";
+import { RefreshToken } from "../../../../../../../models/authentication";
+import * as Services from "../../../../../../../services";
 
 export const revoke = async (
   req: Request,
