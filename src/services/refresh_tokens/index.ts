@@ -2,7 +2,7 @@ import { RefreshTokensCreator } from "./creator";
 import { RefreshTokensFinder } from "./finder";
 import { RefreshTokensRemover } from "./remover";
 import { Query as RequestTokensQuery } from "./query";
-import { Coder as RequestTokensCoder } from "./coder";
+import { Coder as RequestTokensCoder } from "./coder/coder";
 
 export namespace RefreshTokens {
   export const Remover = RefreshTokensRemover;

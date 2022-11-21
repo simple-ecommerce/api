@@ -21,9 +21,10 @@ export class Coder {
     userId,
     refreshTokenId,
     companyId,
+    userType,
   }: AccessTokenPayload): Promise<Token> {
     const token = jwt.sign(
-      { userId, refreshTokenId, companyId },
+      { userId, refreshTokenId, companyId, userType },
       process.env.ACCESS_TOKEN_SECRET ?? "",
       {
         expiresIn: process.env.ACCESS_TOKEN_EXPIRATION ?? "",
@@ -43,7 +44,12 @@ export class Coder {
       json: true,
     }) as AccessTokenPayload;
 
-    if (!decoded.companyId || !decoded.refreshTokenId || !decoded.userId) {
+    if (
+      !decoded.companyId ||
+      !decoded.refreshTokenId ||
+      !decoded.userId ||
+      !decoded.userType
+    ) {
       throw new Error("Invalid token");
     }
     return decoded as AccessTokenPayload;

@@ -1,6 +1,7 @@
 import { Coder } from "./coder";
 import jwt from "jsonwebtoken";
 import { wait } from "../../../helpers/promise/promiseHelpers";
+import { UserType } from "../../../types/enums/UserType";
 
 describe("services#access_tokens#coder", () => {
   const OLD_ENV = process.env;
@@ -9,6 +10,7 @@ describe("services#access_tokens#coder", () => {
     companyId: 1,
     refreshTokenId: 1,
     userId: 1,
+    userType: UserType.CUSTOMER,
   };
 
   beforeEach(() => {
@@ -44,7 +46,7 @@ describe("services#access_tokens#coder", () => {
       it("throws an error", async () => {
         const coder = new Coder();
         coder.accessToken = jwt.sign(
-          { userId: 1, refreshTokenId: 1, companyId: 1 },
+          payload,
           process.env.ACCESS_TOKEN_SECRET ?? "",
           {
             expiresIn: "1",
@@ -61,7 +63,12 @@ describe("services#access_tokens#coder", () => {
       it("throws an error", async () => {
         const coder = new Coder(
           jwt.sign(
-            { userId: 1, refreshTokenId: 1, companyId: null },
+            {
+              userId: 1,
+              refreshTokenId: 1,
+              companyId: null,
+              userType: UserType.CUSTOMER,
+            },
             process.env.ACCESS_TOKEN_SECRET ?? "",
             {
               expiresIn: process.env.ACCESS_TOKEN_EXPIRATION,

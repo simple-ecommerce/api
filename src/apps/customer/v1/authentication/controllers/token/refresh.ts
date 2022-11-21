@@ -57,7 +57,9 @@ const _validateRefreshToken = async ({
   refreshToken: RefreshToken;
   res: Response;
 }) => {
-  if (!(await new Services.RefreshTokens.Coder(refreshToken).validate())) {
+  if (
+    !(await new Services.RefreshTokens.Coder(refreshToken.token).validate())
+  ) {
     res.sendStatus(401);
   }
 };
