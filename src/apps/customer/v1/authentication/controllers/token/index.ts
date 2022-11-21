@@ -1,4 +1,4 @@
-import { login } from "./login";
+import { login } from "./login/login";
 import { refresh } from "./refresh";
 import { revoke } from "./revoke";
 

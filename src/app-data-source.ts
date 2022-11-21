@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const dataSource = new DataSource({
+export const app = new DataSource({
   type: "postgres",
   host: "localhost",
   port: process.env.TYPEORM_PORT ? Number(process.env.TYPEORM_PORT) : 5432,
@@ -15,3 +15,16 @@ export const dataSource = new DataSource({
   logging: true,
   synchronize: false,
 });
+
+const tests = new DataSource({
+  type: "sqlite",
+  database: "test",
+  dropSchema: true,
+  synchronize: true,
+  entities: ["src/models/**/*.ts"],
+  migrations: ["src/database/migrations/*.ts"],
+  logging: false,
+  name: "testConnection",
+});
+
+export const dataSource = process.env.JEST_WORKER_ID ? tests : app;

@@ -3,19 +3,22 @@ import { Customer } from "../../models/core/Customer";
 import { Employee } from "../../models/core/Employee";
 import { UserType } from "../../types/enums/UserType";
 import { RefreshToken } from "../../models/authentication/RefreshToken";
+import { Application } from "../../types/enums/Application";
 
 export class RefreshTokensCreator {
   user: Customer | Employee;
 
-  constructor(user: Customer | Employee) {
+  constructor({ user }: { user: Customer | Employee }) {
     this.user = user;
   }
 
   async create() {
-    const refreshToken = new RefreshToken();
-    refreshToken.customerId = this.user.id;
-    refreshToken.token = this.generateToken();
-
+    const refreshToken = RefreshToken.create({
+      customerId: this.user.id,
+      token: this.generateToken(),
+      reload: false,
+      application: Application.CUSTOMER_WEB_APP,
+    });
     refreshToken.save();
 
     return refreshToken;

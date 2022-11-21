@@ -20,11 +20,7 @@ export class RefreshToken extends BaseEntity {
   @Column()
   token: string;
 
-  @Column({
-    type: "enum",
-    enum: Application,
-    default: Application.CUSTOMER_WEB_APP,
-  })
+  @Column()
   application: string;
 
   @Column({ name: "customer_id", nullable: true })

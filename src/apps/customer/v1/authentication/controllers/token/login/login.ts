@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { Id } from "../../../../../../aliases";
-import * as Services from "../../../../../../services";
-import * as Models from "../../../../../../models";
-import { UserType } from "../../../../../../types/enums/UserType";
+import { Id } from "../../../../../../../aliases";
+import * as Services from "../../../../../../../services";
+import * as Models from "../../../../../../../models";
+import { UserType } from "../../../../../../../types/enums/UserType";
 
 export const login = async (
   req: Request,
@@ -16,7 +16,7 @@ export const login = async (
 
   if (!customer) {
     res.locals = {
-      status: 400,
+      status: 401,
       body: { message: "Invalid email or password" },
     };
     next();
@@ -73,7 +73,7 @@ const _validateCustomerCompany = async ({
 }) => {
   if (customer.companyId !== company.id) {
     res.locals = {
-      status: 400,
+      status: 401,
       body: { message: "Invalid email or password" },
     };
     throw new Error("Invalid email or password");
@@ -91,7 +91,7 @@ const _validateCustomerPassword = async ({
 }) => {
   if (customer.password !== password) {
     res.locals = {
-      status: 400,
+      status: 401,
       body: { message: "Invalid email or password" },
     };
     throw new Error("Invalid email or password");
@@ -105,7 +105,9 @@ const _createTokens = async ({
   customer: Models.Core.Customer;
   company: Models.Core.Company;
 }) => {
-  const refreshTokenCreator = new Services.RefreshTokens.Creator(customer);
+  const refreshTokenCreator = new Services.RefreshTokens.Creator({
+    user: customer,
+  });
   const refreshToken = await refreshTokenCreator.create();
 
   const accessTokenCoder = new Services.AccessTokens.Coder();

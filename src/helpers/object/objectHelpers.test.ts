@@ -81,9 +81,5 @@ describe("object helper", () => {
     test("should return undefined", () => {
       expect(toSnakeCase(undefined)).toEqual(undefined);
     });
-    test("should return FormData original value", () => {
-      const value = new FormData();
-      expect(toSnakeCase(value)).toEqual(value);
-    });
   });
 });

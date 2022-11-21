@@ -25,7 +25,6 @@ export class Coder {
     refreshTokenId,
     companyId,
   }: AccessTokenPayload): Promise<Token> {
-    console.log({ userId, refreshTokenId, companyId });
     return jwt.sign(
       { userId, refreshTokenId, companyId },
       process.env.ACCESS_TOKEN_SECRET ?? "",
@@ -39,7 +38,6 @@ export class Coder {
     const decoded = jwt.decode(this.accessToken, {
       json: true,
     }) as AccessTokenPayload;
-    console.log({ decoded });
     if (!decoded.companyId || !decoded.refreshTokenId || !decoded.userId)
       throw new Error("Invalid access token");
 

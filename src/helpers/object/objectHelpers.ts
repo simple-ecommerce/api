@@ -15,8 +15,6 @@ const camelCase = (value: any): unknown => {
 };
 
 const snakeCase = (value: any): unknown => {
-  if (typeof value === "object" && value?.constructor?.name === "FormData")
-    return value;
   if (value === null || value === undefined) return value;
   if (Array.isArray(value)) return value.map((value) => snakeCase(value));
   if (typeof value === "object")
