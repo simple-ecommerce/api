@@ -3,9 +3,12 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { StockProduct } from "../stock/StockProduct";
 import { Especification } from "./Especification";
 import { Item } from "./Item";
 
@@ -33,4 +36,13 @@ export class ItemEspecification extends BaseEntity {
 
   @Column()
   priceExtra: number;
+
+  @ManyToMany(
+    () => StockProduct,
+    (stockProduct) => stockProduct.especifications
+  )
+  @JoinTable({
+    name: "stock_product_especifications",
+  })
+  stockProducts: StockProduct[];
 }

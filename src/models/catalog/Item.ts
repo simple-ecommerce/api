@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Company } from "../core";
+import { StockProduct } from "../stock/StockProduct";
 import { ItemEspecification } from "./ItemEspecification";
 
 @Entity("items")
@@ -54,4 +55,7 @@ export class Item extends BaseEntity {
     (itemEspecification) => itemEspecification.item
   )
   especifications: ItemEspecification[];
+
+  @OneToMany(() => StockProduct, (stockProduct) => stockProduct.item)
+  stockProducts: StockProduct[];
 }
