@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const app = new DataSource({
+const app = new DataSource({
   type: "postgres",
   host: "localhost",
   port: process.env.TYPEORM_PORT ? Number(process.env.TYPEORM_PORT) : 5432,
@@ -26,5 +26,7 @@ const tests = new DataSource({
   logging: false,
   name: "testConnection",
 });
+
+console.log(process.env.JEST_WORKER_ID ? "TESTS" : "APP");
 
 export const dataSource = process.env.JEST_WORKER_ID ? tests : app;
