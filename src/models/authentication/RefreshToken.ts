@@ -5,13 +5,10 @@ import {
   BaseEntity,
   CreateDateColumn,
   DeleteDateColumn,
-  OneToOne,
   JoinColumn,
   ManyToOne,
 } from "typeorm";
-import { Application } from "../../types/enums/Application";
-import { Customer } from "../core/Customer";
-import { Employee } from "../core/Employee";
+import { Customer, Employee } from "../core";
 
 @Entity("refresh_tokens")
 export class RefreshToken extends BaseEntity {
