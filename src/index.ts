@@ -4,10 +4,17 @@ import { Routers } from "./routers";
 import { Middlewares } from "./middlewares";
 import bodyParser from "body-parser";
 import { dataSource } from "./app-data-source";
+import cors from "cors";
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT;
+
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 dataSource
   .initialize()
