@@ -35,19 +35,19 @@ export class Item extends BaseEntity {
   @Column()
   price: number;
 
-  @Column()
+  @Column({ nullable: true })
   upc: string;
 
-  @Column()
+  @Column({ nullable: true })
   sku: string;
 
-  @Column()
+  @Column({ nullable: true })
   ean: string;
 
-  @Column()
+  @Column({ nullable: true })
   gtin: string;
 
-  @Column()
+  @Column({ nullable: true })
   brand: string;
 
   @OneToMany(

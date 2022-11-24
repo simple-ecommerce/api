@@ -5,5 +5,5 @@ export const sendResponseMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  res.status(res.locals.status).json(res.locals.body);
+  res.status(res.locals.response.status).json(res.locals.response.body);
 };

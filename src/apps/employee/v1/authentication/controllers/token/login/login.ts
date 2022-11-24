@@ -14,7 +14,7 @@ export const login = async (
   const employee = await _findEmployee({ company, email });
 
   if (!employee) {
-    res.locals = {
+    res.locals.response = {
       status: 401,
       body: { message: "Invalid email or password" },
     };
@@ -25,7 +25,7 @@ export const login = async (
     await _validateEmployeeCompany({ company, employee, res });
     await _validateEmployeePassword({ password, employee, res });
   } catch (error) {
-    res.locals = {
+    res.locals.response = {
       status: 401,
       body: { message: "Invalid email or password" },
     };
@@ -37,7 +37,7 @@ export const login = async (
     employee,
     company,
   });
-  res.locals = {
+  res.locals.response = {
     status: 200,
     body: { refreshToken, accessToken },
   };
@@ -75,7 +75,7 @@ const _validateEmployeeCompany = async ({
   res: Response;
 }) => {
   if (employee.companyId !== company.id) {
-    res.locals = {
+    res.locals.response = {
       status: 401,
       body: { message: "Invalid email or password" },
     };
@@ -93,7 +93,7 @@ const _validateEmployeePassword = async ({
   res: Response;
 }) => {
   if (employee.password !== password) {
-    res.locals = {
+    res.locals.response = {
       status: 401,
       body: { message: "Invalid email or password" },
     };

@@ -10,6 +10,7 @@ import { UserType } from "../../../../../../../types/enums/UserType";
 import { RefreshTokens } from "../../../../../../../services";
 
 let app: Express;
+const URL = "/employee/v1/authorization/revoke";
 
 describe("POST#revoke", () => {
   const OLD_ENV = process.env;
@@ -38,7 +39,7 @@ describe("POST#revoke", () => {
     });
 
     const response = await request(app)
-      .post("/employee/v1/authorization/revoke")
+      .post(URL)
       .set("Authorization", `Bearer ${accessToken}`)
       .send({
         access_token: accessToken,

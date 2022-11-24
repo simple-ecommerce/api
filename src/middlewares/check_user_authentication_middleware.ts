@@ -19,13 +19,10 @@ export const checkUserAuthenticationMiddleware = async (
 
   //append company to request
   const companyFinder = new Companies.Finder({ id: payload.companyId });
-  const company = companyFinder.find();
-  // res.locals.meta.company = company;
+  const company = await companyFinder.find();
   res.locals = {
     ...res.locals,
-    meta: {
-      company,
-    },
+    company,
   };
 
   //append customer to request
@@ -38,12 +35,9 @@ export const checkUserAuthenticationMiddleware = async (
     if (customer.companyId !== payload.companyId) {
       return res.sendStatus(403);
     }
-    // res.locals.meta.customer = customer;
     res.locals = {
       ...res.locals,
-      meta: {
-        customer,
-      },
+      customer,
     };
   }
 
@@ -58,12 +52,10 @@ export const checkUserAuthenticationMiddleware = async (
     if (employee.companyId !== payload.companyId) {
       return res.sendStatus(403);
     }
-    res.locals.meta.employee = employee;
+
     res.locals = {
       ...res.locals,
-      meta: {
-        employee,
-      },
+      employee,
     };
   }
 

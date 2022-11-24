@@ -15,7 +15,7 @@ export const login = async (
   const customer = await _findCustomer({ company, email });
 
   if (!customer) {
-    res.locals = {
+    res.locals.response = {
       status: 401,
       body: { message: "Invalid email or password" },
     };
@@ -34,7 +34,7 @@ export const login = async (
     customer,
     company,
   });
-  res.locals = {
+  res.locals.response = {
     status: 200,
     body: { refreshToken, accessToken },
   };
@@ -72,7 +72,7 @@ const _validateCustomerCompany = async ({
   res: Response;
 }) => {
   if (customer.companyId !== company.id) {
-    res.locals = {
+    res.locals.response = {
       status: 401,
       body: { message: "Invalid email or password" },
     };
@@ -90,7 +90,7 @@ const _validateCustomerPassword = async ({
   res: Response;
 }) => {
   if (customer.password !== password) {
-    res.locals = {
+    res.locals.response = {
       status: 401,
       body: { message: "Invalid email or password" },
     };

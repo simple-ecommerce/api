@@ -6,7 +6,7 @@ export const transformResponseToSnakeCaseMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  res.locals = Helpers.Object.toSnakeCase(res.locals) as any;
+  res.locals.response = Helpers.Object.toSnakeCase(res.locals.response) as any;
 
   next();
 };

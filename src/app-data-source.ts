@@ -27,6 +27,4 @@ const tests = new DataSource({
   name: "testConnection",
 });
 
-console.log(process.env.JEST_WORKER_ID ? "TESTS" : "APP");
-
 export const dataSource = process.env.JEST_WORKER_ID ? tests : app;

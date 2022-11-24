@@ -3,6 +3,7 @@ import { Customer, Employee } from "../../models/core";
 import { customerFactory } from "./customer_factory";
 import jwt from "jsonwebtoken";
 import { Application } from "../../types/enums/Application";
+import { employeeFactory } from "./employee_factory";
 
 export const refreshTokenFactory = async ({
   customer,
@@ -25,8 +26,8 @@ export const refreshTokenFactory = async ({
         expiresIn: process.env.REFRESH_TOKEN_EXPIRATION,
       }
     );
-  refreshToken.customer = customer;
-  refreshToken.employee = employee;
+  refreshToken.customer = customer ?? (await customerFactory());
+  refreshToken.employee = employee ?? (await employeeFactory());
   refreshToken.application = application ?? Application.CUSTOMER_WEB_APP;
 
   await refreshToken.save();

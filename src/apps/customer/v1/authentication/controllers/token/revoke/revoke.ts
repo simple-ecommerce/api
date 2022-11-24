@@ -13,7 +13,7 @@ export const revoke = async (
 
   await _removeRefreshToken(refreshToken);
 
-  res.locals = {
+  res.locals.response = {
     status: 200,
     body: { message: "Token revoked" },
   };

@@ -13,12 +13,12 @@ export const refresh = async (
     const refreshToken = await _findRefreshToken(token);
     await _validateRefreshToken({ refreshToken, res });
     const accessToken = await _generateAccessToken({ refreshToken });
-    res.locals = {
+    res.locals.response = {
       status: 201,
       body: { accessToken },
     };
   } catch (error) {
-    res.locals = {
+    res.locals.response = {
       status: 401,
       body: { message: "Invalid refresh token." },
     };
