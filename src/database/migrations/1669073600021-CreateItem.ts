@@ -34,6 +34,22 @@ export class CreateItem1669073600021 implements MigrationInterface {
           { name: "ean", type: "varchar", isNullable: true },
           { name: "gtin", type: "varchar", isNullable: true },
           { name: "brand", type: "varchar", isNullable: true },
+          {
+            name: "created_at",
+            type: "timestamp",
+            default: "now()",
+          },
+          {
+            name: "updated_at",
+            type: "timestamp",
+            default: "now()",
+          },
+          {
+            name: "deleted_at",
+            type: "timestamp",
+            default: "null",
+            isNullable: true,
+          },
         ],
       })
     );

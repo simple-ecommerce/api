@@ -21,7 +21,6 @@ export const create = async (
       body: item,
     };
   } catch (error) {
-    console.log(error);
     res.locals.response = {
       status: 400,
       body: { message: error },

@@ -9,7 +9,7 @@ export class ItemFinder {
   }
 
   async find() {
-    const item = await Item.findOneOrFail({
+    const item = await Item.findOne({
       where: { id: this.id },
     });
 

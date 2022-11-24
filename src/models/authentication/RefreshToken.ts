@@ -7,6 +7,7 @@ import {
   DeleteDateColumn,
   JoinColumn,
   ManyToOne,
+  UpdateDateColumn,
 } from "typeorm";
 import { Customer, Employee } from "../core";
 
@@ -38,6 +39,9 @@ export class RefreshToken extends BaseEntity {
   })
   @JoinColumn({ name: "employee_id" })
   employee?: Employee;
+
+  @UpdateDateColumn({ name: "updated_at" })
+  updatedAt: Date;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;

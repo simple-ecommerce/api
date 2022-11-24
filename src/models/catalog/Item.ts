@@ -1,11 +1,14 @@
 import {
   BaseEntity,
   Column,
+  CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { Company } from "../core";
 import { StockProduct } from "../stock/StockProduct";
@@ -58,4 +61,13 @@ export class Item extends BaseEntity {
 
   @OneToMany(() => StockProduct, (stockProduct) => stockProduct.item)
   stockProducts: StockProduct[];
+
+  @UpdateDateColumn({ name: "updated_at" })
+  updatedAt: Date;
+
+  @CreateDateColumn({ name: "created_at" })
+  createdAt: Date;
+
+  @DeleteDateColumn({ name: "deleted_at" })
+  deletedAt: Date;
 }

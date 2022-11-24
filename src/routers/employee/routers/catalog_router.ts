@@ -7,4 +7,5 @@ export const catalogRouter = Router();
 catalogRouter.post("/items", ...itemHandlers.create);
 catalogRouter.patch("/items/:id", ...itemHandlers.update);
 catalogRouter.get("/items", ...itemHandlers.list);
+catalogRouter.delete("/items/:id", ...itemHandlers.remove);
 catalogRouter.get("/items/:id", ...itemHandlers.show);
