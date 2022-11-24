@@ -1,6 +1,6 @@
 import { Middlewares } from "../../../../../middlewares";
-import { ValidationSchemas } from "../../authentication/validation_schemas";
 import { Controllers } from "../controllers";
+import { ValidationSchemas } from "../validation_schemas";
 
 export const itemHandlers = {
   list: [
