@@ -48,8 +48,6 @@ describe("DELETE#remove", () => {
         const item = await Factories.Item();
         const employee = await Factories.Employee();
         const accessToken = await createAccessToken({ employee });
-
-        console.log({ paylodId: item.id });
         const response = await request(app)
           .delete(getUrl(item.id))
           .set("Authorization", `Bearer ${accessToken}`);

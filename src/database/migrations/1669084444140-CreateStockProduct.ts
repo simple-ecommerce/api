@@ -24,11 +24,27 @@ export class CreateStockProduct1669084444140 implements MigrationInterface {
             type: "int",
           },
           {
-            name: "application",
+            name: "status",
             type: "varchar",
             default: `'${StockProductStatus.IN_STOCK}'`,
             enum: Object.values(StockProductStatus),
             enumName: "stock_product_status",
+          },
+          {
+            name: "created_at",
+            type: "timestamp",
+            default: "now()",
+          },
+          {
+            name: "updated_at",
+            type: "timestamp",
+            default: "now()",
+          },
+          {
+            name: "deleted_at",
+            type: "timestamp",
+            default: "null",
+            isNullable: true,
           },
         ],
       })
@@ -36,7 +52,7 @@ export class CreateStockProduct1669084444140 implements MigrationInterface {
     queryRunner.createForeignKey(
       "stock_products",
       new TableForeignKey({
-        name: "ItemStockProducts",
+        name: "StockProductItem",
         columnNames: ["item_id"],
         referencedColumnNames: ["id"],
         referencedTableName: "items",
@@ -47,7 +63,7 @@ export class CreateStockProduct1669084444140 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.dropForeignKey("stock_products", "ItemStockProducts");
+    queryRunner.dropForeignKey("stock_products", "StockProductItem");
     queryRunner.dropTable("stock_products");
   }
 }

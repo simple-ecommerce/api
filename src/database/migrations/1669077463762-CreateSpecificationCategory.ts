@@ -1,12 +1,12 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateEspecificationType1669077463762
+export class CreateSpecificationType1669077463762
   implements MigrationInterface
 {
   public async up(queryRunner: QueryRunner): Promise<void> {
     queryRunner.createTable(
       new Table({
-        name: "especification_types",
+        name: "specification_categories",
         columns: [
           {
             name: "id",
@@ -23,12 +23,32 @@ export class CreateEspecificationType1669077463762
             name: "description",
             type: "varchar",
           },
+          {
+            name: "internal_name",
+            type: "varchar",
+          },
+          {
+            name: "created_at",
+            type: "timestamp",
+            default: "now()",
+          },
+          {
+            name: "updated_at",
+            type: "timestamp",
+            default: "now()",
+          },
+          {
+            name: "deleted_at",
+            type: "timestamp",
+            default: "null",
+            isNullable: true,
+          },
         ],
       })
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.dropTable("especification_types");
+    queryRunner.dropTable("specification_categories");
   }
 }

@@ -1,4 +1,4 @@
-import { Item, ItemEspecification } from "../../../models/catalog";
+import { Item, ItemSpecification } from "../../../models/catalog";
 import { Company } from "../../../models/core";
 
 export class ItemCreator {
@@ -10,7 +10,7 @@ export class ItemCreator {
   sku?: string;
   brand?: string;
   upd?: string;
-  especifications?: ItemEspecification[];
+  specifications?: ItemSpecification[];
 
   constructor({
     company,
@@ -20,7 +20,7 @@ export class ItemCreator {
     shortDescription,
     sku,
     brand,
-    especifications,
+    specifications,
     upd,
   }: {
     company: Company;
@@ -31,7 +31,7 @@ export class ItemCreator {
     sku?: string;
     upd?: string;
     brand?: string;
-    especifications?: ItemEspecification[];
+    specifications?: ItemSpecification[];
   }) {
     this.company = company;
     this.name = name;
@@ -40,7 +40,7 @@ export class ItemCreator {
     this.price = price;
     this.sku = sku;
     this.brand = brand;
-    this.especifications = especifications;
+    this.specifications = specifications;
     this.upd = upd;
   }
 
@@ -53,7 +53,7 @@ export class ItemCreator {
       sku: this.sku,
       company: this.company,
       brand: this.brand,
-      especifications: this.especifications,
+      specifications: this.specifications,
       reload: false,
     });
 

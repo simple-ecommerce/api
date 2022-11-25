@@ -12,7 +12,7 @@ import {
 } from "typeorm";
 import { Company } from "../core";
 import { StockProduct } from "../stock/StockProduct";
-import { ItemEspecification } from "./ItemEspecification";
+import { ItemSpecification } from "./ItemSpecification";
 
 @Entity("items")
 export class Item extends BaseEntity {
@@ -54,10 +54,10 @@ export class Item extends BaseEntity {
   brand: string;
 
   @OneToMany(
-    () => ItemEspecification,
-    (itemEspecification) => itemEspecification.item
+    () => ItemSpecification,
+    (itemSpecification) => itemSpecification.item
   )
-  especifications: ItemEspecification[];
+  specifications: ItemSpecification[];
 
   @OneToMany(() => StockProduct, (stockProduct) => stockProduct.item)
   stockProducts: StockProduct[];

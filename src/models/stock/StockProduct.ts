@@ -7,7 +7,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Item, ItemEspecification } from "../catalog";
+import { Item, ItemSpecification } from "../catalog";
 
 @Entity("stock_products")
 export class StockProduct extends BaseEntity {
@@ -24,11 +24,11 @@ export class StockProduct extends BaseEntity {
   status: string;
 
   @OneToMany(
-    () => ItemEspecification,
-    (itemEspecification) => itemEspecification.stockProducts
+    () => ItemSpecification,
+    (itemSpecification) => itemSpecification.stockProducts
   )
   @JoinTable({
-    name: "stock_product_especifications",
+    name: "stock_product_specifications",
   })
-  especifications: ItemEspecification[];
+  specifications: ItemSpecification[];
 }

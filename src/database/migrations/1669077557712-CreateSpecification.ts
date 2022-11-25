@@ -5,11 +5,11 @@ import {
   TableForeignKey,
 } from "typeorm";
 
-export class CreateEspecification1669077557712 implements MigrationInterface {
+export class CreateSpecification1669077557712 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     queryRunner.createTable(
       new Table({
-        name: "especifications",
+        name: "specifications",
         columns: [
           {
             name: "id",
@@ -27,19 +27,35 @@ export class CreateEspecification1669077557712 implements MigrationInterface {
             type: "varchar",
           },
           {
-            name: "expecification_type_id",
+            name: "category_id",
             type: "int",
+          },
+          {
+            name: "created_at",
+            type: "timestamp",
+            default: "now()",
+          },
+          {
+            name: "updated_at",
+            type: "timestamp",
+            default: "now()",
+          },
+          {
+            name: "deleted_at",
+            type: "timestamp",
+            default: "null",
+            isNullable: true,
           },
         ],
       })
     );
     queryRunner.createForeignKey(
-      "especifications",
+      "specifications",
       new TableForeignKey({
-        name: "EspecificationType",
-        columnNames: ["expecification_type_id"],
+        name: "SpecificationCategory",
+        columnNames: ["category_id"],
         referencedColumnNames: ["id"],
-        referencedTableName: "especification_types",
+        referencedTableName: "specification_categories",
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       })
@@ -47,7 +63,7 @@ export class CreateEspecification1669077557712 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.dropTable("especifications");
-    queryRunner.dropForeignKey("especifications", "EspecificationType");
+    queryRunner.dropForeignKey("specifications", "SpecificationCategory");
+    queryRunner.dropTable("specifications");
   }
 }

@@ -6,13 +6,13 @@ import {
   TableForeignKey,
 } from "typeorm";
 
-export class CreateStockProductEspecifications1669085691479
+export class CreateStockProductSpecification1669085691479
   implements MigrationInterface
 {
   public async up(queryRunner: QueryRunner): Promise<void> {
     queryRunner.createTable(
       new Table({
-        name: "stock_product_especifications",
+        name: "stock_product_specifications",
         columns: [
           {
             name: "id",
@@ -26,25 +26,41 @@ export class CreateStockProductEspecifications1669085691479
             type: "int",
           },
           {
-            name: "item_especification_id",
+            name: "item_specification_id",
             type: "int",
+          },
+          {
+            name: "created_at",
+            type: "timestamp",
+            default: "now()",
+          },
+          {
+            name: "updated_at",
+            type: "timestamp",
+            default: "now()",
+          },
+          {
+            name: "deleted_at",
+            type: "timestamp",
+            default: "null",
+            isNullable: true,
           },
         ],
       })
     );
     queryRunner.createForeignKey(
-      "stock_product_especifications",
+      "stock_product_specifications",
       new TableForeignKey({
-        name: "ItemEspecificationStockProducts",
-        referencedTableName: "item_especifications",
+        name: "StockProductSpecificationItemSpecification",
+        referencedTableName: "item_specifications",
         referencedColumnNames: ["id"],
-        columnNames: ["item_especification_id"],
+        columnNames: ["item_specification_id"],
       })
     );
     queryRunner.createForeignKey(
-      "stock_product_especifications",
+      "stock_product_specifications",
       new TableForeignKey({
-        name: "StockProductItemEspecifications",
+        name: "StockProductSpecificationStockProduct",
         referencedColumnNames: ["id"],
         referencedTableName: "stock_products",
         columnNames: ["stock_product_id"],
@@ -54,13 +70,13 @@ export class CreateStockProductEspecifications1669085691479
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     queryRunner.dropForeignKey(
-      "stock_product_especifications",
-      "ItemEspecificationStockProducts"
+      "StockProductSpecificationItemSpecification",
+      "StockProductSpecificationItemSpecification"
     );
     queryRunner.dropForeignKey(
-      "stock_product_especifications",
-      "StockProductItemEspecifications"
+      "stock_product_specifications",
+      "StockProductSpecificationStockProduct"
     );
-    queryRunner.dropTable("stock_product_especifications");
+    queryRunner.dropTable("stock_product_specifications");
   }
 }

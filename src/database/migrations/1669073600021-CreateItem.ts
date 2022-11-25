@@ -30,7 +30,7 @@ export class CreateItem1669073600021 implements MigrationInterface {
           { name: "long_description", type: "varchar" },
           { name: "price", type: "bigint" },
           { name: "upc", type: "varchar", isNullable: true },
-          { name: "sku", type: "varchar", isUnique: true },
+          { name: "sku", type: "varchar", isUnique: true, isNullable: true },
           { name: "ean", type: "varchar", isNullable: true },
           { name: "gtin", type: "varchar", isNullable: true },
           { name: "brand", type: "varchar", isNullable: true },
@@ -68,7 +68,7 @@ export class CreateItem1669073600021 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.dropTable("items");
     queryRunner.dropForeignKey("items", "CompanyItems");
+    queryRunner.dropTable("items");
   }
 }

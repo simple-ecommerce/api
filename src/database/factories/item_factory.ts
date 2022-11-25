@@ -24,7 +24,7 @@ export const itemFactory = async ({
 } = {}) => {
   const item = new Item();
   item.company = company ?? (await companyFactory());
-  item.name = faker.commerce.productName() ?? name;
+  item.name = name ?? faker.commerce.productName();
   item.shortDescription = shortDescription ?? faker.commerce.productAdjective();
   item.longDescription = longDescription ?? faker.commerce.productDescription();
   item.price = price ?? Number(faker.random.numeric(10));
