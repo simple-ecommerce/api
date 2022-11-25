@@ -6,7 +6,6 @@ export const remove = async (
   next: NextFunction
 ) => {
   const id = req?.params?.id;
-  console.log({ internalId: id });
   const company = res.locals.company;
   const item = await new Services.Items.Finder(Number(id)).find();
 

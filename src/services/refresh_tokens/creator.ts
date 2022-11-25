@@ -17,6 +17,7 @@ export class RefreshTokensCreator {
     user: Customer | Employee;
   }) {
     this.user = user;
+    this.userType = userType;
   }
 
   async create() {
@@ -29,6 +30,7 @@ export class RefreshTokensCreator {
       refreshToken.customerId = this.user.id;
     if (this.userType === UserType.EMPLOYEE)
       refreshToken.employeeId = this.user.id;
+
     refreshToken.save();
 
     return refreshToken;

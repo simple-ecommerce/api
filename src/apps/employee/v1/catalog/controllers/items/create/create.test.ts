@@ -54,11 +54,11 @@ describe("POST#create", () => {
         expect(response.body.id).toBeDefined();
 
         // creates the item
-        expect(response.body.name).toBe(item.name);
-        expect(response.body.long_description).toBe(item.longDescription);
-        expect(response.body.short_description).toBe(item.shortDescription);
-        expect(response.body.price).toBe(item.price);
-        expect(response.body.sku).toBe(item.sku);
+        expect(response.body.name).toBe(item?.name);
+        expect(response.body.long_description).toBe(item?.longDescription);
+        expect(response.body.short_description).toBe(item?.shortDescription);
+        expect(response.body.price).toBe(item?.price);
+        expect(response.body.sku).toBe(item?.sku);
       });
     });
     describe("the payload is invalid", () => {
