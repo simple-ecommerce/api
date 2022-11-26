@@ -1,4 +1,9 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from "typeorm";
 
 export class CreateSpecificationType1669077463762
   implements MigrationInterface
@@ -43,12 +48,30 @@ export class CreateSpecificationType1669077463762
             default: "null",
             isNullable: true,
           },
+          {
+            name: "company_id",
+            type: "int",
+          },
         ],
+      })
+    );
+    queryRunner.createForeignKey(
+      "specification_categories",
+      new TableForeignKey({
+        name: "FK_Companies_SpecificationCategories",
+        columnNames: ["company_id"],
+        referencedColumnNames: ["id"],
+        referencedTableName: "companies",
+        onDelete: "CASCADE",
       })
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     queryRunner.dropTable("specification_categories");
+    queryRunner.dropForeignKey(
+      "specification_categories",
+      "FK_Companies_SpecificationCategories"
+    );
   }
 }

@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
 } from "typeorm";
-import { Item } from "../catalog";
+import { Item, SpecificationCategory } from "../catalog";
 import { Customer } from "./Customer";
 import { Employee } from "./Employee";
 
@@ -25,6 +25,12 @@ export class Company extends BaseEntity {
 
   @OneToMany(() => Employee, (employee) => employee.company)
   employees: Employee[];
+
+  @OneToMany(
+    () => SpecificationCategory,
+    (specificationCategory) => specificationCategory.company
+  )
+  specificationCategories: SpecificationCategory[];
 
   @OneToMany(() => Item, (item) => item.company)
   items: Item[];
