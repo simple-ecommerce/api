@@ -7,13 +7,13 @@ export const validateSchemaMiddleware = (
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       if (validationSchema.body) {
-        await validationSchema.body.validate(req.body);
+        req.body = await validationSchema.body.validate(req.body);
       }
       if (validationSchema.query) {
-        await validationSchema.query.validate(req.query);
+        req.query = await validationSchema.query.validate(req.query);
       }
       if (validationSchema.params) {
-        await validationSchema.params.validate(req.params);
+        req.params = await validationSchema.params.validate(req.params);
       }
       next();
     } catch (err) {

@@ -12,11 +12,14 @@ export const specificationSchemas: {
     }),
   },
   update: {
-    body: yup.object().shape({
-      name: yup.string().optional(),
-      description: yup.string().optional(),
-      internalName: yup.string().optional(),
-    }),
+    body: yup
+      .object()
+      .shape({
+        name: yup.string().optional(),
+        description: yup.string().optional(),
+        internalName: yup.string().optional(),
+      })
+      .noUnknown(true),
     params: yup.object().shape({
       id: yup.number().required(),
     }),
