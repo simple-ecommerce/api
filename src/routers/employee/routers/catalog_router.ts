@@ -12,8 +12,8 @@ catalogRouter.delete("/items/:id", ...itemHandlers.remove);
 catalogRouter.get("/items/:id", ...itemHandlers.show);
 
 //specification categories
-// catalogRouter.post("/specification", ...specificationHandlers.create);
-// catalogRouter.patch("/specification/:id", ...specificationHandlers.update);
+// catalogRouter.post("/specifications", ...specificationHandlers.create);
+// catalogRouter.patch("/specifications/:id", ...specificationHandlers.update);
 catalogRouter.get("/specifications", ...specificationHandlers.list);
-// catalogRouter.delete("/specification/:id", ...specificationHandlers.remove);
-// catalogRouter.get("/specification/:id", ...specificationHandlers.show);
+// catalogRouter.delete("/specifications/:id", ...specificationHandlers.remove);
+catalogRouter.get("/specifications/:id", ...specificationHandlers.show);
