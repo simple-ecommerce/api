@@ -1,15 +1,15 @@
 import { FinderService } from "../../classes/finder_service/FinderService";
+import { RemoverService } from "../../classes/remover_service/RemoverService";
 import { UpdaterService } from "../../classes/updater_service/UpdaterService";
 import { Item } from "../../models/catalog";
 import { ItemCreator } from "./creator/Creator";
 import { ItemsQuery } from "./query/Query";
-import { ItemRemover } from "./remover/Remover";
 
 export namespace Items {
   export const Finder = FinderService(Item);
   export const Creator = ItemCreator;
   export const Query = ItemsQuery;
-  export const Remover = ItemRemover;
+  export const Remover = RemoverService(Item);
   export const Updater = UpdaterService<
     | "name"
     | "shortDescription"
