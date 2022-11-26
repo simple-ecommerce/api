@@ -15,5 +15,5 @@ catalogRouter.get("/items/:id", ...itemHandlers.show);
 // catalogRouter.post("/specifications", ...specificationHandlers.create);
 // catalogRouter.patch("/specifications/:id", ...specificationHandlers.update);
 catalogRouter.get("/specifications", ...specificationHandlers.list);
-// catalogRouter.delete("/specifications/:id", ...specificationHandlers.remove);
+catalogRouter.delete("/specifications/:id", ...specificationHandlers.remove);
 catalogRouter.get("/specifications/:id", ...specificationHandlers.show);

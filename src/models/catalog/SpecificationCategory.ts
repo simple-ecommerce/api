@@ -1,11 +1,14 @@
 import {
   BaseEntity,
   Column,
+  CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { Company } from "../core";
 import { Specification } from "./Specification";
@@ -33,4 +36,13 @@ export class SpecificationCategory extends BaseEntity {
   @ManyToOne(() => Company, (company) => company.specificationCategories)
   @JoinColumn({ name: "company_id" })
   company: Company;
+
+  @UpdateDateColumn({ name: "updated_at" })
+  updatedAt: Date;
+
+  @CreateDateColumn({ name: "created_at" })
+  createdAt: Date;
+
+  @DeleteDateColumn({ name: "deleted_at" })
+  deletedAt: Date;
 }
