@@ -31,6 +31,7 @@ export class CreateSpecificationType1669077463762
           {
             name: "internal_name",
             type: "varchar",
+            isNullable: true,
           },
           {
             name: "created_at",

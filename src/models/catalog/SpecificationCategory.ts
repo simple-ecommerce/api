@@ -27,7 +27,7 @@ export class SpecificationCategory extends BaseEntity {
   @Column({ name: "company_id" })
   companyId: number;
 
-  @Column({ name: "internal_name" })
+  @Column({ name: "internal_name", nullable: true })
   internalName: string;
 
   @OneToMany(() => Specification, (specification) => specification.category)
