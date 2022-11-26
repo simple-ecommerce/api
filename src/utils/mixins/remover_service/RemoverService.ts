@@ -1,5 +1,5 @@
 import { BaseEntity } from "typeorm";
-import { dataSource } from "../../app-data-source";
+import { dataSource } from "../../../app-data-source";
 
 type Constructor = new (...args: any[]) => BaseEntity;
 

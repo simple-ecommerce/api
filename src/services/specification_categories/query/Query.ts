@@ -1,6 +1,6 @@
 import { SelectQueryBuilder } from "typeorm";
 import { Id } from "../../../aliases";
-import { QueryService } from "../../../classes/query_service/QueryService";
+import { QueryService } from "../../../utils/classes/query_service/QueryService";
 import { SpecificationCategory } from "../../../models/catalog";
 import { Company } from "../../../models/core";
 

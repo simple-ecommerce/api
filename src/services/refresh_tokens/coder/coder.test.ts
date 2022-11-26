@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { wait } from "../../../helpers/promise/promiseHelpers";
+import { wait } from "../../../utils/helpers/promise/promiseHelpers";
 import { Application } from "../../../types/enums/Application";
 import { RefreshTokensCoder } from "./coder";
 

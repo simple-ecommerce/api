@@ -1,6 +1,6 @@
 import { CustomerQuery } from "./query";
 import { CustomerCreator } from "./creator";
-import { FinderService } from "../../mixins/finder_service/FinderService";
+import { FinderService } from "../../utils/mixins/finder_service/FinderService";
 import { Customer } from "../../models/core";
 
 export namespace Customers {

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Helpers } from "../helpers";
+import { Helpers } from "../utils/helpers";
 
 export const transformRequestToCamelCaseMiddleware = (
   req: Request,

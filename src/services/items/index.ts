@@ -1,6 +1,6 @@
-import { FinderService } from "../../mixins/finder_service/FinderService";
-import { RemoverService } from "../../mixins/remover_service/RemoverService";
-import { UpdaterService } from "../../mixins/updater_service/UpdaterService";
+import { FinderService } from "../../utils/mixins/finder_service/FinderService";
+import { RemoverService } from "../../utils/mixins/remover_service/RemoverService";
+import { UpdaterService } from "../../utils/mixins/updater_service/UpdaterService";
 import { Item } from "../../models/catalog";
 import { ItemCreator } from "./creator/Creator";
 import { ItemsQuery } from "./query/Query";

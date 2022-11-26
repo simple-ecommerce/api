@@ -1,5 +1,5 @@
 import { dataSource } from "../../../app-data-source";
-import { wait } from "../../../helpers/promise/promiseHelpers";
+import { wait } from "../../../utils/helpers/promise/promiseHelpers";
 
 export const closeDbConnection = async () => {
   await wait(1); //wait for typeorm routines

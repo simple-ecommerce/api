@@ -1,6 +1,6 @@
 import { Coder } from "./coder";
 import jwt from "jsonwebtoken";
-import { wait } from "../../../helpers/promise/promiseHelpers";
+import { wait } from "../../../utils/helpers/promise/promiseHelpers";
 import { UserType } from "../../../types/enums/UserType";
 
 describe("services#access_tokens#coder", () => {
