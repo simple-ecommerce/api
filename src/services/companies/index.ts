@@ -1,4 +1,4 @@
-import { FinderService } from "../../classes/finder_service/FinderService";
+import { FinderService } from "../../mixins/finder_service/FinderService";
 import { Company } from "../../models/core";
 import { CompanyCreator } from "./creator";
 

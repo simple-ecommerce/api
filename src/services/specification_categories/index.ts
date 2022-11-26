@@ -1,6 +1,6 @@
-import { FinderService } from "../../classes/finder_service/FinderService";
-import { RemoverService } from "../../classes/remover_service/RemoverService";
-import { UpdaterService } from "../../classes/updater_service/UpdaterService";
+import { FinderService } from "../../mixins/finder_service/FinderService";
+import { RemoverService } from "../../mixins/remover_service/RemoverService";
+import { UpdaterService } from "../../mixins/updater_service/UpdaterService";
 import { SpecificationCategory } from "../../models/catalog";
 import { SpecificationCategoryCreator } from "./creator/Creator";
 import { SpecificationCategoriesQuery } from "./query/Query";
