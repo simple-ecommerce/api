@@ -5,20 +5,29 @@ export const tokenSchemas: {
   [action: string]: ValidationSchema;
 } = {
   login: {
-    body: yup.object().shape({
-      email: yup.string().email().required(),
-      password: yup.string().required(),
-      companyId: yup.number().required(),
-    }),
+    body: yup
+      .object()
+      .shape({
+        email: yup.string().email().required(),
+        password: yup.string().required(),
+        companyId: yup.number().required(),
+      })
+      .noUnknown(true),
   },
   refresh: {
-    body: yup.object().shape({
-      refreshToken: yup.string().required(),
-    }),
+    body: yup
+      .object()
+      .shape({
+        refreshToken: yup.string().required(),
+      })
+      .noUnknown(true),
   },
   revoke: {
-    body: yup.object().shape({
-      accessToken: yup.string().required(),
-    }),
+    body: yup
+      .object()
+      .shape({
+        accessToken: yup.string().required(),
+      })
+      .noUnknown(true),
   },
 };
