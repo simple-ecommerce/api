@@ -19,7 +19,7 @@ export const checkUserAuthenticationMiddleware = async (
   try {
     const payload = await accessTokenCoder.decode();
     //append company to request
-    const companyFinder = new Companies.Finder({ id: payload.companyId });
+    const companyFinder = new Companies.Finder(payload.companyId);
     const company = await companyFinder.find();
     res.locals = {
       ...res.locals,

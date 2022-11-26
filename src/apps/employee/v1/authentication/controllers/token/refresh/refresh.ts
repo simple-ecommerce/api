@@ -46,6 +46,10 @@ const _generateAccessToken = async ({
     refreshToken.employeeId
   ).find();
 
+  if (!employee) {
+    throw new Error("Invalid refresh token");
+  }
+
   const accessToken = await accessTokenCoder.encode({
     userId: refreshToken.employeeId,
     refreshTokenId: refreshToken.id,

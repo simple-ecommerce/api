@@ -42,9 +42,14 @@ const _generateAccessToken = async ({
   refreshToken: RefreshToken;
 }) => {
   const accessTokenCoder = new Services.AccessTokens.Coder();
+
   const customer = await new Services.Customers.Finder(
     refreshToken.customerId
   ).find();
+
+  if (!customer) {
+    throw new Error("Invalid refresh token");
+  }
 
   const accessToken = await accessTokenCoder.encode({
     userId: refreshToken.customerId,

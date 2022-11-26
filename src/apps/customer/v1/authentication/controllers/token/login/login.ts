@@ -12,6 +12,15 @@ export const login = async (
   const { email, password, companyId } = req.body;
 
   const company = await _findCompany(companyId);
+  if (!company) {
+    res.locals.response = {
+      status: 401,
+      body: { message: "Company not found" },
+    };
+
+    return next();
+  }
+
   const customer = await _findCustomer({ company, email });
 
   if (!customer) {
@@ -19,15 +28,13 @@ export const login = async (
       status: 401,
       body: { message: "Invalid email or password" },
     };
-    next();
-    return;
+    return next();
   }
   try {
     await _validateCustomerCompany({ company, customer, res });
     await _validateCustomerPassword({ password, customer, res });
   } catch (error) {
-    next();
-    return;
+    return next();
   }
 
   const { refreshToken, accessToken } = await _createTokens({
@@ -43,7 +50,7 @@ export const login = async (
 };
 
 const _findCompany = async (id: Id) => {
-  const companyFinder = new Services.Companies.Finder({ id });
+  const companyFinder = new Services.Companies.Finder(id);
   const company = await companyFinder.find();
 
   return company;

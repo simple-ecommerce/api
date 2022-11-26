@@ -11,6 +11,15 @@ export const login = async (
 ) => {
   const { email, password, companyId } = req.body;
   const company = await _findCompany(companyId);
+
+  if (!company) {
+    res.locals.response = {
+      status: 401,
+      body: { message: "Invalid email or password" },
+    };
+    return next();
+  }
+
   const employee = await _findEmployee({ company, email });
 
   if (!employee) {
@@ -46,7 +55,7 @@ export const login = async (
 };
 
 const _findCompany = async (id: Id) => {
-  const companyFinder = new Services.Companies.Finder({ id });
+  const companyFinder = new Services.Companies.Finder(id);
   const company = await companyFinder.find();
 
   return company;

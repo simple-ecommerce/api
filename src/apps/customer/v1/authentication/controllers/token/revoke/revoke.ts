@@ -11,6 +11,14 @@ export const revoke = async (
   const accessToken = req.body.accessToken;
   const refreshToken = await _findRefreshToken(accessToken);
 
+  if (!refreshToken) {
+    res.locals.response = {
+      status: 401,
+      body: { message: "Invalid access token." },
+    };
+    return next();
+  }
+
   await _removeRefreshToken(refreshToken);
 
   res.locals.response = {

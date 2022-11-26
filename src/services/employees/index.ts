@@ -1,7 +1,8 @@
-import { EmployeeFinder } from "./finder";
+import { FinderService } from "../../classes/finder_service/FinderService";
+import { Employee } from "../../models/core";
 import { EmployeeQuery } from "./query";
 
 export namespace Employees {
-  export const Finder = EmployeeFinder;
+  export const Finder = FinderService(Employee);
   export const Query = EmployeeQuery;
 }

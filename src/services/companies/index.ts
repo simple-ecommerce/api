@@ -1,7 +1,8 @@
+import { FinderService } from "../../classes/finder_service/FinderService";
+import { Company } from "../../models/core";
 import { CompanyCreator } from "./creator";
-import { CompanyFinder } from "./finder";
 
 export namespace Companies {
-  export const Finder = CompanyFinder;
+  export const Finder = FinderService(Company);
   export const Creator = CompanyCreator;
 }

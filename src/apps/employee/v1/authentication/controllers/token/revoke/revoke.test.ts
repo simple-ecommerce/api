@@ -48,9 +48,7 @@ describe("POST#revoke", () => {
     expect(response.status).toBe(200);
     expect(response.body.message).toBe("Token revoked");
     const refreshTokenFinder = new RefreshTokens.Finder(refreshToken.id);
-    expect(async () => {
-      await refreshTokenFinder.find();
-    }).rejects.toThrow();
+    expect(await refreshTokenFinder.find()).toBe(null);
   });
 
   afterAll(async () => {
