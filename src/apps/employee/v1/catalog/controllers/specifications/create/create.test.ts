@@ -7,7 +7,7 @@ import { UserType } from "../../../../../../../types/enums/UserType";
 import { Factories } from "../../../../../../../database/factories";
 
 let app: Express;
-const URL = "/employee/v1/catalog/specifications";
+const URL = "/employee/v1/catalog/specification_categories";
 
 describe("catalog#specifications#controllers#POST#create", () => {
   beforeAll(async () => {

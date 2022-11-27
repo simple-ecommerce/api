@@ -12,8 +12,30 @@ catalogRouter.delete("/items/:id", ...itemHandlers.remove);
 catalogRouter.get("/items/:id", ...itemHandlers.show);
 
 //specification categories
-catalogRouter.post("/specifications", ...specificationHandlers.create);
-catalogRouter.patch("/specifications/:id", ...specificationHandlers.update);
-catalogRouter.get("/specifications", ...specificationHandlers.list);
-catalogRouter.delete("/specifications/:id", ...specificationHandlers.remove);
-catalogRouter.get("/specifications/:id", ...specificationHandlers.show);
+catalogRouter.post(
+  "/specification_categories",
+  ...specificationHandlers.create
+);
+catalogRouter.patch(
+  "/specification_categories/:id",
+  ...specificationHandlers.update
+);
+catalogRouter.get("/specification_categories", ...specificationHandlers.list);
+catalogRouter.delete(
+  "/specification_categories/:id",
+  ...specificationHandlers.remove
+);
+catalogRouter.get(
+  "/specification_categories/:id",
+  ...specificationHandlers.show
+);
+
+catalogRouter.post(
+  "/specification_categories/:specification_category_id/specifications",
+  ...specificationHandlers.options.create
+);
+
+catalogRouter.delete(
+  "/specification_categories/:specification_category_id/specifications/:specification_id",
+  ...specificationHandlers.options.remove
+);

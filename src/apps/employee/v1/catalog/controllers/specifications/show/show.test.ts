@@ -7,7 +7,8 @@ import { UserType } from "../../../../../../../types/enums/UserType";
 
 let app: Express;
 
-const getUrl = (id: number) => `/employee/v1/catalog/specifications/${id}`;
+const getUrl = (id: number) =>
+  `/employee/v1/catalog/specification_categories/${id}`;
 
 describe("GET#show", () => {
   beforeAll(async () => {

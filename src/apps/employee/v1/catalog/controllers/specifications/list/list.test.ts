@@ -10,7 +10,7 @@ import request from "supertest";
 let app: Express;
 
 describe("catalog#specifications#list_controller", () => {
-  const URL = "/employee/v1/catalog/specifications";
+  const URL = "/employee/v1/catalog/specification_categories";
 
   beforeAll(async () => {
     const server = await createServer();

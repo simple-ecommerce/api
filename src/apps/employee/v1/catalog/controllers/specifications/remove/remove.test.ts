@@ -8,7 +8,7 @@ import { Employee } from "../../../../../../../models/core";
 
 let app: Express;
 const getUrl = (id: number | string) =>
-  `/employee/v1/catalog/specifications/${id}`;
+  `/employee/v1/catalog/specification_categories/${id}`;
 
 describe("catalog#specifications#controllers#DELETE#remove", () => {
   beforeAll(async () => {

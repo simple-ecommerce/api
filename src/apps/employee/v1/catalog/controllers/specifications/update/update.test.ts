@@ -8,7 +8,7 @@ import request from "supertest";
 let app: Express;
 
 const getUrl = (id: number | string) =>
-  `/employee/v1/catalog/specifications/${id}`;
+  `/employee/v1/catalog/specification_categories/${id}`;
 
 describe("PUT#update", () => {
   beforeAll(async () => {

@@ -43,4 +43,26 @@ export const specificationHandlers = {
     Middlewares.transformResponseToSnakeCase,
     Middlewares.sendResponse,
   ],
+  options: {
+    create: [
+      Middlewares.transformRequestToCamelCase,
+      Middlewares.checkUserAuthentication,
+      Middlewares.validateSchema(
+        ValidationSchemas.Specification.options.create
+      ),
+      Controllers.Specification.Options.create,
+      Middlewares.transformResponseToSnakeCase,
+      Middlewares.sendResponse,
+    ],
+    remove: [
+      Middlewares.transformRequestToCamelCase,
+      Middlewares.checkUserAuthentication,
+      Middlewares.validateSchema(
+        ValidationSchemas.Specification.options.remove
+      ),
+      Controllers.Specification.Options.remove,
+      Middlewares.transformResponseToSnakeCase,
+      Middlewares.sendResponse,
+    ],
+  },
 };
