@@ -2,12 +2,12 @@ import { Middlewares } from "../../../../../middlewares";
 import { Controllers } from "../controllers";
 import { ValidationSchemas } from "../validation_schemas";
 
-export const specificationHandlers = {
+export const specificationCategoriesHandlers = {
   list: [
     Middlewares.transformRequestToCamelCase,
     Middlewares.checkUserAuthentication,
     Middlewares.validateSchema(ValidationSchemas.Specification.list),
-    Controllers.Specification.List,
+    Controllers.SpecificationCategories.List,
     Middlewares.transformResponseToSnakeCase,
     Middlewares.sendResponse,
   ],
@@ -15,7 +15,7 @@ export const specificationHandlers = {
     Middlewares.transformRequestToCamelCase,
     Middlewares.checkUserAuthentication,
     Middlewares.validateSchema(ValidationSchemas.Specification.create),
-    Controllers.Specification.Create,
+    Controllers.SpecificationCategories.Create,
     Middlewares.transformResponseToSnakeCase,
     Middlewares.sendResponse,
   ],
@@ -23,7 +23,7 @@ export const specificationHandlers = {
     Middlewares.transformRequestToCamelCase,
     Middlewares.checkUserAuthentication,
     Middlewares.validateSchema(ValidationSchemas.Specification.show),
-    Controllers.Specification.Show,
+    Controllers.SpecificationCategories.Show,
     Middlewares.transformResponseToSnakeCase,
     Middlewares.sendResponse,
   ],
@@ -31,7 +31,7 @@ export const specificationHandlers = {
     Middlewares.transformRequestToCamelCase,
     Middlewares.checkUserAuthentication,
     Middlewares.validateSchema(ValidationSchemas.Specification.update),
-    Controllers.Specification.Update,
+    Controllers.SpecificationCategories.Update,
     Middlewares.transformResponseToSnakeCase,
     Middlewares.sendResponse,
   ],
@@ -39,7 +39,7 @@ export const specificationHandlers = {
     Middlewares.transformRequestToCamelCase,
     Middlewares.checkUserAuthentication,
     Middlewares.validateSchema(ValidationSchemas.Specification.remove),
-    Controllers.Specification.Remove,
+    Controllers.SpecificationCategories.Remove,
     Middlewares.transformResponseToSnakeCase,
     Middlewares.sendResponse,
   ],
@@ -50,7 +50,7 @@ export const specificationHandlers = {
       Middlewares.validateSchema(
         ValidationSchemas.Specification.options.create
       ),
-      Controllers.Specification.Options.create,
+      Controllers.SpecificationCategories.Options.create,
       Middlewares.transformResponseToSnakeCase,
       Middlewares.sendResponse,
     ],
@@ -60,7 +60,7 @@ export const specificationHandlers = {
       Middlewares.validateSchema(
         ValidationSchemas.Specification.options.remove
       ),
-      Controllers.Specification.Options.remove,
+      Controllers.SpecificationCategories.Options.remove,
       Middlewares.transformResponseToSnakeCase,
       Middlewares.sendResponse,
     ],

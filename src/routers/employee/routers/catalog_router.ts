@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { itemHandlers } from "../../../apps/employee/v1/catalog/handlers/item_handlers";
-import { specificationHandlers } from "../../../apps/employee/v1/catalog/handlers/specification_handlers";
+import { specificationCategoriesHandlers } from "../../../apps/employee/v1/catalog/handlers/specification_handlers";
 
 export const catalogRouter = Router();
 
@@ -14,28 +14,31 @@ catalogRouter.get("/items/:id", ...itemHandlers.show);
 //specification categories
 catalogRouter.post(
   "/specification_categories",
-  ...specificationHandlers.create
+  ...specificationCategoriesHandlers.create
 );
 catalogRouter.patch(
   "/specification_categories/:id",
-  ...specificationHandlers.update
+  ...specificationCategoriesHandlers.update
 );
-catalogRouter.get("/specification_categories", ...specificationHandlers.list);
+catalogRouter.get(
+  "/specification_categories",
+  ...specificationCategoriesHandlers.list
+);
 catalogRouter.delete(
   "/specification_categories/:id",
-  ...specificationHandlers.remove
+  ...specificationCategoriesHandlers.remove
 );
 catalogRouter.get(
   "/specification_categories/:id",
-  ...specificationHandlers.show
+  ...specificationCategoriesHandlers.show
 );
 
 catalogRouter.post(
   "/specification_categories/:specification_category_id/specifications",
-  ...specificationHandlers.options.create
+  ...specificationCategoriesHandlers.options.create
 );
 
 catalogRouter.delete(
   "/specification_categories/:specification_category_id/specifications/:specification_id",
-  ...specificationHandlers.options.remove
+  ...specificationCategoriesHandlers.options.remove
 );
