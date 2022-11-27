@@ -1,6 +1,6 @@
 import { NextFunction, Request } from "express";
 import { AuthenticatedHandlerResponse } from "../../../../../../../types/interfaces/AuthenticatedHandlerResponse";
-import * as Services from "./../../../../../../../services";
+import * as Services from "../../../../../../../services";
 
 export const update = async (
   req: Request,

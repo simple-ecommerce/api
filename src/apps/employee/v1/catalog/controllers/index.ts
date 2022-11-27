@@ -1,5 +1,5 @@
 import { ItemControllers } from "./items";
-import { SpecificationControllers } from "./specifications";
+import { SpecificationControllers } from "./specification_categories";
 
 export namespace Controllers {
   export const Items = ItemControllers;
