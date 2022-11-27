@@ -6,7 +6,7 @@ import { closeDbConnection } from "../../../../../../../tests/helpers/close_db_c
 import { customerFactory } from "../../../../../../../database/factories/customer_factory";
 import { refreshTokenFactory } from "../../../../../../../database/factories/refresh_token_factory";
 import { Coder } from "../../../../../../../services/access_tokens/coder/coder";
-import { UserType } from "../../../../../../../types/enums/UserType";
+import { UserType } from "../../../../../../../utils/types/enums/UserType";
 import { RefreshTokens } from "../../../../../../../services";
 
 let app: Express;

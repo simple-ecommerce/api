@@ -4,7 +4,7 @@ import {
   Table,
   TableForeignKey,
 } from "typeorm";
-import { StockProductStatus } from "../../types/enums/StockProductStatus";
+import { StockProductStatus } from "../../utils/types/enums/StockProductStatus";
 
 export class CreateStockProduct1669084444140 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {

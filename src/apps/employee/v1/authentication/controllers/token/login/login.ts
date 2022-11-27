@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { Id } from "../../../../../../../aliases";
+import { Id } from "../../../../../../../utils/aliases";
 import * as Services from "../../../../../../../services";
 import * as Models from "../../../../../../../models";
-import { UserType } from "../../../../../../../types/enums/UserType";
+import { UserType } from "../../../../../../../utils/types/enums/UserType";
 
 export const login = async (
   req: Request,

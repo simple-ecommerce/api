@@ -3,7 +3,7 @@ import { closeDbConnection } from "../../../../../../../tests/helpers/close_db_c
 import { createServer } from "../../../../../../../tests/helpers/create_server/createServer";
 import request from "supertest";
 import * as Services from "../../../../../../../services";
-import { UserType } from "../../../../../../../types/enums/UserType";
+import { UserType } from "../../../../../../../utils/types/enums/UserType";
 import { Factories } from "../../../../../../../database/factories";
 
 let app: Express;

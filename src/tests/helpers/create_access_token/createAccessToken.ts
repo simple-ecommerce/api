@@ -1,7 +1,7 @@
 import { Factories } from "../../../database/factories";
 import { Customer, Employee } from "../../../models/core";
 import * as Services from "../../../services";
-import { UserType } from "../../../types/enums/UserType";
+import { UserType } from "../../../utils/types/enums/UserType";
 
 export const createAccessToken = async ({
   employee,

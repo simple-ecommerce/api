@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
 import { Customer } from "../../models/core/Customer";
 import { Employee } from "../../models/core/Employee";
-import { UserType } from "../../types/enums/UserType";
+import { UserType } from "../../utils/types/enums/UserType";
 import { RefreshToken } from "../../models/authentication/RefreshToken";
-import { Application } from "../../types/enums/Application";
+import { Application } from "../../utils/types/enums/Application";
 
 export class RefreshTokensCreator {
   user: Customer | Employee;

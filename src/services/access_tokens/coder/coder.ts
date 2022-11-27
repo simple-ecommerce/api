@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import { Token } from "../../../aliases";
-import { AccessTokenPayload } from "../../../types/interfaces/AccessTokenPayload";
+import { Token } from "../../../utils/aliases";
+import { AccessTokenPayload } from "../../../utils/types/interfaces/AccessTokenPayload";
 
 const ERRORS = {
   INVALID_TOKEN: new Error("Invalid token"),

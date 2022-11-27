@@ -2,7 +2,7 @@ import { RefreshToken } from "../../models/authentication";
 import { Customer, Employee } from "../../models/core";
 import { customerFactory } from "./customer_factory";
 import jwt from "jsonwebtoken";
-import { Application } from "../../types/enums/Application";
+import { Application } from "../../utils/types/enums/Application";
 import { employeeFactory } from "./employee_factory";
 
 export const refreshTokenFactory = async ({

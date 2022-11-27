@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { RefreshToken } from "../../../../../../../models/authentication";
 import * as Services from "../../../../../../../services";
-import { UserType } from "../../../../../../../types/enums/UserType";
+import { UserType } from "../../../../../../../utils/types/enums/UserType";
 
 export const refresh = async (
   req: Request,

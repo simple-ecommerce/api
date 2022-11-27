@@ -1,5 +1,5 @@
 import { SelectQueryBuilder } from "typeorm";
-import { Token } from "../../aliases";
+import { Token } from "../../utils/aliases";
 import { RefreshToken } from "../../models/authentication";
 
 export class RefreshTokensQuery {

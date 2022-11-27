@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ValidationSchema } from "../types/interfaces/ValidationSchema";
+import { ValidationSchema } from "../utils/types/interfaces/ValidationSchema";
 
 export const validateSchemaMiddleware = (
   validationSchema: ValidationSchema

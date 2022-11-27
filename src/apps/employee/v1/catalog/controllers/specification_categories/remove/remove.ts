@@ -1,5 +1,5 @@
 import { NextFunction, Request } from "express";
-import { AuthenticatedHandlerResponse } from "../../../../../../../types/interfaces/AuthenticatedHandlerResponse";
+import { AuthenticatedHandlerResponse } from "../../../../../../../utils/types/interfaces/AuthenticatedHandlerResponse";
 import * as Services from "../../../../../../../services";
 export const remove = async (
   req: Request,

@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import { Token } from "../../../aliases";
-import { Application } from "../../../types/enums/Application";
+import { Token } from "../../../utils/aliases";
+import { Application } from "../../../utils/types/enums/Application";
 
 export class RefreshTokensCoder {
   refreshToken?: Token;

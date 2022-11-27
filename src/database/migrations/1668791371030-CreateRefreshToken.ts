@@ -4,7 +4,7 @@ import {
   Table,
   TableForeignKey,
 } from "typeorm";
-import { Application } from "../../types/enums/Application";
+import { Application } from "../../utils/types/enums/Application";
 
 export class CreateRefreshToken1668791371030 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {

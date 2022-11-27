@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { Id } from "../aliases";
+import { Id } from "../utils/aliases";
 import { AccessTokens, Companies, Customers, Employees } from "../services";
-import { UserType } from "../types/enums/UserType";
+import { UserType } from "../utils/types/enums/UserType";
 
 export const checkUserAuthenticationMiddleware = async (
   req: Request,

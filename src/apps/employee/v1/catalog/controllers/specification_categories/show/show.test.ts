@@ -3,7 +3,7 @@ import request from "supertest";
 import { createServer } from "../../../../../../../tests/helpers/create_server/createServer";
 import { Express } from "express-serve-static-core";
 import * as Services from "../../../../../../../services";
-import { UserType } from "../../../../../../../types/enums/UserType";
+import { UserType } from "../../../../../../../utils/types/enums/UserType";
 
 let app: Express;
 

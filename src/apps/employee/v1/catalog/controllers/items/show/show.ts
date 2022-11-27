@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import * as Services from "../../../../../../../services";
-import { AuthenticatedHandlerResponse } from "../../../../../../../types/interfaces/AuthenticatedHandlerResponse";
+import { AuthenticatedHandlerResponse } from "../../../../../../../utils/types/interfaces/AuthenticatedHandlerResponse";
 
 export const show = async (
   req: Request,

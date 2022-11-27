@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { Company, Customer, Employee } from "../../models/core";
+import { Company, Customer, Employee } from "../../../models/core";
 
 export type AuthenticatedHandlerResponse = Response<
   any,

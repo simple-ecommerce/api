@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { wait } from "../../../utils/helpers/promise/promiseHelpers";
-import { Application } from "../../../types/enums/Application";
+import { Application } from "../../../utils/types/enums/Application";
 import { RefreshTokensCoder } from "./coder";
 
 describe("services#refresh_tokens#coder", () => {

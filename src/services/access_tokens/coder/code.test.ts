@@ -1,7 +1,7 @@
 import { Coder } from "./coder";
 import jwt from "jsonwebtoken";
 import { wait } from "../../../utils/helpers/promise/promiseHelpers";
-import { UserType } from "../../../types/enums/UserType";
+import { UserType } from "../../../utils/types/enums/UserType";
 
 describe("services#access_tokens#coder", () => {
   const OLD_ENV = process.env;

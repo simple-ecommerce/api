@@ -1,4 +1,4 @@
-import { ValidationSchema } from "../../../../../types/interfaces/ValidationSchema";
+import { ValidationSchema } from "../../../../../utils/types/interfaces/ValidationSchema";
 import * as yup from "yup";
 
 export const specificationSchemas: {
