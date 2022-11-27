@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { itemHandlers } from "../../../apps/employee/v1/catalog/handlers/item_handlers";
-import { specificationCategoriesHandlers } from "../../../apps/employee/v1/catalog/handlers/specification_handlers";
+import { specificationCategoriesHandlers } from "../../../apps/employee/v1/catalog/handlers/specification_category_handlers";
 
 export const catalogRouter = Router();
 
