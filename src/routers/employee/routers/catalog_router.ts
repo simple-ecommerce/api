@@ -35,10 +35,10 @@ catalogRouter.get(
 
 catalogRouter.post(
   "/specification_categories/:specification_category_id/specifications",
-  ...specificationCategoriesHandlers.options.create
+  ...specificationCategoriesHandlers.specifications.create
 );
 
 catalogRouter.delete(
   "/specification_categories/:specification_category_id/specifications/:specification_id",
-  ...specificationCategoriesHandlers.options.remove
+  ...specificationCategoriesHandlers.specifications.remove
 );
