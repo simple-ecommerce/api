@@ -10,7 +10,7 @@ let app: Express;
 const getUrl = (id: number) =>
   `/employee/v1/catalog/specification_categories/${id}`;
 
-describe("GET#show", () => {
+describe("catalog#specification_categories#controllers#GET#show", () => {
   beforeAll(async () => {
     const server = await createServer();
     app = server.app;

@@ -9,7 +9,7 @@ import request from "supertest";
 
 let app: Express;
 
-describe("catalog#specifications#list_controller", () => {
+describe("catalog#specification_categories#list_controller", () => {
   const URL = "/employee/v1/catalog/specification_categories";
 
   beforeAll(async () => {

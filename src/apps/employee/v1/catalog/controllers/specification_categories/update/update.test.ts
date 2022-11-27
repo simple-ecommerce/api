@@ -10,7 +10,7 @@ let app: Express;
 const getUrl = (id: number | string) =>
   `/employee/v1/catalog/specification_categories/${id}`;
 
-describe("PUT#update", () => {
+describe("catalog#specification_categories#controllers#PUT#update", () => {
   beforeAll(async () => {
     const server = await createServer();
     app = server.app;

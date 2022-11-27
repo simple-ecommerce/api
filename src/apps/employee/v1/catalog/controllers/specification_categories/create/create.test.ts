@@ -9,7 +9,7 @@ import { Factories } from "../../../../../../../database/factories";
 let app: Express;
 const URL = "/employee/v1/catalog/specification_categories";
 
-describe("catalog#specifications#controllers#POST#create", () => {
+describe("catalog#specification_categories#controllers#POST#create", () => {
   beforeAll(async () => {
     const server = await createServer();
     app = server.app;
