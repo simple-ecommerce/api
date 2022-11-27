@@ -29,7 +29,7 @@ export class ItemSpecification extends BaseEntity {
 
   @ManyToOne(
     () => Specification,
-    (specification) => specification.itemSpefications
+    (specification) => specification.itemSpecifications
   )
   @JoinColumn({ name: "specification_id" })
   specification: Specification;

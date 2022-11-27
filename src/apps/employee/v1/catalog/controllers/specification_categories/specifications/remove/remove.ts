@@ -32,7 +32,7 @@ export const remove = async (
 
   if (specificationCategory.companyId !== company.id) {
     res.locals.response = {
-      status: 403,
+      status: 404,
       body: {
         message: "You can't remove a specification option for this category.",
       },
@@ -43,7 +43,7 @@ export const remove = async (
 
   if (specification.specificationCategoryId !== specificationCategory.id) {
     res.locals.response = {
-      status: 401,
+      status: 404,
       body: {
         message:
           "Specification don't belong to the given specification category.",

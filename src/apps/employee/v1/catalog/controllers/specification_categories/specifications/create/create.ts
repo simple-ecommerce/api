@@ -25,16 +25,19 @@ export const create = async (
         message: "Specification category not found",
       },
     };
+
     return next();
   }
 
   if (specificationCategory.companyId !== company.id) {
     res.locals.response = {
-      status: 401,
+      status: 404,
       body: {
         message: "You can't create a specification option for this category.",
       },
     };
+
+    return next();
   }
 
   const specification = await new Services.Specifications.Creator({
@@ -47,4 +50,6 @@ export const create = async (
     status: 200,
     body: specification,
   };
+
+  next();
 };

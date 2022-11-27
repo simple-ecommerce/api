@@ -35,5 +35,5 @@ export class Specification extends BaseEntity {
     () => ItemSpecification,
     (itemSpecification) => itemSpecification.specification
   )
-  itemSpefications: ItemSpecification[];
+  itemSpecifications: ItemSpecification[];
 }

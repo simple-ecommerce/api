@@ -4,6 +4,7 @@ import { createServer } from "../../../../../../../tests/helpers/create_server/c
 import { Express } from "express-serve-static-core";
 import * as Services from "../../../../../../../services";
 import { UserType } from "../../../../../../../utils/types/enums/UserType";
+import { closeDbConnection } from "../../../../../../../tests/helpers/close_db_connection/closeDbConnection";
 
 let app: Express;
 
@@ -64,5 +65,8 @@ describe("catalog#specification_categories#controllers#GET#show", () => {
 
       expect(response.status).toBe(404);
     });
+  });
+  afterAll(async () => {
+    await closeDbConnection();
   });
 });
