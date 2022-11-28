@@ -3,6 +3,8 @@ import { companiesSeed } from "./companies_seed";
 import { customersSeed } from "./customers_seed";
 import { employeesSeed } from "./employees_seed";
 import { itemsSeed } from "./items_seed";
+import { specificationsSeed } from "./specifications_seed";
+import { specificationCategoriesSeed } from "./specification_categories_seed";
 
 const seed = async () => {
   await dataSource.initialize();
@@ -14,6 +16,10 @@ const seed = async () => {
 
   await customersSeed({ companies });
   await itemsSeed({ companies });
+  const specificationCategories = await specificationCategoriesSeed({
+    companies,
+  });
+  await specificationsSeed({ specificationCategories });
 };
 
 seed();
