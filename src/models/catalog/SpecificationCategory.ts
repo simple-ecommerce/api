@@ -30,7 +30,9 @@ export class SpecificationCategory extends BaseEntity {
   @Column({ name: "internal_name", nullable: true })
   internalName: string;
 
-  @OneToMany(() => Specification, (specification) => specification.category)
+  @OneToMany(() => Specification, (specification) => specification.category, {
+    eager: true,
+  })
   specifications: Specification[];
 
   @ManyToOne(() => Company, (company) => company.specificationCategories)
