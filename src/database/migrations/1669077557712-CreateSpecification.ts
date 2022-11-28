@@ -27,7 +27,7 @@ export class CreateSpecification1669077557712 implements MigrationInterface {
             type: "varchar",
           },
           {
-            name: "category_id",
+            name: "specification_category_id",
             type: "int",
           },
           {
@@ -53,7 +53,7 @@ export class CreateSpecification1669077557712 implements MigrationInterface {
       "specifications",
       new TableForeignKey({
         name: "SpecificationCategory",
-        columnNames: ["category_id"],
+        columnNames: ["specification_category_id"],
         referencedColumnNames: ["id"],
         referencedTableName: "specification_categories",
         onDelete: "CASCADE",
