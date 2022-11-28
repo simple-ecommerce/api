@@ -1,11 +1,14 @@
 import {
   BaseEntity,
   Column,
+  CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { SpecificationCategory } from "./SpecificationCategory";
 import { ItemSpecification } from "./ItemSpecification";
@@ -36,4 +39,13 @@ export class Specification extends BaseEntity {
     (itemSpecification) => itemSpecification.specification
   )
   itemSpecifications: ItemSpecification[];
+
+  @UpdateDateColumn({ name: "updated_at" })
+  updatedAt: Date;
+
+  @CreateDateColumn({ name: "created_at" })
+  createdAt: Date;
+
+  @DeleteDateColumn({ name: "deleted_at" })
+  deletedAt: Date;
 }
