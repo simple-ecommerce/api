@@ -31,9 +31,7 @@ export class RefreshTokensCreator {
     if (this.userType === UserType.EMPLOYEE)
       refreshToken.employeeId = this.user.id;
 
-    refreshToken.save();
-
-    return refreshToken;
+    return refreshToken.save();
   }
 
   private generateToken() {

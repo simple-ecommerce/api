@@ -22,10 +22,6 @@ export class CreateEmployee1667180387304 implements MigrationInterface {
           { name: "password", type: "varchar" },
           { name: "is_admin", type: "boolean" },
           {
-            name: "company_id",
-            type: "int",
-          },
-          {
             name: "created_at",
             type: "timestamp",
             default: "now()",

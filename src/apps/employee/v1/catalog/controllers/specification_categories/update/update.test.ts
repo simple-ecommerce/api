@@ -32,6 +32,7 @@ describe("catalog#specification_categories#controllers#PUT#update", () => {
             description: "new description",
             internal_name: "new internal name",
             price: 100,
+            company_id: company.id,
           };
           const response = await request(app)
             .patch(getUrl(specification.id))
@@ -56,6 +57,7 @@ describe("catalog#specification_categories#controllers#PUT#update", () => {
             name: "new name",
             description: "new description",
             internal_name: "new internal name",
+            company_id: company.id,
           };
           const response = await request(app)
             .patch(getUrl(specification.id))
@@ -71,13 +73,15 @@ describe("catalog#specification_categories#controllers#PUT#update", () => {
     describe("the specification does not belong to the user company", () => {
       it("should not update the specification", async () => {
         const specification = await Factories.SpecificationCategory();
-        const employee = await Factories.Employee();
+        const company = await Factories.Company();
+        const employee = await createEmployeeWithCompany({ company });
         const accessToken = await createAccessToken({ employee });
         const payload = {
           name: "new name",
           shortDescription: "new short description",
           longDescription: "new long description",
           price: 100,
+          company_id: company.id,
         };
         const response = await request(app)
           .patch(getUrl(specification.id))

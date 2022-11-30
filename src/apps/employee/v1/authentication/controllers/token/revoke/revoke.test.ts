@@ -1,13 +1,14 @@
 import request from "supertest";
 import { Express } from "express-serve-static-core";
-import { createServer } from "../../../../../../../tests/helpers/create_server/createServer";
-
-import { closeDbConnection } from "../../../../../../../tests/helpers/close_db_connection/closeDbConnection";
-import { employeeFactory } from "../../../../../../../database/factories/employee_factory";
-import { refreshTokenFactory } from "../../../../../../../database/factories/refresh_token_factory";
 import { Coder } from "../../../../../../../services/access_tokens/coder/coder";
 import { UserType } from "../../../../../../../utils/types/enums/UserType";
 import { RefreshTokens } from "../../../../../../../services";
+import {
+  createEmployeeWithCompany,
+  closeDbConnection,
+  createServer,
+} from "../../../../../../../tests/helpers";
+import { Factories } from "../../../../../../../database/factories";
 
 let app: Express;
 const URL = "/employee/v1/authorization/revoke";
@@ -29,8 +30,9 @@ describe("POST#revoke", () => {
   });
 
   it("it revokes the refresh token", async () => {
-    const employee = await employeeFactory();
-    const refreshToken = await refreshTokenFactory({ employee });
+    const company = await Factories.Company();
+    const employee = await createEmployeeWithCompany({ company });
+    const refreshToken = await Factories.RefreshToken({ employee });
     const accessToken = await new Coder().encode({
       refreshTokenId: refreshToken.id,
       userId: employee.id,

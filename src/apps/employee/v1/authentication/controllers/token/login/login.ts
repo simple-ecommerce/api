@@ -10,41 +10,30 @@ export const login = async (
   next: NextFunction
 ) => {
   const { email, password, companyId } = req.body;
-  const company = await _findCompany(companyId);
 
-  if (!company) {
-    res.locals.response = {
-      status: 401,
-      body: { message: "Invalid email or password" },
-    };
-    return next();
-  }
-
-  const employee = await _findEmployee({ company, email });
+  const employee = await _findEmployee({ email });
 
   if (!employee) {
     res.locals.response = {
       status: 401,
       body: { message: "Invalid email or password" },
     };
-    next();
-    return;
+
+    return next();
   }
   try {
-    await _validateEmployeeCompany({ company, employee, res });
     await _validateEmployeePassword({ password, employee, res });
   } catch (error) {
     res.locals.response = {
       status: 401,
       body: { message: "Invalid email or password" },
     };
-    next();
-    return;
+
+    return next();
   }
 
   const { refreshToken, accessToken } = await _createTokens({
     employee,
-    company,
   });
   res.locals.response = {
     status: 200,
@@ -61,35 +50,11 @@ const _findCompany = async (id: Id) => {
   return company;
 };
 
-const _findEmployee = async ({
-  company,
-  email,
-}: {
-  company: Models.Core.Company;
-  email: string;
-}) => {
+const _findEmployee = async ({ email }: { email: string }) => {
   const employeesQuery = new Services.Employees.Query();
-  const employee = await employeesQuery.byCompany(company).byEmail(email).one();
+  const employee = await employeesQuery.byEmail(email).one();
 
   return employee;
-};
-
-const _validateEmployeeCompany = async ({
-  company,
-  employee,
-  res,
-}: {
-  company: Models.Core.Company;
-  employee: Models.Core.Employee;
-  res: Response;
-}) => {
-  if (employee.companyId !== company.id) {
-    res.locals.response = {
-      status: 401,
-      body: { message: "Invalid email or password" },
-    };
-    throw new Error("Invalid email or password");
-  }
 };
 
 const _validateEmployeePassword = async ({
@@ -112,10 +77,8 @@ const _validateEmployeePassword = async ({
 
 const _createTokens = async ({
   employee,
-  company,
 }: {
   employee: Models.Core.Employee;
-  company: Models.Core.Company;
 }) => {
   const refreshTokenCreator = new Services.RefreshTokens.Creator({
     user: employee,
@@ -125,7 +88,6 @@ const _createTokens = async ({
 
   const accessTokenCoder = new Services.AccessTokens.Coder();
   const accessToken = await accessTokenCoder.encode({
-    companyId: company.id,
     refreshTokenId: refreshToken.id,
     userId: employee.id,
     userType: UserType.EMPLOYEE,

@@ -7,7 +7,6 @@ describe("services#access_tokens#coder", () => {
   const OLD_ENV = process.env;
 
   const payload = {
-    companyId: 1,
     refreshTokenId: 1,
     userId: 1,
     userType: UserType.CUSTOMER,
@@ -64,8 +63,6 @@ describe("services#access_tokens#coder", () => {
           jwt.sign(
             {
               userId: 1,
-              refreshTokenId: 1,
-              companyId: null,
               userType: UserType.CUSTOMER,
             },
             process.env.ACCESS_TOKEN_SECRET ?? "",
