@@ -3,6 +3,7 @@ import { Express } from "express-serve-static-core";
 import {
   createServer,
   closeDbConnection,
+  createEmployeeWithCompany,
 } from "../../../../../../../../tests/helpers";
 import { Token } from "../../../../../../../../utils/aliases";
 import { Company, Employee } from "../../../../../../../../models/core";
@@ -30,15 +31,20 @@ describe("employee#catalog#specification_categories#controllers#GET#specificatio
     let accessToken: Token;
 
     beforeAll(async () => {
-      employee = await Factories.Employee();
-      company = employee.company;
+      company = await Factories.Company();
+      employee = await createEmployeeWithCompany({ company });
       accessToken = await createAccessToken({ employee });
     });
+
     describe("the payload is valid", () => {
-      const payload = {
-        name: "test",
-        description: "test",
-      };
+      let payload: any;
+      beforeAll(() => {
+        payload = {
+          name: "test",
+          description: "test",
+          company_id: company.id,
+        };
+      });
       describe("the specification category belongs to the user company", () => {
         let specificationCategory: SpecificationCategory;
         beforeAll(async () => {
@@ -92,10 +98,13 @@ describe("employee#catalog#specification_categories#controllers#GET#specificatio
       });
     });
     describe("the payload is invalid", () => {
-      const invalidPayload = {
-        invalid: "invalid",
-      };
-
+      let invalidPayload: any;
+      beforeAll(() => {
+        invalidPayload = {
+          invalid: "invalid",
+          company_id: company.id,
+        };
+      });
       it("should return a 400 status code", async () => {
         const response = await request(app)
           .post(getUrl(1))

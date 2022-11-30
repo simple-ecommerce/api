@@ -4,7 +4,6 @@ import { Company } from "../../models/core/Company";
 export const companyFactory = async ({ name }: { name?: string } = {}) => {
   const company = new Company();
   company.name = name ?? faker.company.name();
-  await company.save();
 
-  return company;
+  return company.save();
 };

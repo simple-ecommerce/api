@@ -2,37 +2,45 @@ import { Factories } from "../../../../../../../database/factories";
 import request from "supertest";
 import { createServer } from "../../../../../../../tests/helpers/create_server/createServer";
 import { Express } from "express-serve-static-core";
-import * as Services from "../../../../../../../services";
-import { UserType } from "../../../../../../../utils/types/enums/UserType";
 import { closeDbConnection } from "../../../../../../../tests/helpers/close_db_connection/closeDbConnection";
+import {
+  createAccessToken,
+  createEmployeeWithCompany,
+} from "../../../../../../../tests/helpers";
 
 let app: Express;
 
-const getUrl = (id: number) =>
-  `/employee/v1/catalog/specification_categories/${id}`;
+const getUrl = ({
+  specificationCategoryId,
+  companyId,
+}: {
+  specificationCategoryId: number;
+  companyId: number;
+}) =>
+  `/employee/v1/catalog/specification_categories/${specificationCategoryId}?company_id=${companyId}`;
 
 describe("catalog#specification_categories#controllers#GET#show", () => {
   beforeAll(async () => {
     const server = await createServer();
     app = server.app;
   });
+
   describe("The specification category belongs to the company", () => {
     it("should return the specification category", async () => {
       const company = await Factories.Company();
       const specificationCategory = await Factories.SpecificationCategory({
         company,
       });
-      const employee = await Factories.Employee({ company });
-      const refreshToken = await Factories.RefreshToken({ employee });
-      const accessToken = await new Services.AccessTokens.Coder().encode({
-        companyId: employee.companyId,
-        refreshTokenId: refreshToken.id,
-        userId: employee.id,
-        userType: UserType.EMPLOYEE,
-      });
+      const employee = await createEmployeeWithCompany({ company });
+      const accessToken = await createAccessToken({ employee });
 
       const response = await request(app)
-        .get(getUrl(specificationCategory.id))
+        .get(
+          getUrl({
+            specificationCategoryId: specificationCategory.id,
+            companyId: company.id,
+          })
+        )
         .set("Authorization", `Bearer ${accessToken}`);
 
       expect(response.status).toBe(200);
@@ -49,18 +57,17 @@ describe("catalog#specification_categories#controllers#GET#show", () => {
   describe("The specificationCategory does not belong to the company", () => {
     it("should return 404", async () => {
       const company = await Factories.Company();
-      const employee = await Factories.Employee({ company });
-      const refreshToken = await Factories.RefreshToken({ employee });
-      const accessToken = await new Services.AccessTokens.Coder().encode({
-        companyId: employee.companyId,
-        refreshTokenId: refreshToken.id,
-        userId: employee.id,
-        userType: UserType.EMPLOYEE,
-      });
+      const employee = await createEmployeeWithCompany({ company });
+      const accessToken = await createAccessToken({ employee });
       const specificationCategory = await Factories.SpecificationCategory();
 
       const response = await request(app)
-        .get(getUrl(specificationCategory.id))
+        .get(
+          getUrl({
+            specificationCategoryId: specificationCategory.id,
+            companyId: company.id,
+          })
+        )
         .set("Authorization", `Bearer ${accessToken}`);
 
       expect(response.status).toBe(404);

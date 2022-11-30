@@ -3,12 +3,12 @@ import {
   PrimaryGeneratedColumn,
   Column,
   BaseEntity,
-  ManyToOne,
   CreateDateColumn,
   UpdateDateColumn,
-  JoinColumn,
   DeleteDateColumn,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from "typeorm";
 import { RefreshToken } from "../authentication";
 import { Company } from "./Company";
@@ -27,12 +27,21 @@ export class Employee extends BaseEntity {
   @Column()
   password: string;
 
-  @Column({ name: "company_id" })
-  companyId: number;
-
-  @ManyToOne(() => Company, (company) => company.employees)
-  @JoinColumn({ name: "company_id" })
-  company: Company;
+  @ManyToMany((type) => Company, (company) => company.employees, {
+    eager: true,
+  })
+  @JoinTable({
+    name: "employee_companies",
+    joinColumn: {
+      name: "employeeId",
+      referencedColumnName: "id",
+    },
+    inverseJoinColumn: {
+      name: "companyId",
+      referencedColumnName: "id",
+    },
+  })
+  companies: Company[];
 
   @OneToMany(() => RefreshToken, (refreshToken) => refreshToken.employee)
   refreshTokens: RefreshToken[];

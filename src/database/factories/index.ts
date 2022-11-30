@@ -1,3 +1,4 @@
+import { employeeCompanyFactory } from "./company_employee_factory";
 import { companyFactory } from "./company_factory";
 import { customerFactory } from "./customer_factory";
 import { employeeFactory } from "./employee_factory";
@@ -10,6 +11,7 @@ export namespace Factories {
   export const RefreshToken = refreshTokenFactory;
   export const Customer = customerFactory;
   export const Employee = employeeFactory;
+  export const EmployeeCompany = employeeCompanyFactory;
   export const Item = itemFactory;
   export const Company = companyFactory;
   export const SpecificationCategory = specificationCategoryFactory;

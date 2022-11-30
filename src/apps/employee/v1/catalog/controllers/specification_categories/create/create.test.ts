@@ -5,11 +5,16 @@ import request from "supertest";
 import * as Services from "../../../../../../../services";
 import { UserType } from "../../../../../../../utils/types/enums/UserType";
 import { Factories } from "../../../../../../../database/factories";
+import {
+  createAccessToken,
+  createEmployeeWithCompany,
+} from "../../../../../../../tests/helpers";
 
 let app: Express;
-const URL = "/employee/v1/catalog/specification_categories";
 
 describe("catalog#specification_categories#controllers#POST#create", () => {
+  const URL = "/employee/v1/catalog/specification_categories";
+
   beforeAll(async () => {
     const server = await createServer();
     app = server.app;
@@ -18,19 +23,15 @@ describe("catalog#specification_categories#controllers#POST#create", () => {
   describe("the user is authenticated", () => {
     describe("the payload is valid", () => {
       it("creates the given specification", async () => {
-        const employee = await Factories.Employee();
-        const refreshToken = await Factories.RefreshToken({ employee });
-        const accessToken = await new Services.AccessTokens.Coder().encode({
-          companyId: employee.companyId,
-          refreshTokenId: refreshToken.id,
-          userId: employee.id,
-          userType: UserType.EMPLOYEE,
-        });
+        const company = await Factories.Company();
+        const employee = await createEmployeeWithCompany({ company });
+        const accessToken = await createAccessToken({ employee });
 
         const payload = {
           name: "specification name",
           description: "specification description",
           internal_name: "specification internal name",
+          company_id: company.id,
         };
 
         const response = await request(app)
@@ -57,20 +58,16 @@ describe("catalog#specification_categories#controllers#POST#create", () => {
     });
     describe("the payload is invalid", () => {
       it("returns a 400 status", async () => {
-        const employee = await Factories.Employee();
-        const refreshToken = await Factories.RefreshToken({ employee });
-        const accessToken = await new Services.AccessTokens.Coder().encode({
-          companyId: employee.companyId,
-          refreshTokenId: refreshToken.id,
-          userId: employee.id,
-          userType: UserType.EMPLOYEE,
-        });
+        const company = await Factories.Company();
+        const employee = await createEmployeeWithCompany({ company });
+        const accessToken = await createAccessToken({ employee });
 
         const payload = {
           long_description: "specification long description",
           short_description: "specification short description",
           price: 1000,
           sku: "specification sku",
+          company_id: company.id,
         };
 
         const response = await request(app)

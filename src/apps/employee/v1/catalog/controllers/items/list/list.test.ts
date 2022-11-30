@@ -6,11 +6,14 @@ import request from "supertest";
 import { Item } from "../../../../../../../models/catalog";
 import { createAccessToken } from "../../../../../../../tests/helpers/create_access_token/createAccessToken";
 import { Company } from "../../../../../../../models/core";
+import { createEmployeeWithCompany } from "../../../../../../../tests/helpers";
 
 let app: Express;
 
 describe("GET#list", () => {
   const URL = "/employee/v1/catalog/items";
+  const getUrl = ({ companyId }: { companyId: number }) =>
+    `${URL}?page=1&per_page=1000&company_id=${companyId}`;
 
   beforeAll(async () => {
     const server = await createServer();
@@ -24,7 +27,7 @@ describe("GET#list", () => {
     beforeEach(async () => {
       company = await Factories.Company();
 
-      const employee = await Factories.Employee({ company });
+      const employee = await createEmployeeWithCompany({ company });
       accessToken = await createAccessToken({ employee });
     });
 
@@ -42,7 +45,7 @@ describe("GET#list", () => {
       });
       it("returns the user company items", async () => {
         const response = await request(app)
-          .get(`${URL}?page=1&per_page=1000`)
+          .get(getUrl({ companyId: company.id }))
           .set("Authorization", `Bearer ${accessToken}`);
 
         expect(response.status).toBe(200);
@@ -55,7 +58,7 @@ describe("GET#list", () => {
       });
       it("don't return the items from another companies", async () => {
         const response = await request(app)
-          .get(`${URL}?page=1&per_page=1000`)
+          .get(getUrl({ companyId: company.id }))
           .set("Authorization", `Bearer ${accessToken}`);
 
         expect(response.status).toBe(200);

@@ -16,7 +16,6 @@ export const customerFactory = async ({
   customer.email = email ?? faker.internet.email();
   customer.password = password ?? faker.internet.password();
   customer.company = company ?? (await companyFactory());
-  await customer.save();
 
-  return customer;
+  return customer.save();
 };

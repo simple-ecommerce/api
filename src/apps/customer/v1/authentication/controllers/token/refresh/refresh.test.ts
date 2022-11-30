@@ -37,11 +37,10 @@ describe("POST#refresh", () => {
         });
       expect(response.status).toBe(201);
       expect(response.body.access_token).toBeDefined();
-      const { companyId, refreshTokenId, userId, userType } = await new Coder(
+      const { refreshTokenId, userId, userType } = await new Coder(
         response.body.access_token
       ).decode();
 
-      expect(companyId).toBe(customer.company.id);
       expect(refreshTokenId).toBe(refreshToken.id);
       expect(userId).toBe(customer.id);
       expect(userType).toBe(UserType.CUSTOMER);

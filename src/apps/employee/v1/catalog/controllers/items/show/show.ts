@@ -12,6 +12,17 @@ export const show = async (
     .byId(Number(req.params.id))
     .one();
 
+  if (item?.companyId !== res.locals.company.id) {
+    res.locals.response = {
+      status: 404,
+      body: {
+        message: "Couldn't find item",
+      },
+    };
+
+    return next();
+  }
+
   res.locals.response = item
     ? {
         status: 200,

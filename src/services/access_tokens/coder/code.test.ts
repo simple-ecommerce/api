@@ -36,7 +36,6 @@ describe("services#access_tokens#coder", () => {
         const coder = new Coder();
         await coder.encode(payload);
         const decoded = await coder.decode();
-        expect(decoded.companyId).toBe(payload.companyId);
         expect(decoded.refreshTokenId).toBe(payload.refreshTokenId);
         expect(decoded.userId).toBe(payload.userId);
       });

@@ -13,7 +13,6 @@ export const createAccessToken = async ({
   if (employee) {
     const refreshToken = await Factories.RefreshToken({ employee });
     return await new Services.AccessTokens.Coder().encode({
-      companyId: employee.companyId,
       refreshTokenId: refreshToken.id,
       userId: employee.id,
       userType: UserType.EMPLOYEE,
@@ -22,7 +21,6 @@ export const createAccessToken = async ({
   if (customer) {
     const refreshToken = await Factories.RefreshToken({ customer });
     return await new Services.AccessTokens.Coder().encode({
-      companyId: customer.companyId,
       refreshTokenId: refreshToken.id,
       userId: customer.id,
       userType: UserType.CUSTOMER,

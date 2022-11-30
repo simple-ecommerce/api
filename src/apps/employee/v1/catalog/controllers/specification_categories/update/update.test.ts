@@ -4,6 +4,7 @@ import { Express } from "express-serve-static-core";
 import { Factories } from "../../../../../../../database/factories";
 import { createAccessToken } from "../../../../../../../tests/helpers/create_access_token/createAccessToken";
 import request from "supertest";
+import { createEmployeeWithCompany } from "../../../../../../../tests/helpers";
 
 let app: Express;
 
@@ -20,9 +21,10 @@ describe("catalog#specification_categories#controllers#PUT#update", () => {
     describe("the specification belongs to the user company", () => {
       describe("the payload is valid", () => {
         it("updates the given specification", async () => {
-          const employee = await Factories.Employee();
+          const company = await Factories.Company();
+          const employee = await createEmployeeWithCompany({ company });
           const specification = await Factories.SpecificationCategory({
-            company: employee.company,
+            company,
           });
           const accessToken = await createAccessToken({ employee });
           const payload = {
@@ -44,9 +46,10 @@ describe("catalog#specification_categories#controllers#PUT#update", () => {
           expect(specification.internalName).toBe(payload.internal_name);
         });
         it("returns the updated specification", async () => {
-          const employee = await Factories.Employee();
+          const company = await Factories.Company();
+          const employee = await createEmployeeWithCompany({ company });
           const specification = await Factories.SpecificationCategory({
-            company: employee.company,
+            company,
           });
           const accessToken = await createAccessToken({ employee });
           const payload = {

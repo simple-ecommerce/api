@@ -32,7 +32,6 @@ describe("POST#revoke", () => {
     const employee = await employeeFactory();
     const refreshToken = await refreshTokenFactory({ employee });
     const accessToken = await new Coder().encode({
-      companyId: employee.company.id,
       refreshTokenId: refreshToken.id,
       userId: employee.id,
       userType: UserType.EMPLOYEE,

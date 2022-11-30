@@ -12,6 +12,7 @@ export const specificationSchemas: {
           name: yup.string().required(),
           description: yup.string().required(),
           internalName: yup.string().required(),
+          companyId: yup.number().required(),
         })
         .noUnknown(true),
     },
@@ -22,6 +23,7 @@ export const specificationSchemas: {
           name: yup.string().optional(),
           description: yup.string().optional(),
           internalName: yup.string().optional(),
+          companyId: yup.number().required(),
         })
         .noUnknown(true),
       params: yup
@@ -37,6 +39,7 @@ export const specificationSchemas: {
         .shape({
           page: yup.number().min(1),
           perPage: yup.number().min(1),
+          companyId: yup.number().required(),
         })
         .noUnknown(true),
     },
@@ -47,12 +50,24 @@ export const specificationSchemas: {
           id: yup.number().required(),
         })
         .noUnknown(true),
+      query: yup
+        .object()
+        .shape({
+          companyId: yup.number().required(),
+        })
+        .noUnknown(true),
     },
     remove: {
       params: yup
         .object()
         .shape({
           id: yup.number().required(),
+        })
+        .noUnknown(true),
+      query: yup
+        .object()
+        .shape({
+          companyId: yup.number().required(),
         })
         .noUnknown(true),
     },
@@ -69,6 +84,7 @@ export const specificationSchemas: {
           .shape({
             name: yup.string().required(),
             description: yup.string().required(),
+            companyId: yup.number().required(),
           })
           .noUnknown(true),
       },
@@ -80,6 +96,9 @@ export const specificationSchemas: {
             specificationId: yup.number().required(),
           })
           .noUnknown(true),
+        query: yup.object().shape({
+          companyId: yup.number().required(),
+        }),
       },
     },
   };

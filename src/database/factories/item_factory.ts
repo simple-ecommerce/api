@@ -31,7 +31,6 @@ export const itemFactory = async ({
   item.sku = sku ?? faker.random.alphaNumeric(10);
   item.ean = ean ?? faker.random.alphaNumeric(10);
   item.brand = brand ?? faker.company.name();
-  await item.save();
 
-  return item;
+  return item.save();
 };

@@ -6,11 +6,14 @@ import { Factories } from "../../../../../../../database/factories";
 import { createAccessToken } from "../../../../../../../tests/helpers/create_access_token/createAccessToken";
 import { SpecificationCategory } from "../../../../../../../models/catalog";
 import request from "supertest";
+import { createEmployeeWithCompany } from "../../../../../../../tests/helpers";
 
 let app: Express;
 
 describe("catalog#specification_categories#list_controller", () => {
   const URL = "/employee/v1/catalog/specification_categories";
+  const buildUrl = (companyId: number) =>
+    `${URL}?page=1&per_page=1000&company_id=${companyId}`;
 
   beforeAll(async () => {
     const server = await createServer();
@@ -24,7 +27,7 @@ describe("catalog#specification_categories#list_controller", () => {
     beforeEach(async () => {
       company = await Factories.Company();
 
-      const employee = await Factories.Employee({ company });
+      const employee = await createEmployeeWithCompany({ company });
       accessToken = await createAccessToken({ employee });
     });
 
@@ -45,7 +48,7 @@ describe("catalog#specification_categories#list_controller", () => {
       });
       it("returns the user company specification categories", async () => {
         const response = await request(app)
-          .get(`${URL}?page=1&per_page=1000`)
+          .get(buildUrl(company.id))
           .set("Authorization", `Bearer ${accessToken}`);
 
         expect(response.status).toBe(200);
@@ -60,7 +63,7 @@ describe("catalog#specification_categories#list_controller", () => {
       });
       it("don't return the specification categories from another companies", async () => {
         const response = await request(app)
-          .get(`${URL}?page=1&per_page=1000`)
+          .get(buildUrl(company.id))
           .set("Authorization", `Bearer ${accessToken}`);
 
         anotherCompanySpecificationCategories.forEach(
@@ -79,7 +82,7 @@ describe("catalog#specification_categories#list_controller", () => {
         await Factories.Specification({ category: specificationCategories[2] });
 
         const response = await request(app)
-          .get(`${URL}?page=1&per_page=1000`)
+          .get(buildUrl(company.id))
           .set("Authorization", `Bearer ${accessToken}`);
 
         response.body.results.forEach((specificationCategory: any) => {

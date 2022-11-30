@@ -19,7 +19,7 @@ export const tokenHandlers = {
   ],
   revoke: [
     Middlewares.transformRequestToCamelCase,
-    Middlewares.checkUserAuthentication,
+    Middlewares.checkEmployeeAuthentication,
     Middlewares.validateSchema(ValidationSchemas.Token.revoke),
     Controllers.Token.Revoke,
     Middlewares.transformResponseToSnakeCase,

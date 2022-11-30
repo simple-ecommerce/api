@@ -30,7 +30,5 @@ export const refreshTokenFactory = async ({
   refreshToken.employee = employee ?? (await employeeFactory());
   refreshToken.application = application ?? Application.CUSTOMER_WEB_APP;
 
-  await refreshToken.save();
-
-  return refreshToken;
+  return refreshToken.save();
 };

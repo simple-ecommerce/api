@@ -5,7 +5,7 @@ import { ValidationSchemas } from "../validation_schemas";
 export const specificationCategoriesHandlers = {
   list: [
     Middlewares.transformRequestToCamelCase,
-    Middlewares.checkUserAuthentication,
+    Middlewares.checkEmployeeAuthentication,
     Middlewares.validateSchema(ValidationSchemas.Specification.list),
     Controllers.SpecificationCategories.List,
     Middlewares.transformResponseToSnakeCase,
@@ -13,7 +13,7 @@ export const specificationCategoriesHandlers = {
   ],
   create: [
     Middlewares.transformRequestToCamelCase,
-    Middlewares.checkUserAuthentication,
+    Middlewares.checkEmployeeAuthentication,
     Middlewares.validateSchema(ValidationSchemas.Specification.create),
     Controllers.SpecificationCategories.Create,
     Middlewares.transformResponseToSnakeCase,
@@ -21,7 +21,7 @@ export const specificationCategoriesHandlers = {
   ],
   show: [
     Middlewares.transformRequestToCamelCase,
-    Middlewares.checkUserAuthentication,
+    Middlewares.checkEmployeeAuthentication,
     Middlewares.validateSchema(ValidationSchemas.Specification.show),
     Controllers.SpecificationCategories.Show,
     Middlewares.transformResponseToSnakeCase,
@@ -29,7 +29,7 @@ export const specificationCategoriesHandlers = {
   ],
   update: [
     Middlewares.transformRequestToCamelCase,
-    Middlewares.checkUserAuthentication,
+    Middlewares.checkEmployeeAuthentication,
     Middlewares.validateSchema(ValidationSchemas.Specification.update),
     Controllers.SpecificationCategories.Update,
     Middlewares.transformResponseToSnakeCase,
@@ -37,7 +37,7 @@ export const specificationCategoriesHandlers = {
   ],
   remove: [
     Middlewares.transformRequestToCamelCase,
-    Middlewares.checkUserAuthentication,
+    Middlewares.checkEmployeeAuthentication,
     Middlewares.validateSchema(ValidationSchemas.Specification.remove),
     Controllers.SpecificationCategories.Remove,
     Middlewares.transformResponseToSnakeCase,
@@ -46,7 +46,7 @@ export const specificationCategoriesHandlers = {
   specifications: {
     create: [
       Middlewares.transformRequestToCamelCase,
-      Middlewares.checkUserAuthentication,
+      Middlewares.checkEmployeeAuthentication,
       Middlewares.validateSchema(
         ValidationSchemas.Specification.options.create
       ),
@@ -56,7 +56,7 @@ export const specificationCategoriesHandlers = {
     ],
     remove: [
       Middlewares.transformRequestToCamelCase,
-      Middlewares.checkUserAuthentication,
+      Middlewares.checkEmployeeAuthentication,
       Middlewares.validateSchema(
         ValidationSchemas.Specification.options.remove
       ),

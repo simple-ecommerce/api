@@ -40,7 +40,6 @@ export class RefreshTokensCreator {
     return jwt.sign(
       {
         userId: this.user.id,
-        companyId: this.user.companyId,
         userType: this.userType,
       },
       process.env.REFRESH_TOKEN_SECRET ?? "",

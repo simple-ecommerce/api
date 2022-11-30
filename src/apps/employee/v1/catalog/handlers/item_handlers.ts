@@ -5,7 +5,7 @@ import { ValidationSchemas } from "../validation_schemas";
 export const itemHandlers = {
   list: [
     Middlewares.transformRequestToCamelCase,
-    Middlewares.checkUserAuthentication,
+    Middlewares.checkEmployeeAuthentication,
     Middlewares.validateSchema(ValidationSchemas.Item.list),
     Controllers.Items.List,
     Middlewares.transformResponseToSnakeCase,
@@ -13,7 +13,7 @@ export const itemHandlers = {
   ],
   create: [
     Middlewares.transformRequestToCamelCase,
-    Middlewares.checkUserAuthentication,
+    Middlewares.checkEmployeeAuthentication,
     Middlewares.validateSchema(ValidationSchemas.Item.create),
     Controllers.Items.Create,
     Middlewares.transformResponseToSnakeCase,
@@ -21,7 +21,7 @@ export const itemHandlers = {
   ],
   show: [
     Middlewares.transformRequestToCamelCase,
-    Middlewares.checkUserAuthentication,
+    Middlewares.checkEmployeeAuthentication,
     Middlewares.validateSchema(ValidationSchemas.Item.show),
     Controllers.Items.Show,
     Middlewares.transformResponseToSnakeCase,
@@ -29,7 +29,7 @@ export const itemHandlers = {
   ],
   update: [
     Middlewares.transformRequestToCamelCase,
-    Middlewares.checkUserAuthentication,
+    Middlewares.checkEmployeeAuthentication,
     Middlewares.validateSchema(ValidationSchemas.Item.update),
     Controllers.Items.Update,
     Middlewares.transformResponseToSnakeCase,
@@ -37,7 +37,7 @@ export const itemHandlers = {
   ],
   remove: [
     Middlewares.transformRequestToCamelCase,
-    Middlewares.checkUserAuthentication,
+    Middlewares.checkEmployeeAuthentication,
     Middlewares.validateSchema(ValidationSchemas.Item.remove),
     Controllers.Items.Remove,
     Middlewares.transformResponseToSnakeCase,

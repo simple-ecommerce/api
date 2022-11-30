@@ -4,10 +4,17 @@ import { Express } from "express-serve-static-core";
 import request from "supertest";
 import { createAccessToken } from "../../../../../../../tests/helpers/create_access_token/createAccessToken";
 import { Factories } from "../../../../../../../database/factories";
-import { Employee } from "../../../../../../../models/core";
+import { Company, Employee } from "../../../../../../../models/core";
+import { createEmployeeWithCompany } from "../../../../../../../tests/helpers";
 
 let app: Express;
-const getUrl = (id: number | string) => `/employee/v1/catalog/items/${id}`;
+const getUrl = ({
+  itemId,
+  companyId,
+}: {
+  itemId: number | string;
+  companyId: number;
+}) => `/employee/v1/catalog/items/${itemId}?company_id=${companyId}`;
 
 describe("DELETE#remove", () => {
   beforeAll(async () => {
@@ -19,21 +26,23 @@ describe("DELETE#remove", () => {
     describe("the item belongs to the user company", () => {
       let accessToken: string;
       let employee: Employee;
+      let company: Company;
       beforeAll(async () => {
-        employee = await Factories.Employee();
+        company = await Factories.Company();
+        employee = await createEmployeeWithCompany({ company });
         accessToken = await createAccessToken({ employee });
       });
       it("removes the item", async () => {
-        const item = await Factories.Item({ company: employee.company });
+        const item = await Factories.Item({ company });
         const response = await request(app)
-          .delete(getUrl(item.id))
+          .delete(getUrl({ itemId: item.id, companyId: company.id }))
           .set("Authorization", `Bearer ${accessToken}`);
         expect(response.status).toBe(200);
       });
       it("returns the removed item", async () => {
-        const item = await Factories.Item({ company: employee.company });
+        const item = await Factories.Item({ company });
         const response = await request(app)
-          .delete(getUrl(item.id))
+          .delete(getUrl({ itemId: item.id, companyId: company.id }))
           .set("Authorization", `Bearer ${accessToken}`);
 
         expect(response.body.id).toEqual(item.id);
@@ -46,10 +55,12 @@ describe("DELETE#remove", () => {
     describe("the item does not belong to the user company", () => {
       it("should not remove the item", async () => {
         const item = await Factories.Item();
-        const employee = await Factories.Employee();
+        const company = await Factories.Company();
+        const employee = await createEmployeeWithCompany({ company });
         const accessToken = await createAccessToken({ employee });
+
         const response = await request(app)
-          .delete(getUrl(item.id))
+          .delete(getUrl({ itemId: item.id, companyId: item.companyId }))
           .set("Authorization", `Bearer ${accessToken}`);
 
         expect(response.status).toBe(403);
@@ -57,10 +68,12 @@ describe("DELETE#remove", () => {
     });
     describe("the payload is invalid", () => {
       it("returns a 400 status", async () => {
-        const employee = await Factories.Employee();
+        const company = await Factories.Company();
+        const employee = await createEmployeeWithCompany({ company });
         const accessToken = await createAccessToken({ employee });
+
         const response = await request(app)
-          .get(getUrl("invalid"))
+          .get(getUrl({ itemId: "invalid", companyId: company.id }))
           .set("Authorization", `Bearer ${accessToken}`);
 
         expect(response.status).toBe(400);

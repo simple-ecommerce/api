@@ -27,7 +27,7 @@ export class Customer extends BaseEntity {
   @Column({ name: "company_id" })
   companyId: number;
 
-  @ManyToOne(() => Company, (company) => company.customers)
+  @ManyToOne(() => Company, (company) => company.customers, { eager: true })
   @JoinColumn({ name: "company_id" })
   company: Company;
 

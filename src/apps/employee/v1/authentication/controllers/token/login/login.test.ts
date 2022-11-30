@@ -17,7 +17,6 @@ describe("POST#login", () => {
     it("returns the tokens", async () => {
       const company = await companyFactory({ name: "Company" });
       const employee = await employeeFactory({
-        company,
         email: "user@company.com",
         password: "123456",
       });
@@ -40,7 +39,6 @@ describe("POST#login", () => {
     it("returns a 401 status", async () => {
       const company = await companyFactory({ name: "Company" });
       const employee = await employeeFactory({
-        company,
         email: "user@company.com",
         password: "123456",
       });
@@ -60,7 +58,6 @@ describe("POST#login", () => {
     it("returns a 401 status", async () => {
       const companyA = await companyFactory({ name: "Company" });
       const employee = await employeeFactory({
-        company: companyA,
         email: "user@company.com",
         password: "123456",
       });

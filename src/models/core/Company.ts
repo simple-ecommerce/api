@@ -7,6 +7,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  ManyToMany,
 } from "typeorm";
 import { Item, SpecificationCategory } from "../catalog";
 import { Customer } from "./Customer";
@@ -23,7 +24,7 @@ export class Company extends BaseEntity {
   @OneToMany(() => Customer, (customer) => customer.company)
   customers: Customer[];
 
-  @OneToMany(() => Employee, (employee) => employee.company)
+  @ManyToMany(() => Employee, (employee) => employee.companies)
   employees: Employee[];
 
   @OneToMany(

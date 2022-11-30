@@ -17,6 +17,7 @@ export const itemSchemas: {
         upc: yup.string().optional(),
         gtin: yup.string().optional(),
         brand: yup.string().optional(),
+        companyId: yup.number().required(),
       })
       .noUnknown(true),
   },
@@ -33,6 +34,7 @@ export const itemSchemas: {
         upc: yup.string().optional(),
         gtin: yup.string().optional(),
         brand: yup.string().optional(),
+        companyId: yup.number().required(),
       })
       .noUnknown(true),
     params: yup
@@ -48,6 +50,7 @@ export const itemSchemas: {
       .shape({
         page: yup.number().min(1),
         perPage: yup.number().min(1),
+        companyId: yup.number().required(),
       })
       .noUnknown(true),
   },
@@ -58,6 +61,9 @@ export const itemSchemas: {
         id: yup.number().required(),
       })
       .noUnknown(true),
+    query: yup.object().shape({
+      companyId: yup.number().required(),
+    }),
   },
   remove: {
     params: yup
@@ -66,5 +72,8 @@ export const itemSchemas: {
         id: yup.number().required(),
       })
       .noUnknown(true),
+    query: yup.object().shape({
+      companyId: yup.number().required(),
+    }),
   },
 };

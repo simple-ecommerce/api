@@ -4,6 +4,7 @@ import { Express } from "express-serve-static-core";
 import { Factories } from "../../../../../../../database/factories";
 import { createAccessToken } from "../../../../../../../tests/helpers/create_access_token/createAccessToken";
 import request from "supertest";
+import { createEmployeeWithCompany } from "../../../../../../../tests/helpers";
 
 let app: Express;
 
@@ -19,19 +20,23 @@ describe("PUT#update", () => {
     describe("the item belongs to the user company", () => {
       describe("the payload is valid", () => {
         it("updates the given item", async () => {
-          const employee = await Factories.Employee();
-          const item = await Factories.Item({ company: employee.company });
+          const company = await Factories.Company();
+          const employee = await createEmployeeWithCompany({ company });
+          const item = await Factories.Item({ company });
           const accessToken = await createAccessToken({ employee });
+
           const payload = {
             name: "new name",
             shortDescription: "new short description",
             longDescription: "new long description",
             price: 100,
+            company_id: company.id,
           };
           const response = await request(app)
             .patch(getUrl(item.id))
             .set("Authorization", `Bearer ${accessToken}`)
             .send(payload);
+
           expect(response.status).toBe(200);
 
           await item.reload();
@@ -42,14 +47,16 @@ describe("PUT#update", () => {
           expect(item.price).toBe(payload.price);
         });
         it("returns the updated item", async () => {
-          const employee = await Factories.Employee();
-          const item = await Factories.Item({ company: employee.company });
+          const company = await Factories.Company();
+          const employee = await createEmployeeWithCompany({ company });
+          const item = await Factories.Item({ company });
           const accessToken = await createAccessToken({ employee });
           const payload = {
             name: "new name",
-            shortDescription: "new short description",
-            longDescription: "new long description",
+            short_description: "new short description",
+            long_description: "new long description",
             price: 100,
+            company_id: company.id,
           };
           const response = await request(app)
             .patch(getUrl(item.id))
@@ -58,31 +65,12 @@ describe("PUT#update", () => {
           expect(response.body.id).toEqual(item.id);
           expect(response.body.name).toEqual(payload.name);
           expect(response.body.short_description).toEqual(
-            payload.shortDescription
+            payload.short_description
           );
           expect(response.body.long_description).toEqual(
-            payload.longDescription
+            payload.long_description
           );
           expect(response.body.price).toEqual(payload.price);
-        });
-      });
-      describe("the payload is invalid", () => {
-        it("returns a 400 status", async () => {
-          const item = await Factories.Item();
-          const employee = await Factories.Employee();
-          const accessToken = await createAccessToken({ employee });
-          const payload = {
-            name: "new name",
-            shortDescription: "new short description",
-            longDescription: "new long description",
-            price: "invalid price",
-            invalidField: "invalid field",
-          };
-          const response = await request(app)
-            .patch(getUrl(item.id))
-            .set("Authorization", `Bearer ${accessToken}`)
-            .send(payload);
-          expect(response.status).toBe(400);
         });
       });
     });
@@ -93,9 +81,10 @@ describe("PUT#update", () => {
         const accessToken = await createAccessToken({ employee });
         const payload = {
           name: "new name",
-          shortDescription: "new short description",
-          longDescription: "new long description",
+          short_description: "new short description",
+          long_description: "new long description",
           price: 100,
+          company_id: item.companyId,
         };
         const response = await request(app)
           .patch(getUrl(item.id))
