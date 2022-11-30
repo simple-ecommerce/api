@@ -15,24 +15,29 @@ export const checkEmployeeAuthenticationMiddleware = async (
   const accessTokenCoder = new AccessTokens.Coder(token);
   const payload = await accessTokenCoder.decode();
 
-  const companyId: number = (() => {
-    if (req.method === "GET" || req.method === "DELETE") {
+  const companyId: number | null = (() => {
+    if (req.method === "GET" || req.method === "DELETE")
       return Number(req.query.companyId);
-    }
-    return req.body.companyId;
+
+    if (req.method === "POST" || req.method === "PUT" || req.method === "PATCH")
+      return req.body.companyId;
+
+    return null;
   })();
 
   //append company to request
-  const companyFinder = new Companies.Finder(companyId);
-  const company = await companyFinder.find();
+  if (companyId) {
+    const companyFinder = new Companies.Finder(companyId);
+    const company = await companyFinder.find();
 
-  if (!company)
-    return res.sendStatus(404).json({ message: "Couldn't find company" });
+    if (!company)
+      return res.sendStatus(404).json({ message: "Couldn't find company" });
 
-  res.locals = {
-    ...res.locals,
-    company,
-  };
+    res.locals = {
+      ...res.locals,
+      company,
+    };
+  }
 
   //append employee to request
   const employee = await new Employees.Finder(payload.userId).find();
@@ -43,7 +48,11 @@ export const checkEmployeeAuthenticationMiddleware = async (
     employee,
   };
 
-  if (!employee.companies.map((company) => company.id).includes(company?.id))
+  if (
+    companyId &&
+    Array.isArray(employee.companies) &&
+    !employee.companies.map((company) => company.id).includes(companyId)
+  )
     return res.sendStatus(403);
 
   next();
