@@ -25,4 +25,14 @@ export const employeeCompaniesSeed = async ({
     company: companies.dunderMifflin,
     employee: employees.pam,
   });
+
+  await employeeCompanyFactory({
+    company: companies.arasaka,
+    employee: employees.superAdmin,
+  });
+
+  await employeeCompanyFactory({
+    company: companies.dunderMifflin,
+    employee: employees.superAdmin,
+  });
 };

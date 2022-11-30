@@ -31,5 +31,10 @@ export const employeesSeed = async ({
     isAdmin: false,
   });
 
-  return { michaelScott, pam, saburo, yorinobu };
+  const superAdmin = await employeeFactory({
+    email: "super_admin@email.com",
+    password: "10203040",
+  });
+
+  return { michaelScott, pam, saburo, yorinobu, superAdmin };
 };
