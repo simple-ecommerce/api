@@ -13,47 +13,55 @@ export const checkEmployeeAuthenticationMiddleware = async (
     return res.sendStatus(401);
   }
   const accessTokenCoder = new AccessTokens.Coder(token);
-  const payload = await accessTokenCoder.decode();
+  try {
+    const payload = await accessTokenCoder.decode();
 
-  const companyId: number | null = (() => {
-    if (req.method === "GET" || req.method === "DELETE")
-      return Number(req.query.companyId);
+    const companyId: number | null = (() => {
+      if (req.method === "GET" || req.method === "DELETE")
+        return Number(req.query.companyId);
 
-    if (req.method === "POST" || req.method === "PUT" || req.method === "PATCH")
-      return req.body.companyId;
+      if (
+        req.method === "POST" ||
+        req.method === "PUT" ||
+        req.method === "PATCH"
+      )
+        return req.body.companyId;
 
-    return null;
-  })();
+      return null;
+    })();
 
-  //append company to request
-  if (companyId) {
-    const companyFinder = new Companies.Finder(companyId);
-    const company = await companyFinder.find();
+    //append company to request
+    if (companyId) {
+      const companyFinder = new Companies.Finder(companyId);
+      const company = await companyFinder.find();
 
-    if (!company)
-      return res.sendStatus(404).json({ message: "Couldn't find company" });
+      if (!company)
+        return res.sendStatus(404).json({ message: "Couldn't find company" });
+
+      res.locals = {
+        ...res.locals,
+        company,
+      };
+    }
+
+    //append employee to request
+    const employee = await new Employees.Finder(payload.userId).find();
+    if (!employee) return res.sendStatus(403);
 
     res.locals = {
       ...res.locals,
-      company,
+      employee,
     };
-  }
 
-  //append employee to request
-  const employee = await new Employees.Finder(payload.userId).find();
-  if (!employee) return res.sendStatus(403);
+    if (
+      companyId &&
+      Array.isArray(employee.companies) &&
+      !employee.companies.map((company) => company.id).includes(companyId)
+    )
+      return res.sendStatus(403);
 
-  res.locals = {
-    ...res.locals,
-    employee,
-  };
-
-  if (
-    companyId &&
-    Array.isArray(employee.companies) &&
-    !employee.companies.map((company) => company.id).includes(companyId)
-  )
+    next();
+  } catch (error) {
     return res.sendStatus(403);
-
-  next();
+  }
 };
