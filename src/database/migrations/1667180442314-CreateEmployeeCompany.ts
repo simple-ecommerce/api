@@ -11,8 +11,8 @@ export class CreateEmployeeCompany1667180442314 implements MigrationInterface {
       new Table({
         name: "employee_companies",
         columns: [
-          { name: "company_id", type: "varchar", isPrimary: true },
-          { name: "employee_id", type: "varchar", isPrimary: true },
+          { name: "company_id", type: "int", isPrimary: true },
+          { name: "employee_id", type: "int", isPrimary: true },
           {
             name: "created_at",
             type: "timestamp",
@@ -33,7 +33,7 @@ export class CreateEmployeeCompany1667180442314 implements MigrationInterface {
       })
     );
     queryRunner.createForeignKey(
-      "employees",
+      "employee_companies",
       new TableForeignKey({
         name: "FK_EmployeeCompany_Employee",
         columnNames: ["employee_id"],
@@ -44,7 +44,7 @@ export class CreateEmployeeCompany1667180442314 implements MigrationInterface {
       })
     );
     queryRunner.createForeignKey(
-      "companies",
+      "employee_companies",
       new TableForeignKey({
         name: "FK_EmployeeCompany_Company",
         columnNames: ["company_id"],

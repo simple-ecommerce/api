@@ -10,12 +10,10 @@ import {
 
 @Entity("employee_companies")
 export class EmployeeCompany extends BaseEntity {
-  @Column({ name: "employee_id" })
-  @PrimaryColumn()
+  @PrimaryColumn({ name: "employee_id" })
   employeeId: number;
 
-  @Column({ name: "company_id" })
-  @PrimaryColumn()
+  @PrimaryColumn({ name: "company_id" })
   companyId: number;
 
   @CreateDateColumn({ name: "created_at" })

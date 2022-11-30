@@ -33,11 +33,11 @@ export class Employee extends BaseEntity {
   @JoinTable({
     name: "employee_companies",
     joinColumn: {
-      name: "employeeId",
+      name: "employee_id",
       referencedColumnName: "id",
     },
     inverseJoinColumn: {
-      name: "companyId",
+      name: "company_id",
       referencedColumnName: "id",
     },
   })

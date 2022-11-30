@@ -31,6 +31,7 @@ const _findRefreshToken = async (token: string) => {
   const refreshToken = await new Services.RefreshTokens.Query()
     .byToken(token)
     .one();
+
   if (!refreshToken) throw new Error("Invalid refresh token");
 
   return refreshToken;
@@ -53,7 +54,6 @@ const _generateAccessToken = async ({
   const accessToken = await accessTokenCoder.encode({
     userId: refreshToken.employeeId,
     refreshTokenId: refreshToken.id,
-    companyId: employee.companyId,
     userType: UserType.EMPLOYEE,
   });
 

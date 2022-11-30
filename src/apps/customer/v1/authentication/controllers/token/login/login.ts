@@ -120,7 +120,6 @@ const _createTokens = async ({
 
   const accessTokenCoder = new Services.AccessTokens.Coder();
   const accessToken = await accessTokenCoder.encode({
-    companyId: company.id,
     refreshTokenId: refreshToken.id,
     userId: customer.id,
     userType: UserType.CUSTOMER,

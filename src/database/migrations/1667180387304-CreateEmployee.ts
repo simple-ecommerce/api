@@ -40,21 +40,9 @@ export class CreateEmployee1667180387304 implements MigrationInterface {
         ],
       })
     );
-    queryRunner.createForeignKey(
-      "employees",
-      new TableForeignKey({
-        name: "EmployeeCompany",
-        columnNames: ["company_id"],
-        referencedColumnNames: ["id"],
-        referencedTableName: "companies",
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
-      })
-    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.dropForeignKey("employees", "EmployeeCompany");
-    queryRunner.dropTable("employee");
+    queryRunner.dropTable("employees");
   }
 }

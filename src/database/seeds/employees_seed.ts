@@ -10,28 +10,24 @@ export const employeesSeed = async ({
   const michaelScott = await employeeFactory({
     email: "michaelscott@dundermifflin.com",
     password: "10203040",
-    company: companies.dunderMifflin,
     isAdmin: true,
   });
 
   const pam = await employeeFactory({
     email: "pam@dundermifflin.com",
     password: "10203040",
-    company: companies.dunderMifflin,
     isAdmin: false,
   });
 
   const saburo = await employeeFactory({
     email: "saburo@arasaka.com",
     password: "10203040",
-    company: companies.arasaka,
     isAdmin: true,
   });
 
   const yorinobu = await employeeFactory({
     email: "yorinobu@arasaka.com",
     password: "10203040",
-    company: companies.arasaka,
     isAdmin: false,
   });
 

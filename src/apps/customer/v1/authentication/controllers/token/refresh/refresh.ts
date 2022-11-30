@@ -54,7 +54,6 @@ const _generateAccessToken = async ({
   const accessToken = await accessTokenCoder.encode({
     userId: refreshToken.customerId,
     refreshTokenId: refreshToken.id,
-    companyId: customer.companyId,
     userType: UserType.CUSTOMER,
   });
 
