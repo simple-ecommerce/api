@@ -10,6 +10,7 @@ export const tokenSchemas: {
       .shape({
         email: yup.string().email().required(),
         password: yup.string().required(),
+        companyId: yup.string().required(),
       })
       .noUnknown(true),
   },

@@ -30,8 +30,8 @@ export const checkCustomerAuthenticationMiddleware = async (
     };
 
     //append company to request
-    const companyFinder = new Companies.Finder(customer.companyId);
-    const company = await companyFinder.find();
+    const company = new Companies.Finder(customer.companyId).find();
+
     res.locals = {
       ...res.locals,
       company,

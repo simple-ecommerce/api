@@ -58,14 +58,14 @@ describe("POST#login", () => {
 
   describe("when the user have correct credentials from another company", () => {
     it("returns a 401 status", async () => {
-      const companyA = await companyFactory({ name: "Company" });
+      const companyA = await companyFactory();
       const customer = await customerFactory({
         company: companyA,
         email: "user@company.com",
         password: "123456",
       });
 
-      const companyB = await companyFactory({ name: "Company" });
+      const companyB = await companyFactory();
 
       const response = await request(app)
         .post("/customer/v1/authorization/login")
