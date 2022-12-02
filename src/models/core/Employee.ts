@@ -9,7 +9,10 @@ import {
   OneToMany,
   ManyToMany,
   JoinTable,
+  BeforeInsert,
+  BeforeUpdate,
 } from "typeorm";
+import { PasswordHasher } from "../../services/passwords/hasher/hasher";
 import { RefreshToken } from "../authentication";
 import { Company } from "./Company";
 
@@ -54,4 +57,12 @@ export class Employee extends BaseEntity {
 
   @DeleteDateColumn({ name: "deleted_at" })
   deletedAt: Date;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  async hashPassword() {
+    if (this.password) {
+      this.password = await PasswordHasher.hash({ password: this.password });
+    }
+  }
 }

@@ -93,6 +93,12 @@ const _validateCustomerPassword = async ({
   customer: Models.Core.Customer;
   res: Response;
 }) => {
+  const matches = await Services.Passwords.Hasher.compare({
+    password,
+    hash: customer.password,
+  });
+  if (matches) return;
+
   if (customer.password !== password) {
     res.locals.response = {
       status: 401,

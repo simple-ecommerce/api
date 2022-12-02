@@ -26,7 +26,7 @@ describe("POST#login", () => {
         .post("/customer/v1/authorization/login")
         .send({
           email: customer.email,
-          password: customer.password,
+          password: "123456",
           companyId: company.id,
         });
 
@@ -71,7 +71,7 @@ describe("POST#login", () => {
         .post("/customer/v1/authorization/login")
         .send({
           email: customer.email,
-          password: customer.password,
+          password: "123456",
           companyId: companyB.id,
         });
 

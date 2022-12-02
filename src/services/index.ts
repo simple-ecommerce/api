@@ -6,3 +6,4 @@ export * from "./employees";
 export * from "./items";
 export * from "./specification_categories";
 export * from "./specifications";
+export * from "./passwords";

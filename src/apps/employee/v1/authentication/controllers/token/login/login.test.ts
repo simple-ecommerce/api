@@ -14,12 +14,12 @@ describe("POST#login", () => {
 
   describe("when the user have correct credentials", () => {
     it("returns the tokens", async () => {
-      const employee = await Factories.Employee();
+      const employee = await Factories.Employee({ password: "password" });
       const response = await request(app)
         .post("/employee/v1/authorization/login")
         .send({
           email: employee.email,
-          password: employee.password,
+          password: "password",
         });
 
       expect(response.status).toBe(200);
