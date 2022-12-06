@@ -10,6 +10,10 @@ catalogRouter.patch("/items/:id", ...itemHandlers.update);
 catalogRouter.get("/items", ...itemHandlers.list);
 catalogRouter.delete("/items/:id", ...itemHandlers.remove);
 catalogRouter.get("/items/:id", ...itemHandlers.show);
+catalogRouter.get(
+  "/items/:item_id/specifications",
+  ...itemHandlers.specifications.list
+);
 
 //specification categories
 catalogRouter.post(
