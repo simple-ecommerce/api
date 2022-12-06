@@ -1,45 +1,30 @@
 import {
   BaseEntity,
   Column,
+  CreateDateColumn,
+  DeleteDateColumn,
   Entity,
-  JoinColumn,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
+  UpdateDateColumn,
 } from "typeorm";
-import { StockProduct } from "../stock/StockProduct";
-import { Specification } from "./Specification";
-import { Item } from "./Item";
 
-@Entity("items_specifications")
+@Entity("item_specifications")
 export class ItemSpecification extends BaseEntity {
-  @PrimaryGeneratedColumn("increment")
-  id: number;
-
-  @Column({ name: "item_id" })
+  @PrimaryColumn({ name: "item_id" })
   itemId: number;
 
-  @ManyToOne(() => Item, (item) => item.specifications)
-  @JoinColumn({ name: "item_id" })
-  item: Item;
-
-  @Column({ name: "specification_id" })
+  @PrimaryColumn({ name: "specification_id" })
   specificationId: number;
 
-  @ManyToOne(
-    () => Specification,
-    (specification) => specification.itemSpecifications
-  )
-  @JoinColumn({ name: "specification_id" })
-  specification: Specification;
-
-  @Column()
+  @Column({ name: "price_extra", default: 0 })
   priceExtra: number;
 
-  @ManyToMany(() => StockProduct, (stockProduct) => stockProduct.specifications)
-  @JoinTable({
-    name: "stock_product_specifications",
-  })
-  stockProducts: StockProduct[];
+  @UpdateDateColumn({ name: "updated_at" })
+  updatedAt: Date;
+
+  @CreateDateColumn({ name: "created_at" })
+  createdAt: Date;
+
+  @DeleteDateColumn({ name: "deleted_at" })
+  deletedAt: Date;
 }

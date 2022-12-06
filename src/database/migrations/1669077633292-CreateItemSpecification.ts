@@ -13,24 +13,12 @@ export class CreateItemSpecification1669077633292
       new Table({
         name: "item_specifications",
         columns: [
-          {
-            name: "id",
-            type: "int",
-            isPrimary: true,
-            isGenerated: true,
-            generationStrategy: "increment",
-          },
-          {
-            name: "item_id",
-            type: "int",
-          },
-          {
-            name: "specification_id",
-            type: "int",
-          },
+          { name: "item_id", type: "int", isPrimary: true },
+          { name: "specification_id", type: "int", isPrimary: true },
           {
             name: "price_extra",
             type: "bigint",
+            default: 0,
           },
           {
             name: "created_at",
@@ -55,7 +43,7 @@ export class CreateItemSpecification1669077633292
     queryRunner.createForeignKey(
       "item_specifications",
       new TableForeignKey({
-        name: "SpecificationItem",
+        name: "FK_ItemSpecification_Item",
         columnNames: ["item_id"],
         referencedColumnNames: ["id"],
         referencedTableName: "items",
@@ -67,7 +55,7 @@ export class CreateItemSpecification1669077633292
     queryRunner.createForeignKey(
       "item_specifications",
       new TableForeignKey({
-        name: "ItemSpecifications",
+        name: "FK_ItemSpecification_Specification",
         columnNames: ["specification_id"],
         referencedColumnNames: ["id"],
         referencedTableName: "specifications",
@@ -78,8 +66,14 @@ export class CreateItemSpecification1669077633292
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.dropForeignKey("item_specifications", "SpecificationItem");
-    queryRunner.dropForeignKey("item_specifications", "ItemSpecifications");
+    queryRunner.dropForeignKey(
+      "item_specifications",
+      "FK_ItemSpecification_Item"
+    );
+    queryRunner.dropForeignKey(
+      "item_specifications",
+      "FK_ItemSpecification_Specification"
+    );
     queryRunner.dropTable("item_specifications");
   }
 }

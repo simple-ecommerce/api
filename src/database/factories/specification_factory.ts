@@ -10,7 +10,7 @@ export const specificationFactory = async ({
   name?: string;
   description?: string;
   category?: SpecificationCategory;
-}) => {
+} = {}) => {
   const specification = new Specification();
 
   specification.name = name ?? faker.commerce.productAdjective();

@@ -4,6 +4,7 @@ import { customersSeed } from "./customers_seed";
 import { employeesSeed } from "./employees_seed";
 import { employeeCompaniesSeed } from "./employee_companies_seed";
 import { itemsSeed } from "./items_seed";
+import { itemSpecificationsSeed } from "./item_specifications_seed";
 import { specificationsSeed } from "./specifications_seed";
 import { specificationCategoriesSeed } from "./specification_categories_seed";
 
@@ -16,11 +17,12 @@ const seed = async () => {
   });
   await employeeCompaniesSeed({ companies, employees });
   await customersSeed({ companies });
-  await itemsSeed({ companies });
+  const items = await itemsSeed({ companies });
   const specificationCategories = await specificationCategoriesSeed({
     companies,
   });
-  await specificationsSeed({ specificationCategories });
+  const specifications = await specificationsSeed({ specificationCategories });
+  await itemSpecificationsSeed({ items, specifications });
 };
 
 seed();

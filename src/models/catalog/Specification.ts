@@ -5,13 +5,13 @@ import {
   DeleteDateColumn,
   Entity,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { SpecificationCategory } from "./SpecificationCategory";
-import { ItemSpecification } from "./ItemSpecification";
+import { Item } from "./Item";
 
 @Entity("specifications")
 export class Specification extends BaseEntity {
@@ -34,11 +34,8 @@ export class Specification extends BaseEntity {
   @JoinColumn({ name: "specification_category_id" })
   category: SpecificationCategory;
 
-  @OneToMany(
-    () => ItemSpecification,
-    (itemSpecification) => itemSpecification.specification
-  )
-  itemSpecifications: ItemSpecification[];
+  @ManyToMany(() => Item, (item) => item.specifications)
+  items: Item[];
 
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;

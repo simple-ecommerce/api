@@ -42,6 +42,6 @@ export const specificationsSeed = async ({
 
   return {
     dunderMifflin: { color: { white, yellow, green } },
-    companies: { size: { S, M, L, XL } },
+    arasaka: { size: { S, M, L, XL } },
   };
 };
