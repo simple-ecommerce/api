@@ -2,7 +2,7 @@ import * as yup from "yup";
 import { ValidationSchema } from "../../../../../utils/types/interfaces/ValidationSchema";
 
 export const itemSchemas: {
-  specifications: Record<"list", ValidationSchema>;
+  specifications: Record<"list" | "create", ValidationSchema>;
 } & Record<"create" | "update" | "list" | "show" | "remove", ValidationSchema> =
   {
     create: {
@@ -96,6 +96,22 @@ export const itemSchemas: {
           .shape({
             page: yup.number().min(1),
             perPage: yup.number().min(1),
+            companyId: yup.number().required(),
+          })
+          .noUnknown(true),
+      },
+      create: {
+        params: yup
+          .object()
+          .shape({
+            itemId: yup.number().required(),
+          })
+          .noUnknown(true),
+        body: yup
+          .object()
+          .shape({
+            specificationId: yup.number().required(),
+            priceExtra: yup.number().required(),
             companyId: yup.number().required(),
           })
           .noUnknown(true),

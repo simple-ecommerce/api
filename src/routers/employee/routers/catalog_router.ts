@@ -14,6 +14,10 @@ catalogRouter.get(
   "/items/:item_id/specifications",
   ...itemHandlers.specifications.list
 );
+catalogRouter.post(
+  "/items/:item_id/specifications",
+  ...itemHandlers.specifications.create
+);
 
 //specification categories
 catalogRouter.post(
