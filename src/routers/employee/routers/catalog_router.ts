@@ -18,6 +18,10 @@ catalogRouter.post(
   "/items/:item_id/specifications",
   ...itemHandlers.specifications.create
 );
+catalogRouter.delete(
+  "/items/:item_id/specifications/:specification_id",
+  ...itemHandlers.specifications.remove
+);
 
 //specification categories
 catalogRouter.post(

@@ -64,7 +64,7 @@ describe("employee#catalog##items#specifications#create_controller#POST", () => 
           expect(response.status).toBe(201);
         });
         it("should create the item specification", async () => {
-          const response = await request(app)
+          await request(app)
             .post(getUrl({ itemId: item.id }))
             .set("Authorization", `Bearer ${accessToken}`)
             .send({

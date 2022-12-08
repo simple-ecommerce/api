@@ -60,5 +60,13 @@ export const itemHandlers = {
       Middlewares.transformResponseToSnakeCase,
       Middlewares.sendResponse,
     ],
+    remove: [
+      Middlewares.transformRequestToCamelCase,
+      Middlewares.checkEmployeeAuthentication,
+      Middlewares.validateSchema(ValidationSchemas.Item.specifications.remove),
+      Controllers.Items.Specifications.remove,
+      Middlewares.transformResponseToSnakeCase,
+      Middlewares.sendResponse,
+    ],
   },
 };
