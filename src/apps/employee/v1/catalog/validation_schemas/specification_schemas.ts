@@ -40,6 +40,7 @@ export const specificationSchemas: {
           page: yup.number().min(1),
           perPage: yup.number().min(1),
           companyId: yup.number().required(),
+          itemId: yup.number().optional(),
         })
         .noUnknown(true),
     },

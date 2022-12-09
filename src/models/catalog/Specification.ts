@@ -7,11 +7,13 @@ import {
   JoinColumn,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { SpecificationCategory } from "./SpecificationCategory";
 import { Item } from "./Item";
+import { ItemSpecification } from "./ItemSpecification";
 
 @Entity("specifications")
 export class Specification extends BaseEntity {
@@ -37,6 +39,12 @@ export class Specification extends BaseEntity {
 
   @ManyToMany(() => Item, (item) => item.specifications)
   items: Item[];
+
+  @OneToMany(
+    () => ItemSpecification,
+    (itemSpecification) => itemSpecification.specification
+  )
+  itemSpecifications: ItemSpecification[];
 
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;

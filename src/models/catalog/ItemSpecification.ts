@@ -21,11 +21,11 @@ export class ItemSpecification extends BaseEntity {
   @PrimaryColumn({ name: "specification_id" })
   specificationId: number;
 
-  @ManyToOne(() => Item, (item) => item.id)
+  @ManyToOne(() => Item, (item) => item.specifications)
   @JoinColumn({ name: "item_id" })
   item: Item;
 
-  @ManyToOne(() => Specification, (specification) => specification.id)
+  @ManyToOne(() => Specification, (specification) => specification.items)
   @JoinColumn({ name: "specification_id" })
   specification: Specification;
 

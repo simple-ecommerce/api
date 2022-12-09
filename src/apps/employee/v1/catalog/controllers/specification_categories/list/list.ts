@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { AuthenticatedHandlerResponse } from "../../../../../../../utils/types/interfaces/AuthenticatedHandlerResponse";
 import * as Services from "../../../../../../../services";
+import { Serializers } from "../../../../../../../serializers";
 
 export const list = async (
   req: Request,
@@ -8,8 +9,9 @@ export const list = async (
   next: NextFunction
 ) => {
   const company = res.locals.company;
-  const { page, perPage } = req.query;
-  const specificationCategories =
+  const { page, perPage, itemId } = req.query;
+
+  const { pagination, results } =
     await new Services.SpecificationCategories.Query(
       new Services.SpecificationCategories.Query().query.leftJoinAndSelect(
         "specificationCategory.specifications",
@@ -17,13 +19,17 @@ export const list = async (
       )
     )
       .byCompany(company)
+      .byItem(itemId ? Number(itemId) : undefined)
       .page(Number(page))
       .perPage(Number(perPage))
       .paginated();
 
   res.locals.response = {
     status: 200,
-    body: specificationCategories,
+    body: {
+      pagination,
+      results: new Serializers.SpecificationCategory().serializeMany(results),
+    },
   };
 
   next();
