@@ -38,10 +38,11 @@ export const remove = async (
     return next();
   }
 
-  const itemSpecification = await new Services.ItemSpecifications.Finder({
-    item,
-    specification,
-  }).find();
+  const itemSpecification = await new Services.ItemSpecifications.Query()
+    .byCompany(company)
+    .byItem(item)
+    .bySpecification(specification)
+    .one();
 
   if (!itemSpecification) {
     res.locals.response = {

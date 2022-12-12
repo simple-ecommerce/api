@@ -47,7 +47,7 @@ export class SpecificationCategoriesQuery extends QueryService<SpecificationCate
         "specifications.itemSpecifications",
         "itemSpecifications"
       )
-      .leftJoin("specifications.items", "item")
+      .leftJoinAndSelect("itemSpecifications.item", "item")
       .where("item.id = :itemId", { itemId });
 
     return this;

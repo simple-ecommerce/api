@@ -5,7 +5,6 @@ import {
   DeleteDateColumn,
   Entity,
   JoinColumn,
-  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -36,9 +35,6 @@ export class Specification extends BaseEntity {
   )
   @JoinColumn({ name: "specification_category_id" })
   category: SpecificationCategory;
-
-  @ManyToMany(() => Item, (item) => item.specifications)
-  items: Item[];
 
   @OneToMany(
     () => ItemSpecification,

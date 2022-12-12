@@ -5,13 +5,13 @@ import {
   DeleteDateColumn,
   Entity,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { Company } from "../core";
+import { ItemSpecification } from "./ItemSpecification";
 import { Specification } from "./Specification";
 
 @Entity("items")
@@ -53,21 +53,11 @@ export class Item extends BaseEntity {
   @Column({ nullable: true })
   brand: string;
 
-  @ManyToMany(() => Specification, (specification) => specification.items, {
-    eager: true,
-  })
-  @JoinTable({
-    name: "item_specifications",
-    joinColumn: {
-      name: "item_id",
-      referencedColumnName: "id",
-    },
-    inverseJoinColumn: {
-      name: "specification_id",
-      referencedColumnName: "id",
-    },
-  })
-  specifications: Specification[];
+  @OneToMany(
+    () => ItemSpecification,
+    (itemSpecification) => itemSpecification.item
+  )
+  itemSpecifications: Specification[];
 
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;

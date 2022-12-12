@@ -2,19 +2,30 @@ import {
   MigrationInterface,
   QueryRunner,
   Table,
+  TableCheck,
   TableForeignKey,
+  TableIndex,
+  TableUnique,
+  Unique,
 } from "typeorm";
 
 export class CreateItemSpecification1669077633292
   implements MigrationInterface
 {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.createTable(
+    await queryRunner.createTable(
       new Table({
         name: "item_specifications",
         columns: [
-          { name: "item_id", type: "int", isPrimary: true },
-          { name: "specification_id", type: "int", isPrimary: true },
+          {
+            name: "id",
+            type: "int",
+            isPrimary: true,
+            isGenerated: true,
+            generationStrategy: "increment",
+          },
+          { name: "item_id", type: "int" },
+          { name: "specification_id", type: "int" },
           {
             name: "price_extra",
             type: "bigint",
@@ -40,7 +51,7 @@ export class CreateItemSpecification1669077633292
       })
     );
 
-    queryRunner.createForeignKey(
+    await queryRunner.createForeignKey(
       "item_specifications",
       new TableForeignKey({
         name: "FK_ItemSpecification_Item",
@@ -52,7 +63,7 @@ export class CreateItemSpecification1669077633292
       })
     );
 
-    queryRunner.createForeignKey(
+    await queryRunner.createForeignKey(
       "item_specifications",
       new TableForeignKey({
         name: "FK_ItemSpecification_Specification",
@@ -63,17 +74,31 @@ export class CreateItemSpecification1669077633292
         onUpdate: "CASCADE",
       })
     );
+
+    await queryRunner.createIndex(
+      "item_specifications",
+      new TableIndex({
+        name: "IDX_ItemSpecification_Item_Specification",
+        columnNames: ["item_id", "specification_id"],
+        isUnique: true,
+        where: "deleted_at IS NULL",
+      })
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.dropForeignKey(
+    await queryRunner.dropForeignKey(
       "item_specifications",
       "FK_ItemSpecification_Item"
     );
-    queryRunner.dropForeignKey(
+    await queryRunner.dropForeignKey(
       "item_specifications",
       "FK_ItemSpecification_Specification"
     );
-    queryRunner.dropTable("item_specifications");
+    await queryRunner.dropIndex(
+      "item_specifications",
+      "IDX_ItemSpecification_Item_Specification"
+    );
+    await queryRunner.dropTable("item_specifications");
   }
 }

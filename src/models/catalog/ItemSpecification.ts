@@ -4,28 +4,38 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
-  OneToMany,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { Item } from "./Item";
 import { Specification } from "./Specification";
 
 @Entity("item_specifications")
+@Index(["itemId", "specificationId"], {
+  where: "deleted_at IS NULL",
+  unique: true,
+})
 export class ItemSpecification extends BaseEntity {
-  @PrimaryColumn({ name: "item_id" })
+  @PrimaryGeneratedColumn("increment")
+  id: number;
+
+  @Column({ name: "item_id" })
   itemId: number;
 
-  @PrimaryColumn({ name: "specification_id" })
+  @Column({ name: "specification_id" })
   specificationId: number;
 
-  @ManyToOne(() => Item, (item) => item.specifications)
+  @ManyToOne(() => Item, (item) => item.itemSpecifications)
   @JoinColumn({ name: "item_id" })
   item: Item;
 
-  @ManyToOne(() => Specification, (specification) => specification.items)
+  @ManyToOne(
+    () => Specification,
+    (specification) => specification.itemSpecifications
+  )
   @JoinColumn({ name: "specification_id" })
   specification: Specification;
 

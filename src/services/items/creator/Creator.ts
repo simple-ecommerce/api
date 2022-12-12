@@ -53,7 +53,7 @@ export class ItemCreator {
       sku: this.sku,
       company: this.company,
       brand: this.brand,
-      specifications: this.specifications,
+      itemSpecifications: this.specifications,
       reload: false,
     });
 

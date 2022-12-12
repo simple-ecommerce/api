@@ -39,16 +39,34 @@ export const create = async (
     return next();
   }
 
-  const itemSpecification = await new Services.ItemSpecifications.Creator({
-    item,
-    specification,
-    priceExtra,
-  }).create();
+  try {
+    const itemSpecification = await new Services.ItemSpecifications.Creator({
+      item,
+      specification,
+      priceExtra,
+    }).create();
 
-  res.locals.response = {
-    status: 201,
-    body: itemSpecification,
-  };
-
-  next();
+    res.locals.response = {
+      status: 201,
+      body: itemSpecification,
+    };
+  } catch (error: any) {
+    if (error.code == "SQLITE_CONSTRAINT") {
+      res.locals.response = {
+        status: 409,
+        body: {
+          message: "Item specification already exists",
+        },
+      };
+      return next();
+    }
+    res.locals.response = {
+      status: 500,
+      body: {
+        message: "Internal server error",
+      },
+    };
+  } finally {
+    return next();
+  }
 };

@@ -28,7 +28,7 @@ describe("employee#catalog#items#specifications#remove#DELETE", () => {
   }) =>
     `/employee/v1/catalog/items/${itemId}/specifications/${specificationId}?company_id=${companyId}`;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     const server = await createServer();
     app = server.app;
   });
@@ -38,7 +38,7 @@ describe("employee#catalog#items#specifications#remove#DELETE", () => {
     let employee: Employee;
     let accessToken: string;
 
-    beforeAll(async () => {
+    beforeEach(async () => {
       company = await Factories.Company();
       employee = await createEmployeeWithCompany({ company });
       accessToken = await createAccessToken({ employee });
@@ -46,7 +46,7 @@ describe("employee#catalog#items#specifications#remove#DELETE", () => {
 
     describe("the item belongs to the employee company", () => {
       let item: Item;
-      beforeAll(async () => {
+      beforeEach(async () => {
         item = await Factories.Item({ company });
       });
       describe("the item specification belongs to the item", () => {
@@ -117,12 +117,13 @@ describe("employee#catalog#items#specifications#remove#DELETE", () => {
       });
       describe("the item specification don't belongs to the item", () => {
         let specification: Specification;
+        let itemSpecification: ItemSpecification;
 
         beforeEach(async () => {
           specification = await Factories.Specification({
             category: await Factories.SpecificationCategory({ company }),
           });
-          await Factories.ItemSpecification({
+          itemSpecification = await Factories.ItemSpecification({
             specification,
           });
         });
@@ -131,8 +132,8 @@ describe("employee#catalog#items#specifications#remove#DELETE", () => {
           const response = await request(app)
             .delete(
               getUrl({
-                itemId: item.id,
-                specificationId: specification.id,
+                itemId: itemSpecification.itemId,
+                specificationId: itemSpecification.specificationId,
                 companyId: company.id,
               })
             )
@@ -146,9 +147,9 @@ describe("employee#catalog#items#specifications#remove#DELETE", () => {
       let item: Item;
       let itemCompany: Company;
 
-      beforeAll(async () => {
+      beforeEach(async () => {
         itemCompany = await Factories.Company();
-        item = await Factories.Item({ company });
+        item = await Factories.Item({ company: itemCompany });
       });
 
       describe("the item specification belongs to the item", () => {
