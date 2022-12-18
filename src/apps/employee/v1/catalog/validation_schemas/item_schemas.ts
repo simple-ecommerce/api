@@ -3,6 +3,7 @@ import { ValidationSchema } from "../../../../../utils/types/interfaces/Validati
 
 export const itemSchemas: {
   specifications: Record<"list" | "create" | "remove", ValidationSchema>;
+  images: Record<"create" | "update" | "remove", ValidationSchema>;
 } & Record<"create" | "update" | "list" | "show" | "remove", ValidationSchema> =
   {
     create: {
@@ -122,6 +123,54 @@ export const itemSchemas: {
           .shape({
             itemId: yup.number().required(),
             specificationId: yup.number().required(),
+          })
+          .noUnknown(true),
+        query: yup
+          .object()
+          .shape({
+            companyId: yup.number().required(),
+          })
+          .noUnknown(true),
+      },
+    },
+    images: {
+      create: {
+        params: yup
+          .object()
+          .shape({
+            itemId: yup.number().required(),
+          })
+          .noUnknown(true),
+        body: yup
+          .object()
+          .shape({
+            image: yup.string().required(),
+            companyId: yup.number().required(),
+          })
+          .noUnknown(true),
+      },
+      update: {
+        params: yup
+          .object()
+          .shape({
+            itemId: yup.number().required(),
+            imageId: yup.number().required(),
+          })
+          .noUnknown(true),
+        body: yup
+          .object()
+          .shape({
+            index: yup.number().required(),
+            companyId: yup.number().required(),
+          })
+          .noUnknown(true),
+      },
+      remove: {
+        params: yup
+          .object()
+          .shape({
+            itemId: yup.number().required(),
+            imageId: yup.number().required(),
           })
           .noUnknown(true),
         query: yup

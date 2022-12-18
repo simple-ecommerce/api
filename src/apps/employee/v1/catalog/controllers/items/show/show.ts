@@ -7,10 +7,7 @@ export const show = async (
   res: AuthenticatedHandlerResponse,
   next: NextFunction
 ) => {
-  const item = await new Services.Items.Query()
-    .byCompany(res.locals.company)
-    .byId(Number(req.params.id))
-    .one();
+  const item = await new Services.Items.Finder(Number(req.params.id)).find();
 
   if (item?.companyId !== res.locals.company.id) {
     res.locals.response = {

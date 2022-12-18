@@ -11,6 +11,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { Company } from "../core";
+import { Image } from "../core/Image";
 import { ItemSpecification } from "./ItemSpecification";
 import { Specification } from "./Specification";
 
@@ -58,6 +59,9 @@ export class Item extends BaseEntity {
     (itemSpecification) => itemSpecification.item
   )
   itemSpecifications: Specification[];
+
+  @OneToMany(() => Image, (image) => image.item, { eager: true })
+  images: Image[];
 
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;

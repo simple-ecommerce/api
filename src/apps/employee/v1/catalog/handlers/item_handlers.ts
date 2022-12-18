@@ -69,4 +69,30 @@ export const itemHandlers = {
       Middlewares.sendResponse,
     ],
   },
+  images: {
+    create: [
+      Middlewares.transformRequestToCamelCase,
+      Middlewares.checkEmployeeAuthentication,
+      Middlewares.validateSchema(ValidationSchemas.Item.images.create),
+      Controllers.Items.Images.create,
+      Middlewares.transformResponseToSnakeCase,
+      Middlewares.sendResponse,
+    ],
+    update: [
+      Middlewares.transformRequestToCamelCase,
+      Middlewares.checkEmployeeAuthentication,
+      Middlewares.validateSchema(ValidationSchemas.Item.images.update),
+      Controllers.Items.Images.update,
+      Middlewares.transformResponseToSnakeCase,
+      Middlewares.sendResponse,
+    ],
+    remove: [
+      Middlewares.transformRequestToCamelCase,
+      Middlewares.checkEmployeeAuthentication,
+      Middlewares.validateSchema(ValidationSchemas.Item.images.remove),
+      Controllers.Items.Images.remove,
+      Middlewares.transformResponseToSnakeCase,
+      Middlewares.sendResponse,
+    ],
+  },
 };

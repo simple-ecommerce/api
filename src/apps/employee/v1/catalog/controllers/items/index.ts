@@ -4,6 +4,7 @@ import { remove } from "./remove/remove";
 import { show } from "./show/show";
 import { update } from "./update/update";
 import * as specifications from "./specifications";
+import * as images from "./images";
 
 export namespace ItemControllers {
   export const Create = create;
@@ -12,4 +13,5 @@ export namespace ItemControllers {
   export const Show = show;
   export const Remove = remove;
   export const Specifications = specifications;
+  export const Images = images;
 }

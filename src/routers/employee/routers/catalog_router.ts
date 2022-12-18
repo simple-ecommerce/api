@@ -10,6 +10,7 @@ catalogRouter.patch("/items/:id", ...itemHandlers.update);
 catalogRouter.get("/items", ...itemHandlers.list);
 catalogRouter.delete("/items/:id", ...itemHandlers.remove);
 catalogRouter.get("/items/:id", ...itemHandlers.show);
+//items - specifications
 catalogRouter.get(
   "/items/:item_id/specifications",
   ...itemHandlers.specifications.list
@@ -21,6 +22,16 @@ catalogRouter.post(
 catalogRouter.delete(
   "/items/:item_id/specifications/:specification_id",
   ...itemHandlers.specifications.remove
+);
+//items - images
+catalogRouter.post("/items/:item_id/images", ...itemHandlers.images.create);
+catalogRouter.delete(
+  "/items/:item_id/images/:image_id",
+  ...itemHandlers.images.remove
+);
+catalogRouter.patch(
+  "/items/:item_id/images/:image_id",
+  ...itemHandlers.images.update
 );
 
 //specification categories

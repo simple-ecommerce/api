@@ -8,3 +8,4 @@ export * from "./specification_categories";
 export * from "./specifications";
 export * from "./passwords";
 export * from "./item_specifications";
+export * from "./images";
