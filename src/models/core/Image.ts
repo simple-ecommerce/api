@@ -12,7 +12,7 @@ import {
 } from "typeorm";
 import { Item } from "../catalog";
 
-@Entity("images")
+@Entity("images", { orderBy: { index: "ASC" } })
 export class Image extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;

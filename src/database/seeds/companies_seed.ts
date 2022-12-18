@@ -1,4 +1,3 @@
-import { Company } from "../../models/core/Company";
 import { companyFactory } from "../factories/company_factory";
 
 export const companiesSeed = async () => {
