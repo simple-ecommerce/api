@@ -160,7 +160,7 @@ export const itemSchemas: {
         body: yup
           .object()
           .shape({
-            index: yup.number().required(),
+            position: yup.number().required(),
             companyId: yup.number().required(),
           })
           .noUnknown(true),

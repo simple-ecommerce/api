@@ -8,23 +8,23 @@ export const imagesSeed = async ({
   items: Awaited<ReturnType<typeof itemsSeed>>;
 }) => {
   await Factories.Image({
-    index: 0,
+    position: 1,
     item: items.corporateBlazer,
     src: faker.image.fashion(),
   });
   await Factories.Image({
-    index: 1,
+    position: 2,
     item: items.corporateBlazer,
     src: faker.image.fashion(),
   });
 
   await Factories.Image({
-    index: 0,
+    position: 1,
     item: items.a4Paper,
     src: faker.image.business(),
   });
   await Factories.Image({
-    index: 1,
+    position: 2,
     item: items.a4Paper,
     src: faker.image.business(),
   });

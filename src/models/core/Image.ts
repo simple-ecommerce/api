@@ -12,9 +12,9 @@ import {
 } from "typeorm";
 import { Item } from "../catalog";
 
-@Entity("images", { orderBy: { index: "ASC" } })
+@Entity("images", { orderBy: { position: "ASC" } })
 export class Image extends BaseEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("increment")
   id: number;
 
   @Column()
@@ -26,8 +26,8 @@ export class Image extends BaseEntity {
   @Column({ name: "item_id", nullable: true })
   itemId: number;
 
-  @Column({ default: 0 })
-  index: number;
+  @Column({ default: 1 })
+  position: number;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;

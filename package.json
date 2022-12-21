@@ -12,7 +12,7 @@
     "seed:generate": "ts-node src/database/seeds/index.ts",
     "migration:generate": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:generate -d src/app-data-source.ts",
     "migration:up": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:run -d src/app-data-source.ts",
-    "boot": "yarn migration:generate && yarn seed:generate && yarn dev",
+    "boot": "yarn migration:up && yarn seed:generate && yarn dev",
     "migration:down": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:revert -d src/app-data-source.ts"
   },
   "dependencies": {

@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { Item } from "../../../../../../../../models/catalog";
 import * as Services from "../../../../../../../../services";
 import { AuthenticatedHandlerResponse } from "../../../../../../../../utils/types/interfaces/AuthenticatedHandlerResponse";
 
@@ -9,7 +10,7 @@ export const update = async (
 ) => {
   const { itemId, imageId } = req.params;
   const company = res.locals.company;
-  const { index } = req.body;
+  const { position } = req.body;
 
   const item = await new Services.Items.Finder(Number(itemId)).find();
 
@@ -20,6 +21,7 @@ export const update = async (
         message: "Item not found",
       },
     };
+
     return next();
   }
 
@@ -36,13 +38,38 @@ export const update = async (
     return next();
   }
 
-  const updatedImage = await new Services.Images.Updater(image).update({
-    index,
-  });
+  if (image.position === position) {
+    res.locals.response = {
+      status: 200,
+      body: image,
+    };
+
+    return next();
+  }
+
+  const previousPositionedImage = await new Services.Images.Query()
+    .byPosition(position)
+    .byItem(item)
+    .one();
+
+  if (!previousPositionedImage) {
+    res.locals.response = {
+      status: 404,
+      body: {
+        message: "Previous positioned image not found",
+      },
+    };
+
+    return next();
+  }
+
+  await new Services.Images.Swapper(image, previousPositionedImage).swap();
+
+  await image.reload();
 
   res.locals.response = {
     status: 200,
-    body: updatedImage,
+    body: image,
   };
 
   return next();

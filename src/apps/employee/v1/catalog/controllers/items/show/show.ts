@@ -23,7 +23,10 @@ export const show = async (
   res.locals.response = item
     ? {
         status: 200,
-        body: item,
+        body: {
+          ...item,
+          images: item.images.sort((a, b) => a.position - b.position),
+        },
       }
     : {
         status: 404,

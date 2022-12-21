@@ -3,7 +3,6 @@ import {
   QueryRunner,
   Table,
   TableForeignKey,
-  TableIndex,
 } from "typeorm";
 
 export class CreateImage1671295133603 implements MigrationInterface {
@@ -16,7 +15,7 @@ export class CreateImage1671295133603 implements MigrationInterface {
           { name: "src", type: "varchar" },
           { name: "file_name", type: "varchar" },
           { name: "item_id", type: "int", isNullable: true },
-          { name: "index", type: "int", default: 0 },
+          { name: "position", type: "int", default: 1 },
           { name: "created_at", type: "timestamp", default: "now()" },
           { name: "updated_at", type: "timestamp", default: "now()" },
           { name: "deleted_at", type: "timestamp", isNullable: true },
