@@ -39,15 +39,15 @@ describe("employee#v1#catalog#items#images#update#PATCH", () => {
       describe("the image belongs to the item", () => {
         let image: Image;
         beforeEach(async () => {
-          image = await Factories.Image({ item, index: 0 });
+          image = await Factories.Image({ item, position: 0 });
         });
 
-        describe("there is a the previous indexed image", () => {
+        describe("there is a the previous positioned image", () => {
           let previousImage: Image;
           beforeEach(async () => {
-            previousImage = await Factories.Image({ item, index: 1 });
+            previousImage = await Factories.Image({ item, position: 1 });
           });
-          it("should swap values with the previous indexed image", async () => {
+          it("should swap values with the previous positioned image", async () => {
             await request(app)
               .patch(
                 buildUrl({
@@ -58,62 +58,62 @@ describe("employee#v1#catalog#items#images#update#PATCH", () => {
               .set("Authorization", `Bearer ${accessToken}`)
               .send({
                 company_id: company.id,
-                index: 1,
+                position: 1,
               });
 
             await previousImage.reload();
-            expect(previousImage.index).toBe(0);
+            expect(previousImage.position).toBe(0);
           });
-        });
-        it("should return a 200 status", async () => {
-          const response = await request(app)
-            .patch(
-              buildUrl({
-                itemId: item.id,
-                imageId: image.id,
-              })
-            )
-            .set("Authorization", `Bearer ${accessToken}`)
-            .send({
-              company_id: company.id,
-              index: 1,
-            });
+          it("should return a 200 status", async () => {
+            const response = await request(app)
+              .patch(
+                buildUrl({
+                  itemId: item.id,
+                  imageId: image.id,
+                })
+              )
+              .set("Authorization", `Bearer ${accessToken}`)
+              .send({
+                company_id: company.id,
+                position: 1,
+              });
 
-          expect(response.status).toBe(200);
-        });
-        it("should update the image", async () => {
-          await request(app)
-            .patch(
-              buildUrl({
-                itemId: item.id,
-                imageId: image.id,
-              })
-            )
-            .set("Authorization", `Bearer ${accessToken}`)
-            .send({
-              company_id: company.id,
-              index: 1,
-            });
+            expect(response.status).toBe(200);
+          });
+          it("should update the image", async () => {
+            await request(app)
+              .patch(
+                buildUrl({
+                  itemId: item.id,
+                  imageId: image.id,
+                })
+              )
+              .set("Authorization", `Bearer ${accessToken}`)
+              .send({
+                company_id: company.id,
+                position: 1,
+              });
 
-          await image.reload();
+            await image.reload();
 
-          expect(image.index).toBe(1);
-        });
-        it("should return the updated image", async () => {
-          const response = await request(app)
-            .patch(
-              buildUrl({
-                itemId: item.id,
-                imageId: image.id,
-              })
-            )
-            .set("Authorization", `Bearer ${accessToken}`)
-            .send({
-              company_id: company.id,
-              index: 1,
-            });
+            expect(image.position).toBe(1);
+          });
+          it("should return the updated image", async () => {
+            const response = await request(app)
+              .patch(
+                buildUrl({
+                  itemId: item.id,
+                  imageId: image.id,
+                })
+              )
+              .set("Authorization", `Bearer ${accessToken}`)
+              .send({
+                company_id: company.id,
+                position: 1,
+              });
 
-          expect(response.body.id).toEqual(image.id);
+            expect(response.body.id).toEqual(image.id);
+          });
         });
       });
       describe("the image don't belongs to the item", () => {
@@ -132,7 +132,7 @@ describe("employee#v1#catalog#items#images#update#PATCH", () => {
             .set("Authorization", `Bearer ${accessToken}`)
             .send({
               company_id: company.id,
-              index: 1,
+              position: 1,
             });
 
           expect(response.status).toBe(404);
@@ -160,7 +160,7 @@ describe("employee#v1#catalog#items#images#update#PATCH", () => {
             .set("Authorization", `Bearer ${accessToken}`)
             .send({
               company_id: company.id,
-              index: 1,
+              position: 1,
             });
 
           expect(response.status).toBe(404);
