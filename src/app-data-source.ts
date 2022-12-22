@@ -12,7 +12,7 @@ const app = new DataSource({
   database: process.env.TYPEORM_DATABASE,
   entities: ["src/models/**/*.ts"],
   migrations: ["src/database/migrations/*.ts"],
-  logging: true,
+  logging: false,
   synchronize: false,
 });
 

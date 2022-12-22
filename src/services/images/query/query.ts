@@ -29,6 +29,12 @@ export class ImagesQuery {
     return this;
   }
 
+  sortByPosition(order: "ASC" | "DESC" = "ASC") {
+    this.query = this.query.orderBy("image.position", order);
+
+    return this;
+  }
+
   all() {
     return this.query.getMany();
   }

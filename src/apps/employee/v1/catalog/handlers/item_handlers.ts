@@ -73,6 +73,7 @@ export const itemHandlers = {
     create: [
       Middlewares.transformRequestToCamelCase,
       Middlewares.checkEmployeeAuthentication,
+      Middlewares.uploadImage.array("files", 5),
       Middlewares.validateSchema(ValidationSchemas.Item.images.create),
       Controllers.Items.Images.create,
       Middlewares.transformResponseToSnakeCase,

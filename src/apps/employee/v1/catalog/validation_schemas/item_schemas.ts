@@ -141,13 +141,6 @@ export const itemSchemas: {
             itemId: yup.number().required(),
           })
           .noUnknown(true),
-        body: yup
-          .object()
-          .shape({
-            image: yup.string().required(),
-            companyId: yup.number().required(),
-          })
-          .noUnknown(true),
       },
       update: {
         params: yup
