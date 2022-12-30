@@ -1,5 +1,6 @@
 import { Image } from "../../models/core";
 import { FinderService } from "../../utils/mixins/finder_service/FinderService";
+import { RemoverService } from "../../utils/mixins/remover_service/RemoverService";
 import { UpdaterService } from "../../utils/mixins/updater_service/UpdaterService";
 import { ImageCreator } from "./creator.ts/creator";
 import { ImagesQuery } from "./query/query";
@@ -11,4 +12,5 @@ export namespace Images {
   export const Updater = UpdaterService<"position", typeof Image>(Image);
   export const Swapper = ImageSwapper;
   export const Creator = ImageCreator;
+  export const Remover = RemoverService(Image);
 }
