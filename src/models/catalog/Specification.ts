@@ -30,8 +30,7 @@ export class Specification extends BaseEntity {
 
   @ManyToOne(
     () => SpecificationCategory,
-    (specificationCategory) => specificationCategory.specifications,
-    { eager: true }
+    (specificationCategory) => specificationCategory.specifications
   )
   @JoinColumn({ name: "specification_category_id" })
   category: SpecificationCategory;

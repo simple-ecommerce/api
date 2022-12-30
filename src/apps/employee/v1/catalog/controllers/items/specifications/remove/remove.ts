@@ -27,7 +27,12 @@ export const remove = async (
     Number(specificationId)
   ).find();
 
-  if (!specification || specification.category.companyId !== company.id) {
+  const specificationCategory =
+    await new Services.SpecificationCategories.Finder(
+      specification?.specificationCategoryId ?? 0
+    ).find();
+
+  if (!specification || specificationCategory?.companyId !== company.id) {
     res.locals.response = {
       status: 404,
       body: {
