@@ -5,11 +5,11 @@ import {
   TableForeignKey,
 } from "typeorm";
 
-export class CreateEmployee1667180387304 implements MigrationInterface {
+export class CreateCart1672772271031 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "employees",
+        name: "carts",
         columns: [
           {
             name: "id",
@@ -18,31 +18,49 @@ export class CreateEmployee1667180387304 implements MigrationInterface {
             isGenerated: true,
             generationStrategy: "increment",
           },
-          { name: "email", type: "varchar" },
-          { name: "password", type: "varchar" },
-          { name: "is_admin", type: "boolean" },
+          {
+            name: "session_token",
+            type: "varchar",
+            isNullable: false,
+          },
+          {
+            name: "customer_id",
+            type: "int",
+            isNullable: true,
+          },
           {
             name: "created_at",
             type: "timestamp",
+            isNullable: false,
             default: "now()",
           },
           {
             name: "updated_at",
             type: "timestamp",
+            isNullable: false,
             default: "now()",
           },
           {
             name: "deleted_at",
             type: "timestamp",
-            default: "null",
             isNullable: true,
           },
         ],
       })
     );
+    await queryRunner.createForeignKey(
+      "carts",
+      new TableForeignKey({
+        name: "FK_Cart_Customer",
+        columnNames: ["customer_id"],
+        referencedColumnNames: ["id"],
+        referencedTableName: "customers",
+      })
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("employees");
+    await queryRunner.dropForeignKey("carts", "FK_Cart_Customer");
+    await queryRunner.dropTable("carts");
   }
 }

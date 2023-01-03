@@ -8,7 +8,7 @@ import { Application } from "../../utils/types/enums/Application";
 
 export class CreateRefreshToken1668791371030 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.createTable(
+    await queryRunner.createTable(
       new Table({
         name: "refresh_tokens",
         columns: [
@@ -59,7 +59,7 @@ export class CreateRefreshToken1668791371030 implements MigrationInterface {
         ],
       })
     );
-    queryRunner.createForeignKey(
+    await queryRunner.createForeignKey(
       "refresh_tokens",
       new TableForeignKey({
         name: "RefreshTokenCustomer",
@@ -70,7 +70,7 @@ export class CreateRefreshToken1668791371030 implements MigrationInterface {
         onUpdate: "CASCADE",
       })
     );
-    queryRunner.createForeignKey(
+    await queryRunner.createForeignKey(
       "refresh_tokens",
       new TableForeignKey({
         name: "RefreshTokenEmployee",
@@ -84,8 +84,8 @@ export class CreateRefreshToken1668791371030 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.dropForeignKey("refresh_tokens", "RefreshTokenCustomer");
-    queryRunner.dropForeignKey("refresh_tokens", "RefreshTokenEmployee");
-    queryRunner.dropTable("refresh_tokens");
+    await queryRunner.dropForeignKey("refresh_tokens", "RefreshTokenCustomer");
+    await queryRunner.dropForeignKey("refresh_tokens", "RefreshTokenEmployee");
+    await queryRunner.dropTable("refresh_tokens");
   }
 }

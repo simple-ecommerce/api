@@ -5,11 +5,11 @@ import {
   TableForeignKey,
 } from "typeorm";
 
-export class CreateSpecification1669077557712 implements MigrationInterface {
+export class CreateCartItem1672772565511 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "specifications",
+        name: "cart_items",
         columns: [
           {
             name: "id",
@@ -19,51 +19,58 @@ export class CreateSpecification1669077557712 implements MigrationInterface {
             generationStrategy: "increment",
           },
           {
-            name: "name",
-            type: "varchar",
-          },
-          {
-            name: "description",
-            type: "varchar",
-          },
-          {
-            name: "specification_category_id",
+            name: "cart_id",
             type: "int",
+            isNullable: false,
+          },
+          {
+            name: "item_id",
+            type: "int",
+            isNullable: false,
           },
           {
             name: "created_at",
             type: "timestamp",
+            isNullable: false,
             default: "now()",
           },
           {
             name: "updated_at",
             type: "timestamp",
+            isNullable: false,
             default: "now()",
           },
           {
             name: "deleted_at",
             type: "timestamp",
-            default: "null",
             isNullable: true,
           },
         ],
       })
     );
     await queryRunner.createForeignKey(
-      "specifications",
+      "cart_items",
       new TableForeignKey({
-        name: "SpecificationCategory",
-        columnNames: ["specification_category_id"],
+        name: "FK_CartItem_Cart",
+        columnNames: ["cart_id"],
         referencedColumnNames: ["id"],
-        referencedTableName: "specification_categories",
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+        referencedTableName: "carts",
+      })
+    );
+    await queryRunner.createForeignKey(
+      "cart_items",
+      new TableForeignKey({
+        name: "FK_CartItem_Item",
+        columnNames: ["item_id"],
+        referencedColumnNames: ["id"],
+        referencedTableName: "items",
       })
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey("specifications", "SpecificationCategory");
-    await queryRunner.dropTable("specifications");
+    await queryRunner.dropForeignKey("cart_items", "FK_CartItem_Cart");
+    await queryRunner.dropForeignKey("cart_items", "FK_CartItem_Item");
+    await queryRunner.dropTable("cart_items");
   }
 }

@@ -11,9 +11,11 @@ import {
   OneToMany,
   BeforeInsert,
   BeforeUpdate,
+  OneToOne,
 } from "typeorm";
 import { PasswordHasher } from "../../services/passwords/hasher/hasher";
 import { RefreshToken } from "../authentication";
+import { Cart } from "../store/Cart";
 import { Company } from "./Company";
 
 @Entity("customers")
@@ -36,6 +38,9 @@ export class Customer extends BaseEntity {
 
   @OneToMany(() => RefreshToken, (refreshToken) => refreshToken.customer)
   refreshTokens: Customer[];
+
+  @OneToOne(() => Cart, (cart) => cart.customer, { nullable: true })
+  cart: Cart | null;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;

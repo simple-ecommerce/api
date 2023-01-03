@@ -12,6 +12,7 @@ import {
 } from "typeorm";
 import { Company } from "../core";
 import { Image } from "../core/Image";
+import { CartItem } from "../store/CartItem";
 import { ItemSpecification } from "./ItemSpecification";
 import { Specification } from "./Specification";
 
@@ -62,6 +63,9 @@ export class Item extends BaseEntity {
 
   @OneToMany(() => Image, (image) => image.item, { eager: true })
   images: Image[];
+
+  @OneToMany(() => CartItem, (cartItem) => cartItem.item)
+  cartItems: CartItem[];
 
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;

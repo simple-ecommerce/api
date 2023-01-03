@@ -7,7 +7,7 @@ import {
 
 export class CreateEmployeeCompany1667180442314 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.createTable(
+    await queryRunner.createTable(
       new Table({
         name: "employee_companies",
         columns: [
@@ -32,7 +32,7 @@ export class CreateEmployeeCompany1667180442314 implements MigrationInterface {
         ],
       })
     );
-    queryRunner.createForeignKey(
+    await queryRunner.createForeignKey(
       "employee_companies",
       new TableForeignKey({
         name: "FK_EmployeeCompany_Employee",
@@ -43,7 +43,7 @@ export class CreateEmployeeCompany1667180442314 implements MigrationInterface {
         onUpdate: "CASCADE",
       })
     );
-    queryRunner.createForeignKey(
+    await queryRunner.createForeignKey(
       "employee_companies",
       new TableForeignKey({
         name: "FK_EmployeeCompany_Company",
@@ -57,14 +57,14 @@ export class CreateEmployeeCompany1667180442314 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.dropForeignKey(
+    await queryRunner.dropForeignKey(
       "FK_EmployeeCompany_Employee",
       "employee_companies"
     );
-    queryRunner.dropForeignKey(
+    await queryRunner.dropForeignKey(
       "FK_EmployeeCompany_Company",
       "employee_companies"
     );
-    queryRunner.dropTable("employee_companies");
+    await queryRunner.dropTable("employee_companies");
   }
 }

@@ -7,7 +7,7 @@ import {
 
 export class CreateCustomer1667180652300 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.createTable(
+    await queryRunner.createTable(
       new Table({
         name: "customers",
         columns: [
@@ -43,7 +43,7 @@ export class CreateCustomer1667180652300 implements MigrationInterface {
         ],
       })
     );
-    queryRunner.createForeignKey(
+    await queryRunner.createForeignKey(
       "customers",
       new TableForeignKey({
         name: "CustomerCompany",
@@ -57,7 +57,7 @@ export class CreateCustomer1667180652300 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.dropForeignKey("customers", "CustomerCompany");
-    queryRunner.dropTable("customer");
+    await queryRunner.dropForeignKey("customers", "CustomerCompany");
+    await queryRunner.dropTable("customer");
   }
 }

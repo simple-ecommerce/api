@@ -7,7 +7,7 @@ import {
 
 export class CreateImage1671295133603 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.createTable(
+    await queryRunner.createTable(
       new Table({
         name: "images",
         columns: [
@@ -34,7 +34,7 @@ export class CreateImage1671295133603 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.dropForeignKey("images", "FK_Image_Item");
-    queryRunner.dropTable("images");
+    await queryRunner.dropForeignKey("images", "FK_Image_Item");
+    await queryRunner.dropTable("images");
   }
 }

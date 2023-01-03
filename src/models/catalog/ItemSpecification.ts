@@ -6,10 +6,12 @@ import {
   Entity,
   Index,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { CartItem } from "../store/CartItem";
 import { Item } from "./Item";
 import { Specification } from "./Specification";
 
@@ -41,6 +43,9 @@ export class ItemSpecification extends BaseEntity {
 
   @Column({ name: "price_extra", default: 0 })
   priceExtra: number;
+
+  @ManyToMany(() => CartItem, (cartItem) => cartItem.specifications)
+  cartItems: CartItem[];
 
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
